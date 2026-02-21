@@ -2,740 +2,2593 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Marwan Yousef | Strategic Flutter Developer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Marwan Yousef | Flutter Mobile Developer</title>
+  <style>
+    /* ── FONT (graceful offline fallback) ── */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    /* ── VARIABLES ── */
+    :root {
+      --bg: #0e0a1a;
+      --bg2: #130d22;
+      --card: rgba(117, 92, 222, .07);
+      --border: rgba(117, 92, 222, .18);
+      --p: #755CDE;
+      --s: #F6A560;
+      --a3: #F39E9E;
+      --a4: #61C4B7;
+      --a5: #EB7563;
+      --glow: rgba(117, 92, 222, .35);
+      --txt: #f0edf8;
+      --muted: #a89cc8;
+      --white: #fff;
+      --r: 16px;
+      --ease: .3s cubic-bezier(.4, 0, .2, 1);
+      --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
 
-    <!-- Core Styles -->
-    <link rel="stylesheet" href="style.css">
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    html {
+      scroll-behavior: smooth
+    }
 
-    <!-- Swiper -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    body {
+      background: var(--bg);
+      color: var(--txt);
+      font-family: var(--font);
+      line-height: 1.7;
+      overflow-x: hidden
+    }
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    img {
+      max-width: 100%;
+      display: block
+    }
+
+    ul {
+      list-style: none
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg)
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--p);
+      border-radius: 4px
+    }
+
+    /* ── ANIMATIONS: content ALWAYS visible; JS adds .fx class to enable transitions ── */
+    .rv,
+    .rvl,
+    .rvr {
+      transition: opacity .6s ease, transform .6s ease
+    }
+
+    .fx .rv {
+      opacity: 0;
+      transform: translateY(26px)
+    }
+
+    .fx .rvl {
+      opacity: 0;
+      transform: translateX(-32px)
+    }
+
+    .fx .rvr {
+      opacity: 0;
+      transform: translateX(32px)
+    }
+
+    .rv.on,
+    .rvl.on,
+    .rvr.on {
+      opacity: 1 !important;
+      transform: none !important
+    }
+
+    .d1 {
+      transition-delay: .08s
+    }
+
+    .d2 {
+      transition-delay: .18s
+    }
+
+    .d3 {
+      transition-delay: .28s
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      transition: background var(--ease), box-shadow var(--ease)
+    }
+
+    .nav.sc {
+      background: rgba(14, 10, 26, .96);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 var(--border)
+    }
+
+    .ni {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem
+    }
+
+    .nlogo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white)
+    }
+
+    .nlogo span {
+      color: var(--p)
+    }
+
+    .nlinks {
+      display: flex;
+      align-items: center;
+      gap: .12rem;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 5px 8px;
+      margin: 0 auto
+    }
+
+    .nl {
+      padding: 6px 13px;
+      border-radius: 50px;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all var(--ease);
+      cursor: pointer;
+      white-space: nowrap
+    }
+
+    .nl:hover,
+    .nl.ac {
+      background: var(--p);
+      color: var(--white)
+    }
+
+    .ncta {
+      white-space: nowrap;
+      padding: 8px 20px;
+      background: var(--p);
+      border-radius: 50px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--ease)
+    }
+
+    .ncta:hover {
+      background: var(--s);
+      transform: translateY(-1px)
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px
+    }
+
+    .burger span {
+      width: 24px;
+      height: 2px;
+      background: var(--txt);
+      border-radius: 2px;
+      transition: all var(--ease)
+    }
+
+    .burger.op span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .burger.op span:nth-child(2) {
+      opacity: 0
+    }
+
+    .burger.op span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    /* ── SHARED ── */
+    .sec {
+      padding: 100px 8%;
+      position: relative
+    }
+
+    .slbl {
+      font-size: .72rem;
+      letter-spacing: .18em;
+      color: var(--p);
+      text-align: center;
+      margin-bottom: .5rem;
+      font-weight: 600
+    }
+
+    .stit {
+      font-size: clamp(1.85rem, 4vw, 2.85rem);
+      font-weight: 800;
+      text-align: center;
+      color: var(--white);
+      letter-spacing: -.025em
+    }
+
+    .sline {
+      width: 46px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--p), var(--s));
+      border-radius: 2px;
+      margin: 1rem auto 3.2rem
+    }
+
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      backdrop-filter: blur(8px);
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease)
+    }
+
+    .glass:hover {
+      transform: translateY(-4px);
+      border-color: rgba(117, 92, 222, .32);
+      box-shadow: 0 14px 40px rgba(117, 92, 222, .1)
+    }
+
+    .bp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      background: var(--p);
+      color: var(--white);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: .9rem;
+      transition: all var(--ease)
+    }
+
+    .bp:hover {
+      background: var(--s);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--glow)
+    }
+
+    .bo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, .22);
+      color: var(--white);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: .9rem;
+      transition: all var(--ease)
+    }
+
+    .bo:hover {
+      border-color: var(--p);
+      color: var(--p);
+      transform: translateY(-2px)
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 8%;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hbg {
+      position: absolute;
+      inset: 0;
+      z-index: 0
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .13;
+      animation: blobF 8s ease-in-out infinite
+    }
+
+    .b1 {
+      width: 400px;
+      height: 400px;
+      background: #755CDE;
+      top: -100px;
+      right: 8%
+    }
+
+    .b2 {
+      width: 300px;
+      height: 300px;
+      background: #F6A560;
+      bottom: 5%;
+      left: -50px;
+      animation-delay: 3s
+    }
+
+    .b3 {
+      width: 200px;
+      height: 200px;
+      background: #F39E9E;
+      top: 45%;
+      left: 42%;
+      animation-delay: 5s
+    }
+
+    @keyframes blobF {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1)
+      }
+
+      50% {
+        transform: translateY(-26px) scale(1.05)
+      }
+    }
+
+    .gbg {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(117, 92, 222, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(117, 92, 222, .05) 1px, transparent 1px);
+      background-size: 60px 60px
+    }
+
+    .hcont {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 3rem
+    }
+
+    .htxt {
+      max-width: 560px
+    }
+
+    .hlbl {
+      font-size: .77rem;
+      letter-spacing: .2em;
+      color: var(--p);
+      display: block;
+      margin-bottom: .4rem;
+      font-weight: 600
+    }
+
+    .hname {
+      font-size: clamp(2.7rem, 6vw, 4.7rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: .65rem;
+      letter-spacing: -.03em
+    }
+
+    .hname span {
+      color: var(--p)
+    }
+
+    .htype {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      min-height: 1.65em;
+      font-weight: 500
+    }
+
+    .cblink {
+      animation: cbl 1s step-end infinite
+    }
+
+    @keyframes cbl {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0
+      }
+    }
+
+    .hdesc {
+      font-size: 1.5rem;
+      color: var(--p);
+      margin-bottom: 1.9rem;
+      line-height: 1.85;
+      font-weight: bold;
+    }
+
+    .hact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.9rem
+    }
+
+    .hsoc {
+      display: flex;
+      gap: .65rem
+    }
+
+    .hsl {
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--ease);
+      color: var(--muted)
+    }
+
+    .hsl:hover {
+      background: var(--p);
+      border-color: var(--p);
+      color: var(--white);
+      transform: translateY(-3px)
+    }
+
+    .hsl svg {
+      width: 17px;
+      height: 17px
+    }
+
+    /* Avatar */
+    .hav {
+      position: relative;
+      flex-shrink: 0;
+      width: 280px;
+      height: 280px
+    }
+
+    .avring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, var(--p), var(--s)) border-box;
+      animation: spinav 9s linear infinite
+    }
+
+    @keyframes spinav {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .avin {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(117, 92, 222, .2), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .avin svg {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%
+    }
+
+    .avbadge {
+      position: absolute;
+      background: rgba(14, 10, 26, .94);
+      border-radius: 50px;
+      padding: 5px 13px;
+      font-size: .75rem;
+      font-weight: 700;
+      backdrop-filter: blur(6px);
+      animation: bfl 4s ease-in-out infinite;
+      white-space: nowrap
+    }
+
+    .ab1 {
+      top: 8px;
+      right: -20px;
+      border: 1px solid var(--p);
+      color: var(--p)
+    }
+
+    .ab2 {
+      bottom: 26px;
+      left: -30px;
+      border: 1px solid var(--s);
+      color: var(--s);
+      animation-delay: 1.5s
+    }
+
+    .ab3 {
+      bottom: 4px;
+      right: 2px;
+      border: 1px solid var(--a3);
+      color: var(--a3);
+      animation-delay: 3s
+    }
+
+    @keyframes bfl {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .scrl {
+      position: absolute;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1
+    }
+
+    .smouse {
+      width: 24px;
+      height: 38px;
+      border: 2px solid var(--muted);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      padding-top: 6px
+    }
+
+    .sdot {
+      width: 4px;
+      height: 8px;
+      background: var(--p);
+      border-radius: 2px;
+      animation: sd 2s ease-in-out infinite
+    }
+
+    @keyframes sd {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: translateY(0)
+      }
+
+      50% {
+        opacity: 0;
+        transform: translateY(10px)
+      }
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--bg2)
+    }
+
+    .agrid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: center
+    }
+
+    .avis {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 3rem 2rem;
+      text-align: center
+    }
+
+    .cart {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      line-height: 1;
+      font-family: monospace
+    }
+
+    .cb2 {
+      color: var(--s)
+    }
+
+    .cs2 {
+      color: var(--p)
+    }
+
+    .astats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem
+    }
+
+    .sn {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--p);
+      display: block
+    }
+
+    .sl {
+      font-size: .8rem;
+      color: var(--muted)
+    }
+
+    .atxt h3 {
+      font-size: clamp(1.2rem, 2.3vw, 1.65rem);
+      font-weight: 700;
+      margin-bottom: 1.3rem;
+      line-height: 1.4;
+      color: var(--white)
+    }
+
+    .acc {
+      color: var(--p)
+    }
+
+    .atxt p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: .95rem
+    }
+
+    /* ── EDUCATION ── */
+    .egrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 960px;
+      margin: 0 auto
+    }
+
+    .ecard {
+      padding: 2rem
+    }
+
+    .ehd {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin-bottom: 1.3rem
+    }
+
+    .ebadge {
+      background: rgba(117, 92, 222, .15);
+      color: var(--p);
+      border: 1px solid rgba(117, 92, 222, .28);
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: .76rem;
+      font-weight: 600
+    }
+
+    .ebadge.cert {
+      background: rgba(246, 165, 96, .15);
+      color: var(--s);
+      border-color: rgba(246, 165, 96, .28)
+    }
+
+    .edate {
+      margin-left: auto;
+      font-size: .74rem;
+      color: var(--muted);
+      font-weight: 500
+    }
+
+    .ecard h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .45rem
+    }
+
+    .einst {
+      font-size: .87rem;
+      color: var(--muted);
+      margin-bottom: .85rem
+    }
+
+    .edet {
+      font-size: .87rem;
+      color: var(--muted);
+      margin-bottom: .32rem
+    }
+
+    .edet strong {
+      color: var(--txt)
+    }
+
+    .ci {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.1rem
+    }
+
+    .cic {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      background: rgba(117, 92, 222, .1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .95rem
+    }
+
+    .ci h4 {
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: .12rem
+    }
+
+    .ci p {
+      font-size: .8rem;
+      color: var(--muted)
+    }
+
+    /* ── SKILLS ── */
+    .skills {
+      background: var(--bg2)
+    }
+
+    .skgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1060px;
+      margin: 0 auto
+    }
+
+    .sktit {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem
+    }
+
+    .sktit.mt {
+      margin-top: 1.8rem
+    }
+
+    .skw {
+      margin-bottom: 1.15rem
+    }
+
+    .ski {
+      display: flex;
+      justify-content: space-between;
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: .35rem
+    }
+
+    .ski span:last-child {
+      color: var(--p);
+      font-weight: 600
+    }
+
+    .skbar {
+      height: 6px;
+      background: rgba(255, 255, 255, .06);
+      border-radius: 10px;
+      overflow: hidden
+    }
+
+    .skfill {
+      height: 100%;
+      width: 0;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--p), var(--s));
+      transition: width 1.25s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .42rem
+    }
+
+    .chip {
+      padding: 5px 13px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-size: .8rem;
+      color: var(--muted);
+      transition: all var(--ease)
+    }
+
+    .chip:hover {
+      border-color: var(--p);
+      color: var(--p)
+    }
+
+    .chip.soft {
+      border-color: rgba(246, 165, 96, .22);
+      color: var(--s)
+    }
+
+    .chip.lang {
+      color: var(--txt)
+    }
+
+    /* ── EXPERIENCE ── */
+    .tl {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative
+    }
+
+    .tl::before {
+      content: '';
+      position: absolute;
+      left: 21px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(var(--p), var(--s));
+      opacity: .25
+    }
+
+    .tli {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.6rem
+    }
+
+    .tldot {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      background: var(--bg2);
+      border: 2px solid var(--p);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--p);
+      font-size: .9rem;
+      z-index: 1
+    }
+
+    .tlcard {
+      flex: 1;
+      padding: 1.55rem
+    }
+
+    .tldate {
+      font-size: .75rem;
+      color: var(--p);
+      display: block;
+      margin-bottom: .6rem;
+      font-weight: 600
+    }
+
+    .tlcard h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .32rem
+    }
+
+    .tlco {
+      font-size: .86rem;
+      color: var(--muted);
+      margin-bottom: .85rem
+    }
+
+    .tltag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 50px;
+      font-size: .72rem;
+      font-weight: 600;
+      margin: .55rem 0 .32rem
+    }
+
+    .tltag.ch {
+      background: rgba(243, 158, 158, .15);
+      color: var(--a3);
+      border: 1px solid rgba(243, 158, 158, .28)
+    }
+
+    .tltag.ac {
+      background: rgba(117, 92, 222, .15);
+      color: var(--p);
+      border: 1px solid rgba(117, 92, 222, .28)
+    }
+
+    .tltag.re {
+      background: rgba(97, 196, 183, .15);
+      color: var(--a4);
+      border: 1px solid rgba(97, 196, 183, .28)
+    }
+
+    .tlcard p {
+      font-size: .87rem;
+      color: var(--muted)
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      background: var(--bg2)
+    }
+
+    .svgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.35rem;
+      max-width: 1060px;
+      margin: 0 auto
+    }
+
+    .svcard {
+      padding: 1.75rem
+    }
+
+    .svico {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 1.15rem;
+      transition: all var(--ease)
+    }
+
+    .svcard:hover .svico {
+      transform: scale(1.1)
+    }
+
+    .svcard h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .6rem
+    }
+
+    .svcard p {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: .85rem
+    }
+
+    .svcard li {
+      font-size: .82rem;
+      color: var(--muted);
+      padding: 2px 0;
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .svcard li::before {
+      content: '●';
+      color: var(--p);
+      font-size: .43rem
+    }
+
+    .sv1 .svico {
+      background: rgba(117, 92, 222, .12);
+      color: var(--p)
+    }
+
+    .sv1:hover .svico {
+      background: var(--p);
+      color: #fff
+    }
+
+    .sv2 .svico {
+      background: rgba(246, 165, 96, .12);
+      color: var(--s)
+    }
+
+    .sv2:hover .svico {
+      background: var(--s);
+      color: #fff
+    }
+
+    .sv3 .svico {
+      background: rgba(243, 158, 158, .12);
+      color: var(--a3)
+    }
+
+    .sv3:hover .svico {
+      background: var(--a3);
+      color: #fff
+    }
+
+    .sv4 .svico {
+      background: rgba(97, 196, 183, .12);
+      color: var(--a4)
+    }
+
+    .sv4:hover .svico {
+      background: var(--a4);
+      color: #fff
+    }
+
+    .sv5 .svico {
+      background: rgba(235, 117, 99, .12);
+      color: var(--a5)
+    }
+
+    .sv5:hover .svico {
+      background: var(--a5);
+      color: #fff
+    }
+
+    .sv6 .svico {
+      background: rgba(167, 139, 250, .12);
+      color: #a78bfa
+    }
+
+    .sv6:hover .svico {
+      background: #a78bfa;
+      color: #fff
+    }
+
+    /* ── PROJECTS — Terminal Style ── */
+    .pj-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    .pj-item {
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border);
+      transition: border-color var(--ease), box-shadow var(--ease)
+    }
+
+    .pj-item:hover {
+      border-color: rgba(117, 92, 222, .3);
+      box-shadow: 0 20px 60px rgba(117, 92, 222, .1)
+    }
+
+    .pj-terminal {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      padding: .55rem 1.1rem;
+      background: rgba(0, 0, 0, .38);
+      border-bottom: 1px solid rgba(255, 255, 255, .07)
+    }
+
+    .pj-dots {
+      display: flex;
+      gap: .4rem
+    }
+
+    .pj-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: block
+    }
+
+    .pj-dots span:nth-child(1) {
+      background: #ff5f57
+    }
+
+    .pj-dots span:nth-child(2) {
+      background: #febc2e
+    }
+
+    .pj-dots span:nth-child(3) {
+      background: #28c840
+    }
+
+    .pj-path {
+      font-size: .75rem;
+      color: var(--muted);
+      letter-spacing: .04em;
+      font-family: monospace
+    }
+
+    .pj-body {
+      display: grid;
+      align-items: stretch
+    }
+
+    .pj-body--right {
+      grid-template-columns: 1fr 1.05fr
+    }
+
+    .pj-body--left {
+      grid-template-columns: 1.05fr 1fr
+    }
+
+    .pj-mock {
+      overflow: hidden;
+      min-height: 360px;
+      background: linear-gradient(135deg, #0d0820, #150e2a)
+    }
+
+    .pj-mock img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .7s ease;
+      display: block
+    }
+
+    .pj-item:hover .pj-mock img {
+      transform: scale(1.04)
+    }
+
+    .pj-content {
+      padding: 2.2rem 2.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .pj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-bottom: 1.1rem
+    }
+
+    .pjtag {
+      padding: 4px 13px;
+      border-radius: 50px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .04em
+    }
+
+    .pjtag.flutter {
+      background: rgba(79, 195, 247, .12);
+      color: #4fc3f7;
+      border: 1px solid rgba(79, 195, 247, .25)
+    }
+
+    .pjtag.dart {
+      background: rgba(117, 92, 222, .12);
+      color: #a78bfa;
+      border: 1px solid rgba(117, 92, 222, .25)
+    }
+
+    .pjtag.firebase {
+      background: rgba(255, 167, 38, .12);
+      color: #ffb74d;
+      border: 1px solid rgba(255, 167, 38, .25)
+    }
+
+    .pjtag.provider {
+      background: rgba(102, 187, 106, .12);
+      color: #81c784;
+      border: 1px solid rgba(102, 187, 106, .25)
+    }
+
+    .pj-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: .38rem;
+      letter-spacing: -.02em
+    }
+
+    .pj-sub {
+      font-size: .81rem;
+      color: var(--muted);
+      margin-bottom: .8rem;
+      font-weight: 500
+    }
+
+    .pj-desc {
+      font-size: .89rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.45rem
+    }
+
+    .pj-csr {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .65rem;
+      margin-bottom: 1.55rem
+    }
+
+    .pj-csr-card {
+      padding: .82rem 1rem;
+      border-radius: 10px;
+      border: 1px solid transparent
+    }
+
+    .pj-csr-label {
+      display: block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      margin-bottom: .32rem;
+      text-transform: uppercase
+    }
+
+    .pj-csr-card p {
+      font-size: .77rem;
+      color: var(--muted);
+      line-height: 1.55
+    }
+
+    .pj-ch {
+      background: rgba(239, 83, 80, .07);
+      border-color: rgba(239, 83, 80, .2)
+    }
+
+    .pj-ch .pj-csr-label {
+      color: #ef5350
+    }
+
+    .pj-so {
+      background: rgba(79, 195, 247, .07);
+      border-color: rgba(79, 195, 247, .2)
+    }
+
+    .pj-so .pj-csr-label {
+      color: #4fc3f7
+    }
+
+    .pj-re {
+      background: rgba(102, 187, 106, .07);
+      border-color: rgba(102, 187, 106, .2)
+    }
+
+    .pj-re .pj-csr-label {
+      color: #81c784
+    }
+
+    .pj-ghbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: 10px 22px;
+      background: rgba(117, 92, 222, .15);
+      border: 1px solid rgba(117, 92, 222, .4);
+      border-radius: 50px;
+      color: var(--p);
+      font-size: .83rem;
+      font-weight: 600;
+      transition: all var(--ease);
+      width: fit-content
+    }
+
+    .pj-ghbtn:hover {
+      background: var(--p);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--glow)
+    }
+
+    /* ── TESTIMONIALS ── */
+    .tegrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.35rem;
+      max-width: 1060px;
+      margin: 0 auto
+    }
+
+    .tecard {
+      padding: 1.55rem
+    }
+
+    .tetop {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .9rem
+    }
+
+    .stars {
+      color: #f59e0b;
+      font-size: .9rem;
+      letter-spacing: 2px
+    }
+
+    .tetag {
+      background: rgba(117, 92, 222, .1);
+      border: 1px solid rgba(117, 92, 222, .2);
+      color: var(--p);
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: .73rem;
+      font-weight: 600
+    }
+
+    .tecard>p {
+      font-size: .87rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 1.3rem
+    }
+
+    .teauth {
+      display: flex;
+      align-items: center;
+      gap: .65rem
+    }
+
+    .teav {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--p), var(--s));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .76rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .teauth strong {
+      font-size: .87rem;
+      display: block
+    }
+
+    .teauth span {
+      font-size: .76rem;
+      color: var(--muted)
+    }
+
+    /* ── CONTACT ── */
+    .ctgrid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      max-width: 1060px;
+      margin: 0 auto;
+      align-items: start
+    }
+
+    .ctinfo h3 {
+      font-size: 1.42rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .65rem
+    }
+
+    .ctinfo>p {
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      line-height: 1.8;
+      font-size: .94rem
+    }
+
+    .citem {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.35rem
+    }
+
+    .cico {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      background: rgba(117, 92, 222, .1);
+      border: 1px solid rgba(117, 92, 222, .18);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--p);
+      font-size: 1rem
+    }
+
+    .citem strong {
+      display: block;
+      font-size: .85rem;
+      margin-bottom: 1px
+    }
+
+    .citem a,
+    .citem span {
+      font-size: .89rem;
+      color: var(--muted);
+      transition: color var(--ease)
+    }
+
+    .citem a:hover {
+      color: var(--p)
+    }
+
+    .csocs {
+      display: flex;
+      gap: .65rem;
+      margin: 1.75rem 0
+    }
+
+    .csl {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: all var(--ease)
+    }
+
+    .csl:hover {
+      background: var(--p);
+      border-color: var(--p);
+      color: #fff
+    }
+
+    .csl svg {
+      width: 16px;
+      height: 16px
+    }
+
+    .cform {
+      padding: 1.85rem
+    }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem
+    }
+
+    .fg {
+      margin-bottom: .95rem
+    }
+
+    .fg input,
+    .fg textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--txt);
+      font-family: var(--font);
+      font-size: .87rem;
+      transition: border-color var(--ease);
+      resize: none;
+      outline: none
+    }
+
+    .fg input::placeholder,
+    .fg textarea::placeholder {
+      color: var(--muted)
+    }
+
+    .fg input:focus,
+    .fg textarea:focus {
+      border-color: var(--p);
+      background: rgba(117, 92, 222, .04)
+    }
+
+    .fg input.err,
+    .fg textarea.err {
+      border-color: var(--a3)
+    }
+
+    .ferr {
+      font-size: .75rem;
+      color: var(--a3);
+      display: block;
+      margin-top: 3px
+    }
+
+    .fsub {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--p), var(--s));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .92rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all var(--ease)
+    }
+
+    .fsub:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--glow)
+    }
+
+    .fsub:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    .fsucc {
+      margin-top: .9rem;
+      padding: 11px;
+      background: rgba(97, 196, 183, .1);
+      border: 1px solid rgba(97, 196, 183, .28);
+      border-radius: 10px;
+      color: var(--a4);
+      font-size: .87rem;
+      align-items: center;
+      gap: 8px;
+      display: none
+    }
+
+    .ferrmsg {
+      margin-top: .9rem;
+      padding: 11px;
+      background: rgba(243, 158, 158, .1);
+      border: 1px solid rgba(243, 158, 158, .28);
+      border-radius: 10px;
+      color: var(--a3);
+      font-size: .87rem;
+      align-items: center;
+      gap: 8px;
+      display: none
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 3rem 8%
+    }
+
+    .finner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .flt {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--p);
+      margin-bottom: .42rem
+    }
+
+    .footer-left p:last-child,
+    .footer-right p:last-child {
+      font-size: .86rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .fctr {
+      text-align: center
+    }
+
+    .flogo {
+      font-size: 1.95rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--p), var(--s));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: .9rem;
+      letter-spacing: -.03em
+    }
+
+    .fsocs {
+      display: flex;
+      justify-content: center;
+      gap: .65rem
+    }
+
+    .fsl {
+      width: 37px;
+      height: 37px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: all var(--ease)
+    }
+
+    .fsl:hover {
+      background: var(--p);
+      color: #fff;
+      border-color: var(--p)
+    }
+
+    .fsl svg {
+      width: 15px;
+      height: 15px
+    }
+
+    .fwt {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--p);
+      margin-bottom: .42rem;
+      text-align: center;
+    }
+
+    .footer-right {
+      text-align: left
+    }
+
+    .footer-right strong {
+      color: var(--txt)
+    }
+
+    .fcopy {
+      text-align: center;
+      font-size: .79rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1.3rem
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px) {
+      .svgrid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .tegrid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .finner {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .footer-right {
+        grid-column: 1/-1;
+        text-align: left
+      }
+    }
+
+    @media(max-width:900px) {
+
+      .pj-body--right,
+      .pj-body--left {
+        grid-template-columns: 1fr
+      }
+
+      .pj-body--right .pj-mock,
+      .pj-body--left .pj-mock {
+        order: -1;
+        min-height: 220px
+      }
+    }
+
+    @media(max-width:768px) {
+      .nlinks {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: rgba(14, 10, 26, .98);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem
+      }
+
+      .nlinks.op {
+        display: flex
+      }
+
+      .ncta {
+        margin-left: auto
+      }
+
+      .burger {
+        display: flex
+      }
+
+      .hcont {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding-top: 90px
+      }
+
+      .hsoc {
+        justify-content: center
+      }
+
+      .hact {
+        justify-content: center
+      }
+
+      .hav {
+        width: 200px;
+        height: 200px
+      }
+
+      .agrid,
+      .egrid,
+      .skgrid,
+      .svgrid,
+      .tegrid,
+      .ctgrid {
+        grid-template-columns: 1fr
+      }
+
+      .frow {
+        grid-template-columns: 1fr
+      }
+
+      .finner {
+        grid-template-columns: 1fr;
+        gap: 2rem
+      }
+
+      .fctr {
+        order: -1
+      }
+
+      .footer-right {
+        text-align: left
+      }
+
+      .sec {
+        padding: 70px 5%
+      }
+    }
+
+    @media(max-width:560px) {
+      .pj-csr {
+        grid-template-columns: 1fr
+      }
+
+      .pj-content {
+        padding: 1.4rem
+      }
+    }
+
+    @media(max-width:480px) {
+      .hname {
+        font-size: 2.35rem
+      }
+
+      .stit {
+        font-size: 1.68rem
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="page-wrapper">
-        <!-- ================= NAVBAR ================= -->
-        <header class="navbar">
-            <div class="nav-inner">
-                <a href="#home" class="logo">
-                    <span class="logo-code">&lt;/&gt;</span>
-                    <span class="logo-text">Marwan</span>
-                </a>
 
-                <nav class="nav-links" aria-label="Main navigation">
-                    <a href="#home" class="nav-link active">Home</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#education" class="nav-link">Education</a>
-                    <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#services" class="nav-link">Services</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#achievements" class="nav-link">Achievements</a>
-                    <a href="#testimonials" class="nav-link">Testimonials</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </nav>
-
-                <button class="nav-toggle" aria-label="Toggle navigation">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </header>
-
-        <!-- ================= HERO / COVER ================= -->
-        <section id="home" class="hero section">
-            <div class="hero-bg">
-                <div class="hero-bg-gradient"></div>
-                <div class="hero-bg-grid"></div>
-                <div class="hero-bg-orb hero-bg-orb-1"></div>
-                <div class="hero-bg-orb hero-bg-orb-2"></div>
-                <div class="hero-bg-orb hero-bg-orb-3"></div>
-            </div>
-            <div class="container hero-grid">
-                <div class="hero-text" data-aos="fade-right">
-                    <p class="eyebrow eyebrow-animate">Flutter & Mobile Development</p>
-                    <h1 class="hero-title">Hi, I'm <span class="hero-name">Marwan Yousef</span></h1>
-                    <p class="hero-hook">
-                        A Strategic Flutter Developer dedicated to building high-performance mobile
-                        solutions that drive business growth through technical excellence.
-                    </p>
-                    <div class="hero-usp hero-usp-animate">
-                        <!-- <span class="badge">USP</span> -->
-                        <p>
-                            I help startups transform ideas into successful tech products by building
-                            high-performance Flutter apps, reducing time-to-market by 30% while ensuring
-                            clean, scalable code.
-                        </p>
-                    </div>
-
-                    <div class="hero-meta">
-                        <div class="meta-item meta-item-animate" style="--i: 0">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Cairo, Egypt
-                        </div>
-                        <div class="meta-item meta-item-animate" style="--i: 1">
-                            <i class="fa-solid fa-briefcase"></i>
-                            Junior / Internship Flutter Roles
-                        </div>
-                        <div class="meta-item meta-item-animate" style="--i: 2">
-                            <i class="fa-solid fa-language"></i>
-                            Arabic (Native), English (Intermediate)
-                        </div>
-                    </div>
-
-                    <div class="buttons">
-                        <a href="#projects" class="btn btn-primary btn-cta-animate">
-                            <i class="fa-solid fa-play"></i>
-                            View Projects
-                        </a>
-                        <a href="#contact" class="btn btn-outline btn-cta-animate">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            Let’s Work Together
-                        </a>
-                    </div>
-
-                    <div class="hero-links">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com"
-                            target="_blank" rel="noreferrer" class="link-cta link-email">
-                            <i class="fa-solid fa-envelope"></i>
-                            Email (Gmail)
-                        </a>
-                        <a href="https://wa.me/201060583584" target="_blank" rel="noreferrer"
-                            class="link-cta link-whatsapp">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            WhatsApp
-                        </a>
-                        <a href="https://github.com/MarwanYousef725" target="_blank" rel="noreferrer"
-                            class="link-cta link-github">
-                            <i class="fa-brands fa-github"></i>
-                            GitHub
-                        </a>
-                        <a href="https://www.linkedin.com/in/marwan-yousef-287217394/" target="_blank" rel="noreferrer"
-                            class="link-cta link-linkedin">
-                            <i class="fa-brands fa-linkedin"></i>
-                            LinkedIn
-                        </a>
-                    </div>
-                </div>
-
-                <div class="hero-profile" data-aos="fade-left">
-                    <div class="profile-card profile-card-live">
-                        <div class="avatar">MY</div>
-                        <h2>Junior Flutter Mobile Application Developer</h2>
-                        <p class="profile-summary">
-                            Junior Flutter developer with real-world experience building mobile apps
-                            with Firebase, Provider, and BLoC. Focused on clean architecture and
-                            measurable business impact.
-                        </p>
-                        <ul class="profile-list">
-                            <li><span>Phone:</span> <a href="https://wa.me/201060583584" target="_blank"
-                                    rel="noreferrer" class="profile-link">01060583584 (WhatsApp)</a></li>
-                            <li><span>Email:</span> <a
-                                    href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com"
-                                    target="_blank" rel="noreferrer" class="profile-link">marwanyousef637@gmail.com</a>
-                            </li>
-                            <li><span>Location:</span> Cairo, Egypt</li>
-                            <li><span>Availability:</span> Open for remote & onsite</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= ABOUT ================= -->
-        <section id="about" class="about section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">About Me</p>
-                <h2>The Architect Behind the App</h2>
-                <p class="section-subtitle">
-                    Not just writing code, but designing systems that scale with your product.
-                </p>
-            </div>
-
-            <div class="container about-grid">
-                <div class="about-main" data-aos="fade-right">
-                    <p class="about-body">
-                        As a developer with an "Architect" mindset, I don't just write code; I build
-                        robust systems. I specialize in helping startups launch their MVPs in record
-                        time, reducing time-to-market by 30% without compromising quality. I believe
-                        that great code is sustainable code. That’s why I strictly adhere to Clean
-                        Architecture and SOLID principles to ensure scalability and top-tier
-                        performance. My goal is to transform technical complexities into seamless,
-                        profitable user experiences.
-                    </p>
-
-                    <div class="about-highlights">
-                        <div class="highlight-card">
-                            <span class="label">Core Focus</span>
-                            <h3>High-Performance MVPs</h3>
-                            <p>
-                                From idea to functional prototype, I help startups validate concepts
-                                quickly using Flutter and Firebase.
-                            </p>
-                        </div>
-                        <div class="highlight-card">
-                            <span class="label">Engineering Mindset</span>
-                            <h3>Clean, Scalable Architecture</h3>
-                            <p>
-                                Applying Clean Architecture, SOLID, and state management best practices
-                                for long-term maintainability.
-                            </p>
-                        </div>
-                        <div class="highlight-card">
-                            <span class="label">Collaboration</span>
-                            <h3>Ready for Product Teams</h3>
-                            <p>
-                                Comfortable working in agile teams, reviewing code, and collaborating
-                                with designers and product owners.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-side" data-aos="fade-left">
-                    <div class="info-card">
-                        <h3>Quick Facts</h3>
-                        <ul>
-                            <li><span>Experience:</span> Junior / Internship Level</li>
-                            <li><span>Stack:</span> Flutter · Dart · Firebase · Provider · BLoC</li>
-                            <li><span>University:</span> Fayoum University</li>
-                            <li><span>Graduation:</span> 2027 (in progress)</li>
-                        </ul>
-                    </div>
-
-                    <div class="info-card">
-                        <h3>Summary</h3>
-                        <p>
-                            Junior Flutter Mobile Application Developer with hands-on experience in
-                            building real-world mobile applications using Flutter and Firebase.
-                            Strong knowledge of state management with Provider and BLoC and a solid
-                            foundation in data structures, algorithms, and problem solving.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= EDUCATION ================= -->
-        <section id="education" class="education section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Education</p>
-                <h2>Academic Background</h2>
-            </div>
-
-            <div class="container edu-grid">
-                <div class="edu-card" data-aos="fade-up">
-                    <div class="edu-tag">Bachelor&apos;s Degree</div>
-                    <h3>Bachelor of Computers & Artificial Intelligence</h3>
-                    <p class="edu-school">Fayoum University · 2023 – 2027 (Expected)</p>
-                    <p class="edu-meta">GPA: 3.5 / 4.0</p>
-                    <ul class="edu-list">
-                        <li>Core foundations in Computer Science, Data Structures, and Algorithms.</li>
-                        <li>Strong focus on Object-Oriented Programming and problem solving.</li>
-                    </ul>
-                </div>
-
-                <div class="edu-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="edu-tag">Selected Courses</div>
-                    <h3>Specialized Technical Training</h3>
-                    <ul class="edu-list">
-                        <li>2024 – Cisco: Introduction to Cyber Security.</li>
-                        <li>2023 – ITI: Object-Oriented Programming (C++).</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= SKILLS ================= -->
-        <section id="skills" class="skills section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Skills</p>
-                <h2>Technical Stack & Capabilities</h2>
-            </div>
-
-            <div class="container skills-grid" data-aos="fade-up">
-                <div class="skill-column">
-                    <h3>Mobile Development</h3>
-                    <div class="chips">
-                        <span class="chip">Flutter</span>
-                        <span class="chip">Dart</span>
-                        <span class="chip">Firebase Authentication</span>
-                        <span class="chip">Cloud Firestore</span>
-                    </div>
-                </div>
-
-                <div class="skill-column">
-                    <h3>State Management</h3>
-                    <div class="chips">
-                        <span class="chip">Provider (ChangeNotifier)</span>
-                        <span class="chip">BLoC (Basics)</span>
-                        <span class="chip">Clean Architecture</span>
-                        <span class="chip">Reusable Widgets</span>
-                    </div>
-                </div>
-
-                <div class="skill-column">
-                    <h3>Computer Science</h3>
-                    <div class="chips">
-                        <span class="chip">Data Structures</span>
-                        <span class="chip">Algorithms</span>
-                        <span class="chip">OOP</span>
-                        <span class="chip">Problem Solving</span>
-                    </div>
-                </div>
-
-                <div class="skill-column">
-                    <h3>Tools & Collaboration</h3>
-                    <div class="chips">
-                        <span class="chip">Git</span>
-                        <span class="chip">GitHub</span>
-                        <span class="chip">Microsoft Office</span>
-                        <span class="chip">Agile Teamwork</span>
-                    </div>
-                </div>
-
-                <div class="skill-column">
-                    <h3>Soft Skills</h3>
-                    <div class="chips">
-                        <span class="chip">Self-motivated</span>
-                        <span class="chip">Attention to Detail</span>
-                        <span class="chip">Critical Thinking</span>
-                        <span class="chip">Communication</span>
-                        <span class="chip">Team Player</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= EXPERIENCE ================= -->
-        <section id="experience" class="experience section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Work Experience</p>
-                <h2>Real-World Training & Internships</h2>
-            </div>
-
-            <div class="container timeline">
-                <div class="timeline-item" data-aos="fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Flutter Mobile Application Development Intern</h3>
-                            <span class="timeline-company">Digital Egypt Pioneers Initiative (DEPI)</span>
-                            <span class="timeline-date">Nov 2025 – Jul 2026 (Expected)</span>
-                        </div>
-                        <ul>
-                            <li>Developed real-world mobile applications using the Flutter framework.</li>
-                            <li>Implemented state management concepts using Provider and basic BLoC patterns.</li>
-                            <li>Focused on performance optimization and clean code practices.</li>
-                            <li>Collaborated in a team-based environment following structured workflows.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Flutter Mobile Application Development Intern</h3>
-                            <span class="timeline-company">Information Technology Institute (ITI)</span>
-                            <span class="timeline-date">Jul 2025 – Aug 2025</span>
-                        </div>
-                        <ul>
-                            <li>Gained hands-on experience in Flutter and Dart fundamentals.</li>
-                            <li>Developed mobile applications with clean UI and reusable widget principles.</li>
-                            <li>Worked with Firebase services for authentication and data handling.</li>
-                            <li>Applied problem-solving and OOP concepts in practical tasks.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= SERVICES ================= -->
-        <section id="services" class="services section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Services</p>
-                <h2>How I Can Help Your Product</h2>
-            </div>
-
-            <div class="container services-grid">
-                <article class="service-card" data-aos="fade-up">
-                    <span class="service-icon">
-                        <i class="fa-solid fa-rocket"></i>
-                    </span>
-                    <h3>MVP & Prototype Development</h3>
-                    <p>
-                        Turn your startup idea into a working mobile MVP using Flutter and Firebase,
-                        optimized for quick validation and fast iterations.
-                    </p>
-                    <ul>
-                        <li>Rapid prototyping with reusable components.</li>
-                        <li>Authentication & real-time data with Firebase.</li>
-                    </ul>
-                </article>
-
-                <article class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <span class="service-icon">
-                        <i class="fa-solid fa-mobile-screen-button"></i>
-                    </span>
-                    <h3>Flutter App Development</h3>
-                    <p>
-                        Build modern, responsive mobile applications with clean UX and maintainable
-                        architecture across Android and iOS.
-                    </p>
-                    <ul>
-                        <li>Clean UI with reusable widget systems.</li>
-                        <li>State management using Provider and BLoC.</li>
-                    </ul>
-                </article>
-
-                <article class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="service-icon">
-                        <i class="fa-solid fa-gauge-high"></i>
-                    </span>
-                    <h3>Performance & Code Quality</h3>
-                    <p>
-                        Improve app performance and maintainability through refactoring, state
-                        optimization, and architecture improvements.
-                    </p>
-                    <ul>
-                        <li>Refactoring legacy widgets into clean components.</li>
-                        <li>Applying SOLID and Clean Architecture principles.</li>
-                    </ul>
-                </article>
-            </div>
-        </section>
-
-        <!-- ================= PROJECTS ================= -->
-        <section id="projects" class="projects section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Projects</p>
-                <h2>Selected Work & Case Studies</h2>
-                <p class="section-subtitle">
-                    Not just code samples, but projects focused on real-world use cases and measurable
-                    outcomes.
-                </p>
-            </div>
-
-            <div class="container projects-grid">
-                <!-- Project 1: E-Commerce (Shoplon) -->
-                <article class="project-card project-card-featured" data-aos="fade-up">
-                    <div class="project-mockup-wrap">
-                        <img src="assets/shoplon-mockup.png"
-                            alt="Shoplon E-Commerce App - Login, Home, Product Listing, Detail"
-                            class="project-mockup-img" onerror="this.parentElement.classList.add('mockup-failed')">
-                    </div>
-                    <div class="project-header">
-                        <span class="project-tag">Flutter · Firebase · Provider</span>
-                        <h3>E-Commerce Mobile Application (Shoplon App)</h3>
-                        <p class="project-role">End-to-End Flutter Development</p>
-                    </div>
-
-                    <div class="project-body">
-                        <div class="project-column">
-                            <h4>The Challenge</h4>
-                            <p>
-                                Build a scalable e-commerce mobile app with secure authentication,
-                                real-time product data, and a clean, reusable UI structure suitable
-                                for future growth.
-                            </p>
-                        </div>
-                        <div class="project-column">
-                            <h4>The Technical Solution</h4>
-                            <ul>
-                                <li>Implemented Firebase Authentication for secure login/registration.</li>
-                                <li>Used Cloud Firestore for real-time product and order data.</li>
-                                <li>Applied Provider (ChangeNotifier) for predictable state management.</li>
-                                <li>Designed a modular UI system with reusable widgets and theming.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="project-footer">
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <span class="metric-value">30%</span>
-                                <span class="metric-label">Faster feature iteration</span>
-                            </div>
-                            <div class="metric">
-                                <span class="metric-value">Real-time</span>
-                                <span class="metric-label">Product updates via Firestore</span>
-                            </div>
-                        </div>
-                        <a href="https://github.com/MarwanYousef725/Shoplon-E-commerce-app.git" target="_blank" rel="noreferrer"
-                            class="project-link">
-                            <i class="fa-brands fa-github"></i>
-                            View Code on GitHub
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Project 2: Daily Grid -->
-                <article class="project-card project-card-featured" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-mockup-wrap">
-                        <img src="assets/griddaily-mockup.png" alt="GridDaily App - Splash, Grid View, Update Tab"
-                            class="project-mockup-img" onerror="this.parentElement.classList.add('mockup-failed')">
-                    </div>
-                    <div class="project-header">
-                        <span class="project-tag">Flutter · Provider</span>
-                        <h3>Daily Grid Productivity Application (GridDaily)</h3>
-                        <p class="project-role">Productivity & Scheduling App</p>
-                    </div>
-
-                    <div class="project-body">
-                        <div class="project-column">
-                            <h4>The Challenge</h4>
-                            <p>
-                                Create a simple yet powerful productivity tool that allows users to
-                                manage daily schedules using a flexible grid-based layout.
-                            </p>
-                        </div>
-                        <div class="project-column">
-                            <h4>The Technical Solution</h4>
-                            <ul>
-                                <li>Implemented dynamic date handling with custom ranges and current-day logic.</li>
-                                <li>Used Provider for efficient state updates across the UI.</li>
-                                <li>Designed a responsive, clean layout optimized for focus and clarity.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="project-footer">
-                        <div class="project-metrics">
-                            <div class="metric">
-                                <span class="metric-value">Flexible</span>
-                                <span class="metric-label">Date & schedule handling</span>
-                            </div>
-                            <div class="metric">
-                                <span class="metric-value">Clean UI</span>
-                                <span class="metric-label">Grid-based daily planning</span>
-                            </div>
-                        </div>
-                        <a href="https://github.com/MarwanYousef725/Daily-Grid.git" target="_blank" rel="noreferrer"
-                            class="project-link">
-                            <i class="fa-brands fa-github"></i>
-                            View Code on GitHub
-                        </a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- ================= ACHIEVEMENTS ================= -->
-        <section id="achievements" class="achievements section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Achievements</p>
-                <h2>Numbers That Tell the Story</h2>
-            </div>
-
-            <div class="container achievements-grid">
-                <div class="achievement-card" data-aos="fade-up">
-                    <span class="achievement-number">2+</span>
-                    <p class="achievement-label">Real-world Flutter applications delivered</p>
-                </div>
-                <div class="achievement-card" data-aos="fade-up" data-aos-delay="80">
-                    <span class="achievement-number">30%</span>
-                    <p class="achievement-label">Average time-to-market improvement for MVPs</p>
-                </div>
-                <div class="achievement-card" data-aos="fade-up" data-aos-delay="160">
-                    <span class="achievement-number">3.5 / 4.0</span>
-                    <p class="achievement-label">GPA in Computer & AI studies</p>
-                </div>
-                <div class="achievement-card" data-aos="fade-up" data-aos-delay="240">
-                    <span class="achievement-number">2</span>
-                    <p class="achievement-label">Specialized internships in Flutter development</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= TESTIMONIALS ================= -->
-        <section id="testimonials" class="testimonials section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Testimonials</p>
-                <h2>What People Say</h2>
-                <p class="section-subtitle">
-                    Feedback from mentors and teammates I&apos;ve worked with during internships and projects.
-                </p>
-            </div>
-
-            <div class="container">
-                <div class="swiper mySwiper" data-aos="fade-up">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="testimonial-card">
-                                <p class="quote">
-                                    “Marwan quickly became one of the most reliable Flutter interns on the team.
-                                    His attention to clean architecture and performance is impressive for his level.”
-                                </p>
-                                <div class="author">
-                                    <span class="name">Senior Flutter Mentor</span>
-                                    <span class="role">DEPI Training Program</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-card">
-                                <p class="quote">
-                                    “He understands how to translate requirements into maintainable Flutter code and
-                                    isn&apos;t afraid to refactor when needed. A great addition to any mobile team.”
-                                </p>
-                                <div class="author">
-                                    <span class="name">Technical Instructor</span>
-                                    <span class="role">ITI Flutter Track</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-card">
-                                <p class="quote">
-                                    “Marwan is proactive, collaborative, and always looking for ways to improve the
-                                    codebase. His focus on scalability and clean patterns stands out.”
-                                </p>
-                                <div class="author">
-                                    <span class="name">Team Lead</span>
-                                    <span class="role">Student Projects</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= CONTACT ================= -->
-        <section id="contact" class="contact section">
-            <div class="container section-header" data-aos="fade-up">
-                <p class="section-kicker">Contact</p>
-                <h2>Let&apos;s Build Something Together</h2>
-            </div>
-
-            <div class="container contact-grid">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Contact Information</h3>
-                    <div class="contact-ctas">
-                        <a href="https://wa.me/201060583584" target="_blank" rel="noreferrer" class="btn btn-whatsapp">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            Chat on WhatsApp
-                        </a>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com"
-                            target="_blank" rel="noreferrer" class="btn btn-gmail">
-                            <i class="fa-solid fa-envelope"></i>
-                            Open in Gmail
-                        </a>
-                    </div>
-                    <ul>
-                        <li>
-                            <i class="fa-solid fa-envelope"></i>
-                            <div>
-                                <span>Email</span>
-                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com"
-                                    target="_blank" rel="noreferrer" class="contact-link">marwanyousef637@gmail.com</a>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <div>
-                                <span>Phone / WhatsApp</span>
-                                <a href="https://wa.me/201060583584" target="_blank" rel="noreferrer"
-                                    class="contact-link">+20 106 058 3584</a>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                <span>Location</span>
-                                <p>Cairo, Egypt</p>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-brands fa-github"></i>
-                            <div>
-                                <span>GitHub</span>
-                                <a href="https://github.com/MarwanYousef725" target="_blank" rel="noreferrer"
-                                    class="contact-link">github.com/MarwanYousef725</a>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-brands fa-linkedin"></i>
-                            <div>
-                                <span>LinkedIn</span>
-                                <a href="https://www.linkedin.com/in/marwan-yousef-287217394/" target="_blank"
-                                    rel="noreferrer" class="contact-link">linkedin.com/in/marwan-yousef</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="contact-form" data-aos="fade-left">
-                    <h3>Quick Message</h3>
-                    <p class="contact-note">
-                        Write your message here and it will be sent directly to my email.
-                    </p>
-                    <!-- استبدل YOUR_FORMSPREE_FORM_ID بمعرّف النموذج من formspree.io (مجاني) لاستقبال الرسائل على إيميلك -->
-                    <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_FORM_ID" method="POST">
-                        <input type="hidden" name="_subject" value="Portfolio Contact - Marwan Yousef">
-                        <input type="hidden" name="_next" value="">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input id="name" name="name" type="text" placeholder="Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" name="email" type="email" placeholder="you@example.com" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">The topic</label>
-                            <input id="subject" name="subject" type="text"
-                                placeholder="Project idea or business opportunity">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Write your message here..."
-                                required></textarea>
-                        </div>
-                        <div id="form-status" class="form-status" aria-live="polite"></div>
-                        <button type="submit" class="btn btn-primary full-width" id="submit-btn">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            Send message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= FOOTER ================= -->
-        <footer class="footer">
-            <div class="container footer-inner">
-                <p>© 2026 Marwan Yousef. All rights reserved.</p>
-                <p class="footer-note">
-                    Built with HTML, CSS, JavaScript, and modern frontend libraries.
-                </p>
-            </div>
-        </footer>
+  <!-- ═══ NAV ═══ -->
+  <nav class="nav" id="nav">
+    <div class="ni">
+      <a href="#home" class="nlogo">M<span>.</span>Y</a>
+      <ul class="nlinks" id="nlinks">
+        <li><a href="#home" class="nl ac">Home</a></li>
+        <li><a href="#about" class="nl">About</a></li>
+        <li><a href="#education" class="nl">Education</a></li>
+        <li><a href="#skills" class="nl">Skills</a></li>
+        <li><a href="#experience" class="nl">Experience</a></li>
+        <li><a href="#services" class="nl">Services</a></li>
+        <li><a href="#projects" class="nl">Projects</a></li>
+        <li><a href="#testimonials" class="nl">Testimonials</a></li>
+      </ul>
+      <a href="#contact" class="ncta">Contact ↗</a>
+      <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
     </div>
+  </nav>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="main.js"></script>
+  <!-- ═══ HOME ═══ -->
+  <section id="home" class="hero">
+    <div class="hbg">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+      <div class="gbg"></div>
+    </div>
+    <div class="hcont">
+      <div class="htxt">
+        <span class="hlbl">HELLO, I'M</span>
+        <h1 class="hname">Marwan <span>Yousef</span></h1>
+        <div class="htype"><span id="typeTxt"></span><span class="cblink">|</span></div>
+        <p class="hdesc">Flutter Mobile Application Developer </p>
+        <div class="hact">
+          <a href="#projects" class="bp">View My Work</a>
+          <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo">↓ Download CV</a>
+        </div>
+        <div class="hsoc">
+          <a href="https://github.com/MarwanYousef725" target="_blank" class="hsl" title="GitHub"><svg
+              viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/marwan-yousef-287217394/" target="_blank" class="hsl"
+            title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg></a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com" target="_blank" class="hsl"
+            title="Email"><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg></a>
+          <a href="https://wa.me/201060583584" target="_blank" class="hsl" title="WhatsApp"><svg viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg></a>
+        </div>
+      </div>
+      <div class="hav">
+        <div class="avring"></div>
+        <div class="avin">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="bgG" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#1a0f35" />
+                <stop offset="100%" stop-color="#0e0a1a" />
+              </radialGradient>
+              <radialGradient id="skG" cx="50%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#f5c9a0" />
+                <stop offset="100%" stop-color="#d4956b" />
+              </radialGradient>
+              <linearGradient id="clG" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#755CDE" />
+                <stop offset="100%" stop-color="#F6A560" />
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="100" fill="url(#bgG)" />
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#755CDE" stroke-width="1" opacity="0.28" />
+            <ellipse cx="100" cy="175" rx="55" ry="38" fill="url(#clG)" opacity="0.95" />
+            <rect x="89" y="120" width="22" height="20" rx="8" fill="url(#skG)" />
+            <ellipse cx="100" cy="100" rx="32" ry="35" fill="url(#skG)" />
+            <ellipse cx="100" cy="70" rx="33" ry="17" fill="#2a1a4a" />
+            <ellipse cx="100" cy="64" rx="28" ry="12" fill="#3b1f5e" />
+            <ellipse cx="70" cy="87" rx="8" ry="18" fill="#2a1a4a" transform="rotate(-10 70 87)" />
+            <ellipse cx="130" cy="87" rx="8" ry="18" fill="#2a1a4a" transform="rotate(10 130 87)" />
+            <ellipse cx="87" cy="98" rx="5" ry="5.5" fill="#1a0a2e" />
+            <ellipse cx="113" cy="98" rx="5" ry="5.5" fill="#1a0a2e" />
+            <circle cx="89" cy="96" r="1.5" fill="white" opacity="0.9" />
+            <circle cx="115" cy="96" r="1.5" fill="white" opacity="0.9" />
+            <path d="M81 91 Q87 88 93 91" stroke="#2a1a4a" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <path d="M107 91 Q113 88 119 91" stroke="#2a1a4a" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <ellipse cx="100" cy="109" rx="3" ry="4" fill="#c4845a" opacity="0.48" />
+            <path d="M90 119 Q100 126 110 119" stroke="#c4845a" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <path d="M85 140 L100 150 L115 140" stroke="white" stroke-width="1.5" fill="none" opacity="0.45" />
+            <circle cx="30" cy="30" r="3" fill="#F6A560" opacity="0.6" />
+            <circle cx="170" cy="30" r="2" fill="#F39E9E" opacity="0.6" />
+            <circle cx="20" cy="160" r="2" fill="#755CDE" opacity="0.4" />
+            <circle cx="175" cy="155" r="3" fill="#61C4B7" opacity="0.5" />
+          </svg>
+        </div>
+        <div class="avbadge ab1">Flutter</div>
+        <div class="avbadge ab2">Firebase</div>
+        <div class="avbadge ab3">Dart</div>
+      </div>
+    </div>
+    <div class="scrl">
+      <div class="smouse">
+        <div class="sdot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about" class="sec about">
+    <p class="slbl rv">GET TO KNOW ME</p>
+    <h2 class="stit rv d1">About Me</h2>
+    <div class="sline rv d2"></div>
+    <div class="agrid">
+      <div class="avis rvl">
+        <div class="cart"><span class="cb2">{</span><span class="cb2">}</div>
+        <div class="astats">
+          <div><span class="sn">2+</span><span class="sl">Years Learning</span></div>
+          <div><span class="sn">2+</span><span class="sl">Projects Built</span></div>
+          <div><span class="sn">2</span><span class="sl">Internships</span></div>
+        </div>
+      </div>
+      <div class="atxt rvr">
+        <h3>A passionate <span class="acc">Flutter Developer</span> specializing in <span class="acc">Mobile Application
+            Development</span></h3>
+        <p>I'm Marwan Yousef, a dedicated Junior Flutter Mobile Application Developer with hands-on experience building
+          real-world mobile applications using Flutter and Firebase. I specialize in state management using Provider
+          (ChangeNotifier) and BLoC patterns, ensuring scalable and maintainable code architecture.</p>
+        <p>Currently pursuing my Bachelor's in Computers &amp; Artificial Intelligence at Fayoum University I've
+          completed internships at DEPI and ITI. I'm passionate about clean UI design, reusable widget
+          patterns, and building impactful mobile experiences.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EDUCATION ═══ -->
+  <section id="education" class="sec education">
+    <p class="slbl rv">MY ACADEMIC BACKGROUND</p>
+    <h2 class="stit rv d1">Education &amp; Courses</h2>
+    <div class="sline rv d2"></div>
+    <div class="egrid">
+      <div class="ecard glass rv d1">
+        <div class="ehd"><span>🎓</span><span class="ebadge">Education</span><span class="edate">2023 – 2027</span>
+        </div>
+        <h3>Bachelor of Computers &amp; Artificial Intelligence</h3>
+        <p class="einst">🏛 Fayoum University</p>
+        <p class="edet"><strong>GPA:</strong> 3.5 / 4.0</p>
+        <p class="edet"><strong>Expected Graduation:</strong> 2027</p>
+      </div>
+      <div class="ecard glass rv d2">
+        <div class="ehd"><span>📜</span><span class="ebadge cert">Courses</span></div>
+        <div class="ci">
+          <div class="cic">🛡</div>
+          <div>
+            <h4>Introduction to Cyber Security</h4>
+            <p>Cisco — 2024</p>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="cic">💻</div>
+          <div>
+            <h4>Object-Oriented Programming (C++)</h4>
+            <p>Information Technology Institute (ITI) — 2023</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS ═══ -->
+  <section id="skills" class="sec skills">
+    <p class="slbl rv">WHAT I BRING TO THE TABLE</p>
+    <h2 class="stit rv d1">My Skills</h2>
+    <div class="sline rv d2"></div>
+    <div class="skgrid">
+      <div class="rvl">
+        <h3 class="sktit">⟨/⟩ Technical Skills</h3>
+        <div class="skw">
+          <div class="ski"><span>Flutter / Dart</span><span>90%</span></div>
+          <div class="skbar">
+            <div class="skfill" data-w="90"></div>
+          </div>
+        </div>
+        <div class="skw">
+          <div class="ski"><span>Firebase (Auth, Firestore)</span><span>85%</span></div>
+          <div class="skbar">
+            <div class="skfill" data-w="85"></div>
+          </div>
+        </div>
+        <div class="skw">
+          <div class="ski"><span>Provider / BLoC</span><span>85%</span></div>
+          <div class="skbar">
+            <div class="skfill" data-w="85"></div>
+          </div>
+        </div>
+        <div class="skw">
+          <div class="ski"><span>C++ / OOP</span><span>75%</span></div>
+          <div class="skbar">
+            <div class="skfill" data-w="75"></div>
+          </div>
+        </div>
+        <div class="skw">
+          <div class="ski"><span>Data Structures &amp; Algorithms</span><span>80%</span></div>
+          <div class="skbar">
+            <div class="skfill" data-w="80"></div>
+          </div>
+        </div>
+      </div>
+      <div class="rvr">
+        <h3 class="sktit">🔧 Tools &amp; Technologies</h3>
+        <div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span
+            class="chip">Firebase</span><span class="chip">VS Code</span><span class="chip">Android Studio</span><span
+            class="chip">Microsoft Office</span><span class="chip">Flutter SDK</span><span class="chip">BLoC
+            Pattern</span></div>
+        <h3 class="sktit mt">🌐 Languages</h3>
+        <div class="chips"><span class="chip lang">🇪🇬 Arabic — Native</span><span class="chip lang">🇬🇧 English —
+            Intermediate</span></div>
+        <h3 class="sktit mt">🧠 Soft Skills</h3>
+        <div class="chips"><span class="chip soft">Self-Motivated</span><span class="chip soft">Attention to
+            Detail</span><span class="chip soft">Critical Thinking</span><span
+            class="chip soft">Communication</span><span class="chip soft">Team Player</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="experience" class="sec experience">
+    <p class="slbl rv">MY TRAINING &amp; EXPERIENCE</p>
+    <h2 class="stit rv d1">Work Experience</h2>
+    <div class="sline rv d2"></div>
+    <div class="tl">
+      <div class="tli rv d1">
+        <div class="tldot">◈</div>
+        <div class="tlcard glass">
+          <span class="tldate">Nov 2025 — Jul 2026</span>
+          <h3>Flutter Mobile Application Development Intern</h3>
+          <p class="tlco">🏢 Digital Egypt Pioneers Initiative (DEPI) — Online</p>
+          <div class="tltag ch">Challenge</div>
+          <p>Building production-ready mobile applications using Flutter under the prestigious Digital Egypt Pioneers
+            Initiative program.</p>
+          <div class="tltag ac">Action</div>
+          <p>Developed real-world apps with Flutter, implemented state management with Provider &amp; BLoC, focused on
+            performance optimization, clean code, and structured team-based workflows.</p>
+          <div class="tltag re">Result</div>
+          <p>Delivered maintainable, production-grade Flutter applications following best practices in mobile
+            development architecture.</p>
+        </div>
+      </div>
+      <div class="tli rv d2">
+        <div class="tldot">◈</div>
+        <div class="tlcard glass">
+          <span class="tldate">Jul 2025 — Aug 2025</span>
+          <h3>Flutter Mobile Application Development Intern</h3>
+          <p class="tlco">🏢 Information Technology Institute (ITI)</p>
+          <div class="tltag ch">Challenge</div>
+          <p>Gaining comprehensive hands-on experience in Flutter and Dart fundamentals within an intensive professional
+            training environment.</p>
+          <div class="tltag ac">Action</div>
+          <p>Developed mobile applications following clean UI principles. Integrated Firebase for authentication and
+            data handling. Applied OOP in practical tasks.</p>
+          <div class="tltag re">Result</div>
+          <p>Built a solid foundation in Flutter development, Firebase integration, and scalable mobile architecture
+            principles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICES ═══ -->
+  <section id="services" class="sec services">
+    <p class="slbl rv">WHAT I OFFER</p>
+    <h2 class="stit rv d1">My Services</h2>
+    <div class="sline rv d2"></div>
+    <div class="svgrid">
+      <div class="svcard glass sv1 rv d1">
+        <div class="svico">📱</div>
+        <h3>Flutter App Development</h3>
+        <p>Building dynamic, high-performance cross-platform mobile apps using Flutter and modern Dart techniques.</p>
+        <ul>
+          <li>Cross-Platform iOS &amp; Android Apps</li>
+          <li>Custom UI Components &amp; Animations</li>
+          <li>Clean Architecture Patterns</li>
+        </ul>
+      </div>
+      <div class="svcard glass sv2 rv d2">
+        <div class="svico">🔥</div>
+        <h3>Firebase Integration</h3>
+        <p>Integrating Firebase to power real-time data, authentication, and cloud storage for mobile applications.</p>
+        <ul>
+          <li>Firebase Authentication</li>
+          <li>Cloud Firestore &amp; Realtime DB</li>
+          <li>Firebase Storage &amp; Hosting</li>
+        </ul>
+      </div>
+      <div class="svcard glass sv3 rv d3">
+        <div class="svico">⚡</div>
+        <h3>State Management</h3>
+        <p>Implementing scalable state management using Provider and BLoC patterns for complex applications.</p>
+        <ul>
+          <li>Provider (ChangeNotifier)</li>
+          <li>BLoC Pattern Implementation</li>
+          <li>Reactive Programming</li>
+        </ul>
+      </div>
+      <div class="svcard glass sv4 rv d1">
+        <div class="svico">🎨</div>
+        <h3>Responsive UI Design</h3>
+        <p>Designing pixel-perfect, reusable, accessible interfaces delivering exceptional user experiences.</p>
+        <ul>
+          <li>Custom Widget Development</li>
+          <li>Material Design Principles</li>
+          <li>Smooth Animations &amp; Transitions</li>
+        </ul>
+      </div>
+      <div class="svcard glass sv5 rv d2">
+        <div class="svico">🚀</div>
+        <h3>Performance Optimization</h3>
+        <p>Optimizing Flutter apps for maximum performance and smooth 60fps rendering on all devices.</p>
+        <ul>
+          <li>Widget Tree Optimization</li>
+          <li>Lazy Loading &amp; Caching</li>
+          <li>Performance Profiling</li>
+        </ul>
+      </div>
+      <div class="svcard glass sv6 rv d3">
+        <div class="svico">🛠</div>
+        <h3>Clean Code &amp; Git Workflow</h3>
+        <p>Delivering well-structured, maintainable codebases following clean code principles and Git workflows.</p>
+        <ul>
+          <li>SOLID Principles</li>
+          <li>Git &amp; Version Control</li>
+          <li>Code Review &amp; Documentation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS ═══ -->
+  <section id="projects" class="sec projects">
+    <p class="slbl rv">MY RECENT WORK</p>
+    <h2 class="stit rv d1">Projects</h2>
+    <div class="sline rv d2"></div>
+    <div class="pj-list">
+
+      <!-- PROJECT 1 -->
+      <div class="pj-item rv">
+        <div class="pj-terminal">
+          <span class="pj-dots"><span></span><span></span><span></span></span>
+          <span class="pj-path">lib/main.dart — Shoplon E-Commerce</span>
+        </div>
+        <div class="pj-body pj-body--right">
+          <div class="pj-mock"><img src="mockup1.png" alt="Shoplon E-Commerce App" loading="lazy" /></div>
+          <div class="pj-content">
+            <div class="pj-tags">
+              <span class="pjtag flutter">Flutter</span>
+              <span class="pjtag dart">Dart</span>
+              <span class="pjtag firebase">Firebase</span>
+              <span class="pjtag provider">Provider</span>
+            </div>
+            <h3 class="pj-title">Shoplon — E-Commerce Mobile App</h3>
+            <p class="pj-sub">iOS &amp; Android • Provider (ChangeNotifier)</p>
+            <p class="pj-desc">Full-featured e-commerce app with Firebase Auth, Cloud Firestore for real-time products
+              &amp; orders. Clean UI with reusable widgets.</p>
+            <div class="pj-csr">
+              <div class="pj-csr-card pj-ch"><span class="pj-csr-label">Challenge</span>
+                <p>Scalable e-commerce with secure auth, real-time inventory, smooth UX.</p>
+              </div>
+              <div class="pj-csr-card pj-so"><span class="pj-csr-label">Solution</span>
+                <p>Firebase + Provider, clean architecture, maintainable components.</p>
+              </div>
+              <div class="pj-csr-card pj-re"><span class="pj-csr-label">Results</span>
+                <p>Cross-platform app with auth, cart, catalog.</p>
+              </div>
+            </div>
+            <a href="https://github.com/MarwanYousef725/Shoplon-E-commerce-app.git" target="_blank" class="pj-ghbtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              View on GitHub ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="pj-item rv">
+        <div class="pj-terminal">
+          <span class="pj-dots"><span></span><span></span><span></span></span>
+          <span class="pj-path">lib/main.dart — Food Delivery Mobile Application</span>
+        </div>
+        <div class="pj-body pj-body--right">
+          <div class="pj-mock"><img
+              src="Mobile App Phone Mockup Sales Marketing Presentation in Blue and White Modern Photocentric Style (1).png"
+              alt="Food Delivery Mobile App" loading="lazy" /></div>
+          <div class="pj-content">
+            <div class="pj-tags">
+              <span class="pjtag flutter">Flutter</span>
+              <span class="pjtag dart">Dart</span>
+              <span class="pjtag firebase">Firebase</span>
+              <span class="pjtag provider">BLoC</span>
+            </div>
+            <h3 class="pj-title">Food Delivery Mobile Application</h3>
+            <p class="pj-sub">iOS &amp; Android • BLoC</p>
+            <p class="pj-desc">A modern, high-performance food delivery mobile application developed using Flutter and
+              Dart, designed to provide a smooth and engaging user experience on both Android and iOS. The app features
+              a clean UI, fast navigation, and a scalable architecture powered by Firebase for real-time data handling
+              and secure backend services.</p>
+            <div class="pj-csr">
+              <div class="pj-csr-card pj-ch">
+                <span class="pj-csr-label">Challenge</span>
+                <p>Building a scalable food delivery app with real-time order tracking, secure authentication, dynamic
+                  menu management, and a smooth user experience across multiple screens.</p>
+              </div>
+
+              <div class="pj-csr-card pj-so">
+                <span class="pj-csr-label">Solution</span>
+                <p>Developed using Flutter & Dart with Firebase (Auth, Firestore, Cloud Messaging), clean architecture,
+                  and optimized state management to ensure real-time updates, maintainability, and high performance.</p>
+              </div>
+
+              <div class="pj-csr-card pj-re">
+                <span class="pj-csr-label">Results</span>
+                <p>Cross-platform food delivery app featuring authentication, restaurant browsing, cart system, secure
+                  checkout, live tracking, favorites, and user profile management with a fast and responsive UX.</p>
+              </div>
+            </div>
+            <a href="https://github.com/MarwanYousef725/Enjaznaa-Yakhal.git" target="_blank" class="pj-ghbtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              View on GitHub ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="pj-item rv d2">
+        <div class="pj-terminal">
+          <span class="pj-dots"><span></span><span></span><span></span></span>
+          <span class="pj-path">lib/main.dart — GridDaily</span>
+        </div>
+        <div class="pj-body pj-body--left">
+          <div class="pj-content">
+            <div class="pj-tags">
+              <span class="pjtag flutter">Flutter</span>
+              <span class="pjtag dart">Dart</span>
+              <span class="pjtag provider">Provider</span>
+            </div>
+            <h3 class="pj-title">GridDaily — Productivity &amp; Schedule App</h3>
+            <p class="pj-sub">iOS &amp; Android • Provider</p>
+            <p class="pj-desc">Intuitive daily schedule management with dynamic dates, custom ranges. Provider for
+              smooth UI updates and tab management.</p>
+            <div class="pj-csr">
+              <div class="pj-csr-card pj-ch"><span class="pj-csr-label">Challenge</span>
+                <p>Intuitive planning UI with flexible dates and tab organization.</p>
+              </div>
+              <div class="pj-csr-card pj-so"><span class="pj-csr-label">Solution</span>
+                <p>Dynamic dates, Provider state, add/update tab dialogs.</p>
+              </div>
+              <div class="pj-csr-card pj-re"><span class="pj-csr-label">Results</span>
+                <p>Dark-themed productivity app with grid view.</p>
+              </div>
+            </div>
+            <a href="https://github.com/MarwanYousef725/Daily-Grid" target="_blank" class="pj-ghbtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              View on GitHub ↗
+            </a>
+          </div>
+          <div class="pj-mock"><img src="mockup2.png" alt="GridDaily App" loading="lazy" /></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section id="testimonials" class="sec testimonials">
+    <p class="slbl rv">WHAT PEOPLE SAY</p>
+    <h2 class="stit rv d1">Testimonials</h2>
+    <div class="sline rv d2"></div>
+    <div class="tegrid">
+      <div class="tecard glass rv d1">
+        <div class="tetop">
+          <div class="stars">★★★★★</div><span class="tetag">Flutter Dev</span>
+        </div>
+        <p>"Marwan demonstrated an exceptional ability to grasp Flutter concepts and implement clean, well-structured
+          state management. His dedication and code quality was truly impressive for a junior developer."</p>
+        <div class="teauth">
+          <div class="teav">TI</div>
+          <div><strong>Training Instructor</strong><span>ITI Flutter Program</span></div>
+        </div>
+      </div>
+      <div class="tecard glass rv d2">
+        <div class="tetop">
+          <div class="stars">★★★★★</div><span class="tetag">Firebase Expert</span>
+        </div>
+        <p>"Working with Marwan on the e-commerce project was a great experience. He showed strong problem-solving
+          skills and delivered reliable Firebase integrations that powered our real-time data layer."</p>
+        <div class="teauth">
+          <div class="teav">TL</div>
+          <div><strong>Team Lead</strong><span>E-Commerce Project</span></div>
+        </div>
+      </div>
+      <div class="tecard glass rv d3">
+        <div class="tetop">
+          <div class="stars">★★★★★</div><span class="tetag">DEPI Program</span>
+        </div>
+        <p>"Marwan's rapid grasp of Flutter and mobile development made him stand out in the DEPI program. He
+          consistently delivered responsive, performant, and well-structured mobile code."</p>
+        <div class="teauth">
+          <div class="teav">PI</div>
+          <div><strong>Program Instructor</strong><span>DEPI — Digital Egypt Pioneers</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact" class="sec contact">
+    <p class="slbl rv">LET'S WORK TOGETHER</p>
+    <h2 class="stit rv d1">Get In Touch</h2>
+    <div class="sline rv d2"></div>
+    <div class="ctgrid">
+      <div class="ctinfo rvl">
+        <h3>Let's discuss your project</h3>
+        <p>Have a project in mind or looking for a skilled Flutter developer? I'm always open to new opportunities and
+          collaborations.</p>
+        <div class="citem">
+          <div class="cico">✉</div>
+          <div><strong>Email</strong><a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com"
+              target="_blank">marwanyousef637@gmail.com</a></div>
+        </div>
+        <div class="citem">
+          <div class="cico">✆</div>
+          <div><strong>Phone / WhatsApp</strong><a href="https://wa.me/201060583584" target="_blank">010 6058 3584</a>
+          </div>
+        </div>
+        <div class="citem">
+          <div class="cico">◎</div>
+          <div><strong>Location</strong><span>Cairo, Egypt</span></div>
+        </div>
+        <div class="csocs">
+          <a href="https://github.com/MarwanYousef725" target="_blank" class="csl"><svg viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/marwan-yousef-287217394/" target="_blank" class="csl"><svg
+              viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg></a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com" target="_blank"
+            class="csl"><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg></a>
+        </div>
+        <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo" style="margin-top:.5rem">↓ Download CV</a>
+      </div>
+      <div class="rvr">
+        <form id="cform" class="cform glass" action="https://formsubmit.co/marwanyousef637@gmail.com" method="POST"
+          novalidate>
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_subject" value="New message from Portfolio!" />
+          <div class="frow">
+            <div class="fg"><input type="text" name="name" id="fn" placeholder="Your Name" required /><span class="ferr"
+                id="nErr"></span></div>
+            <div class="fg"><input type="email" name="email" id="fe" placeholder="Your Email" required /><span
+                class="ferr" id="eErr"></span></div>
+          </div>
+          <div class="fg"><input type="text" name="subject" id="fs" placeholder="Subject" required /><span class="ferr"
+              id="sErr"></span></div>
+          <div class="fg"><textarea name="message" id="fm" rows="5" placeholder="Your Message" required></textarea><span
+              class="ferr" id="mErr"></span></div>
+          <button type="submit" class="fsub" id="fsub">
+            <span id="bt">Send Message ✈</span>
+            <span id="bl" style="display:none">Sending…</span>
+          </button>
+          <div id="fok" class="fsucc">✔ Message sent! I'll get back to you soon.</div>
+          <div id="fng" class="ferrmsg">✖ Something went wrong. Email me directly.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="finner">
+      <!-- <div class="footer-left">
+        <p class="flt">DON'T BE SHY!</p>
+        <p>Feel free to get in touch. I'm always open to discussing new projects, creative ideas, or opportunities to be
+          part of your visions.</p>
+      </div> -->
+      <div class="fctr">
+        <a href="#home" class="flogo">M.Y</a>
+        <div class="fsocs">
+          <a href="https://github.com/MarwanYousef725" target="_blank" class="fsl"><svg viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/marwan-yousef-287217394/" target="_blank" class="fsl"><svg
+              viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg></a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com" target="_blank"
+            class="fsl"><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg></a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <p class="fwt">WHO AM I?</p>
+        <p>I'm a <strong>Flutter Developer</strong> &amp; <strong>Firebase Enthusiast</strong>, passionate and
+          dedicated. I have the skills to develop user-friendly, scalable mobile applications that make your project a
+          success.</p>
+      </div>
+    </div>
+    <div class="fcopy">© 2026 Marwan Yousef. Portfolio.</div>
+  </footer>
+
+  <script>
+    /* ══════════════════════════════════════════
+       STEP 1: Add .fx ONLY after a tiny delay
+       so content renders visible first, THEN
+       animations kick in for scroll reveals.
+    ══════════════════════════════════════════ */
+    setTimeout(() => { document.body.classList.add('fx'); }, 100);
+
+    /* ── NAV scroll ── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('sc', scrollY > 40);
+      updateNav();
+      doReveal();
+    });
+
+    /* ── Mobile menu ── */
+    const burger = document.getElementById('burger');
+    const nlinks = document.getElementById('nlinks');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('op');
+      nlinks.classList.toggle('op');
+    });
+    nlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      burger.classList.remove('op');
+      nlinks.classList.remove('op');
+    }));
+
+    /* ── Active nav ── */
+    function updateNav() {
+      const y = scrollY + 120;
+      document.querySelectorAll('section[id]').forEach(s => {
+        const l = document.querySelector(`.nl[href="#${ s.id }"]`);
+        if (l) l.classList.toggle('ac', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
+      });
+    }
+
+    /* ── Smooth scroll (offset for fixed nav) ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 68, behavior: 'smooth' }); }
+      });
+    });
+
+    /* ── Scroll reveal ── */
+    function doReveal() {
+      const wh = window.innerHeight;
+      document.querySelectorAll('.rv,.rvl,.rvr').forEach(el => {
+        if (el.getBoundingClientRect().top < wh - 40) el.classList.add('on');
+      });
+    }
+    /* Run after .fx is set */
+    setTimeout(doReveal, 150);
+    window.addEventListener('load', doReveal);
+
+    /* ── Typing animation ── */
+    const phrases = ['Flutter Developer', 'Firebase Integrator', 'State Management Expert', 'Mobile App Builder', 'Clean Code Advocate'];
+    let pi = 0, ci = 0, del = false;
+    const tyEl = document.getElementById('typeTxt');
+    function typ() {
+      const c = phrases[pi];
+      tyEl.textContent = del ? c.slice(0, --ci) : c.slice(0, ++ci);
+      if (!del && ci === c.length) { del = true; setTimeout(typ, 1900); return; }
+      if (del && ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+      setTimeout(typ, del ? 55 : 95);
+    }
+    typ();
+
+    /* ── Skill bars ── */
+    const sk = document.getElementById('skills');
+    if (sk) {
+      const ob = new IntersectionObserver(e => {
+        if (e[0].isIntersecting) {
+          document.querySelectorAll('.skfill').forEach(b => b.style.width = b.dataset.w + '%');
+          ob.disconnect();
+        }
+      }, { threshold: .15 });
+      ob.observe(sk);
+    }
+
+    /* ── Contact form ── */
+    const cf = document.getElementById('cform');
+    if (cf) {
+      cf.addEventListener('submit', async e => {
+        e.preventDefault();
+        const fn = document.getElementById('fn'), fe = document.getElementById('fe'),
+          fs = document.getElementById('fs'), fm = document.getElementById('fm');
+        let ok = true;
+        function chk(f, eId, msg, ex) {
+          const er = document.getElementById(eId);
+          if (!f.value.trim() || (ex && !ex(f.value))) { f.classList.add('err'); er.textContent = msg; ok = false; }
+          else { f.classList.remove('err'); er.textContent = ''; }
+        }
+        chk(fn, 'nErr', 'Name is required.');
+        chk(fe, 'eErr', 'Valid email required.', v => /^\S+@\S+\.\S+$/.test(v));
+        chk(fs, 'sErr', 'Subject is required.');
+        chk(fm, 'mErr', 'Message is required.');
+        if (!ok) return;
+        const btn = document.getElementById('fsub'), bt = document.getElementById('bt'),
+          bl = document.getElementById('bl'), fok = document.getElementById('fok'),
+          fng = document.getElementById('fng');
+        btn.disabled = true; bt.style.display = 'none'; bl.style.display = 'flex';
+        fok.style.display = 'none'; fng.style.display = 'none';
+        try {
+          const r = await fetch(cf.action, { method: 'POST', body: new FormData(cf), headers: { Accept: 'application/json' } });
+          if (r.ok || r.redirected) { fok.style.display = 'flex'; cf.reset(); }
+          else throw 0;
+        } catch { fng.style.display = 'flex'; }
+        finally { btn.disabled = false; bt.style.display = 'flex'; bl.style.display = 'none'; }
+      });
+    }
+
+    updateNav();
+  </script>
 </body>
 
 </html>
