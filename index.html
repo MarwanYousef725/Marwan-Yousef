@@ -445,11 +445,10 @@
     }
 
     .hdesc {
-      font-size: 1.5rem;
-      color: var(--p);
+      font-size: .96rem;
+      color: var(--muted);
       margin-bottom: 1.9rem;
-      line-height: 1.85;
-      font-weight: bold;
+      line-height: 1.85
     }
 
     .hact {
@@ -1178,7 +1177,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center top;
       transition: transform .7s ease;
       display: block
     }
@@ -1608,7 +1607,6 @@
 
     /* ── FOOTER ── */
     .footer {
-
       background: var(--bg2);
       border-top: 1px solid var(--border);
       padding: 3rem 8%
@@ -1616,9 +1614,9 @@
 
     .finner {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 3rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2rem
     }
 
     .flt {
@@ -1631,8 +1629,7 @@
     .footer-left p:last-child,
     .footer-right p:last-child {
       font-size: .86rem;
-      color: var(--muted);
-      text-align: center;
+      color: var(--muted)
     }
 
     .fctr {
@@ -1685,12 +1682,11 @@
       font-size: .95rem;
       font-weight: 700;
       color: var(--p);
-      margin-bottom: .42rem;
-      text-align: center;
+      margin-bottom: .42rem
     }
 
     .footer-right {
-      text-align: left
+      text-align: right
     }
 
     .footer-right strong {
@@ -1703,6 +1699,282 @@
       color: var(--muted);
       border-top: 1px solid var(--border);
       padding-top: 1.3rem
+    }
+
+    /* ── PRICING ── */
+    .pricing {
+      background: var(--bg2)
+    }
+
+    .pr-meta {
+      display: flex;
+      gap: 1.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem
+    }
+
+    .pr-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .82rem;
+      color: var(--muted)
+    }
+
+    .pr-meta-item svg {
+      color: var(--p)
+    }
+
+    .pr-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      max-width: 1040px;
+      margin: 0 auto
+    }
+
+    .pr-card {
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease)
+    }
+
+    .pr-card:hover {
+      transform: translateY(-4px)
+    }
+
+    .pr-card.hot {
+      border-color: #7ee8a2;
+      background: linear-gradient(160deg, rgba(14, 10, 26, .9) 0%, rgba(20, 38, 28, .9) 100%);
+      margin-top: -14px
+    }
+
+    .pr-card.hot:hover {
+      box-shadow: 0 16px 40px rgba(126, 232, 162, .12)
+    }
+
+    .pr-popular {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #7ee8a2;
+      color: #0d1710;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+      letter-spacing: .04em
+    }
+
+    .pr-name {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      margin-bottom: 1rem
+    }
+
+    .pr-name.c1 {
+      color: #f5a623
+    }
+
+    .pr-name.c2 {
+      color: #7ee8a2
+    }
+
+    .pr-name.c3 {
+      color: #5bc8f5
+    }
+
+    .pr-range {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .5rem
+    }
+
+    .pr-blk {
+      flex: 1;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .75rem .6rem;
+      text-align: center
+    }
+
+    .pr-card.hot .pr-blk {
+      background: rgba(126, 232, 162, .05);
+      border-color: rgba(126, 232, 162, .18)
+    }
+
+    .pr-blk-lbl {
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      color: var(--muted);
+      margin-bottom: 3px
+    }
+
+    .pr-blk-val {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--txt);
+      line-height: 1;
+      font-family: var(--font)
+    }
+
+    .pr-blk-val sup {
+      font-size: .8rem;
+      color: var(--muted);
+      vertical-align: super
+    }
+
+    .pr-blk-mo {
+      font-size: .7rem;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .pr-div {
+      color: var(--border);
+      font-size: 1.1rem;
+      flex-shrink: 0
+    }
+
+    .pr-note {
+      font-size: .74rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 1rem
+    }
+
+    .pr-desc {
+      font-size: .84rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.2rem
+    }
+
+    .pr-feats {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      margin-bottom: 1.6rem
+    }
+
+    .pr-feats li {
+      display: flex;
+      align-items: flex-start;
+      gap: .55rem;
+      font-size: .84rem;
+      color: var(--txt);
+      line-height: 1.4
+    }
+
+    .pr-feats li.off {
+      color: var(--muted)
+    }
+
+    .fchk,
+    .fno {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: .6rem;
+      font-weight: 700;
+      margin-top: 1px
+    }
+
+    .fchk {
+      background: rgba(126, 232, 162, .15);
+      color: #7ee8a2
+    }
+
+    .fno {
+      background: rgba(255, 255, 255, .05);
+      color: var(--muted)
+    }
+
+    .pr-btn {
+      width: 100%;
+      padding: 13px;
+      border-radius: 11px;
+      border: none;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: .88rem;
+      cursor: pointer;
+      transition: all var(--ease)
+    }
+
+    .pr-btn.o1 {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--txt)
+    }
+
+    .pr-btn.o1:hover {
+      border-color: #f5a623;
+      color: #f5a623
+    }
+
+    .pr-btn.filled {
+      background: #7ee8a2;
+      color: #0d1710
+    }
+
+    .pr-btn.filled:hover {
+      background: #9df0b8
+    }
+
+    .pr-btn.o2 {
+      background: transparent;
+      border: 1.5px solid rgba(91, 200, 245, .4);
+      color: #5bc8f5
+    }
+
+    .pr-btn.o2:hover {
+      border-color: #5bc8f5;
+      background: rgba(91, 200, 245, .06)
+    }
+
+    .pr-foot {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .pr-foot strong {
+      color: var(--txt)
+    }
+
+    @media(max-width:900px) {
+      .pr-cards {
+        grid-template-columns: 1fr;
+        max-width: 400px
+      }
+
+      .pr-card.hot {
+        margin-top: 0
+      }
     }
 
     /* ── RESPONSIVE ── */
@@ -1851,6 +2123,7 @@
         <li><a href="#services" class="nl">Services</a></li>
         <li><a href="#projects" class="nl">Projects</a></li>
         <li><a href="#testimonials" class="nl">Testimonials</a></li>
+        <li><a href="#pricing" class="nl">Pricing</a></li>
       </ul>
       <a href="#contact" class="ncta">Contact ↗</a>
       <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
@@ -1870,7 +2143,9 @@
         <span class="hlbl">HELLO, I'M</span>
         <h1 class="hname">Marwan <span>Yousef</span></h1>
         <div class="htype"><span id="typeTxt"></span><span class="cblink">|</span></div>
-        <p class="hdesc">Flutter Mobile Application Developer </p>
+        <p class="hdesc">Junior Flutter Mobile Application Developer with hands-on experience building real-world apps
+          using Flutter &amp; Firebase. Passionate about clean code, scalable architecture, and impactful mobile
+          experiences.</p>
         <div class="hact">
           <a href="#projects" class="bp">View My Work</a>
           <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo">↓ Download CV</a>
@@ -1959,10 +2234,10 @@
     <div class="sline rv d2"></div>
     <div class="agrid">
       <div class="avis rvl">
-        <div class="cart"><span class="cb2">{</span><span class="cb2">}</div>
+        <div class="cart"><span class="cb2">&lt;</span><span class="cs2">/</span><span class="cb2">&gt;</span></div>
         <div class="astats">
           <div><span class="sn">2+</span><span class="sl">Years Learning</span></div>
-          <div><span class="sn">2+</span><span class="sl">Projects Built</span></div>
+          <div><span class="sn">5+</span><span class="sl">Projects Built</span></div>
           <div><span class="sn">2</span><span class="sl">Internships</span></div>
         </div>
       </div>
@@ -1972,8 +2247,8 @@
         <p>I'm Marwan Yousef, a dedicated Junior Flutter Mobile Application Developer with hands-on experience building
           real-world mobile applications using Flutter and Firebase. I specialize in state management using Provider
           (ChangeNotifier) and BLoC patterns, ensuring scalable and maintainable code architecture.</p>
-        <p>Currently pursuing my Bachelor's in Computers &amp; Artificial Intelligence at Fayoum University I've
-          completed internships at DEPI and ITI. I'm passionate about clean UI design, reusable widget
+        <p>Currently pursuing my Bachelor's in Computers &amp; Artificial Intelligence at Fayoum University (GPA:
+          3.5/4.0), I've completed internships at DEPI and ITI. I'm passionate about clean UI design, reusable widget
           patterns, and building impactful mobile experiences.</p>
       </div>
     </div>
@@ -2218,60 +2493,7 @@
                 <p>Cross-platform app with auth, cart, catalog.</p>
               </div>
             </div>
-            <a href="https://github.com/MarwanYousef725/Shoplon-E-commerce-app.git" target="_blank" class="pj-ghbtn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-              </svg>
-              View on GitHub ↗
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROJECT 3 -->
-      <div class="pj-item rv">
-        <div class="pj-terminal">
-          <span class="pj-dots"><span></span><span></span><span></span></span>
-          <span class="pj-path">lib/main.dart — Food Delivery Mobile Application</span>
-        </div>
-        <div class="pj-body pj-body--right">
-          <div class="pj-mock"><img
-              src="Mobile App Phone Mockup Sales Marketing Presentation in Blue and White Modern Photocentric Style (1).png"
-              alt="Food Delivery Mobile App" loading="lazy" /></div>
-          <div class="pj-content">
-            <div class="pj-tags">
-              <span class="pjtag flutter">Flutter</span>
-              <span class="pjtag dart">Dart</span>
-              <span class="pjtag firebase">Firebase</span>
-              <span class="pjtag provider">BLoC</span>
-            </div>
-            <h3 class="pj-title">Food Delivery Mobile Application</h3>
-            <p class="pj-sub">iOS &amp; Android • BLoC</p>
-            <p class="pj-desc">A modern, high-performance food delivery mobile application developed using Flutter and
-              Dart, designed to provide a smooth and engaging user experience on both Android and iOS. The app features
-              a clean UI, fast navigation, and a scalable architecture powered by Firebase for real-time data handling
-              and secure backend services.</p>
-            <div class="pj-csr">
-              <div class="pj-csr-card pj-ch">
-                <span class="pj-csr-label">Challenge</span>
-                <p>Building a scalable food delivery app with real-time order tracking, secure authentication, dynamic
-                  menu management, and a smooth user experience across multiple screens.</p>
-              </div>
-
-              <div class="pj-csr-card pj-so">
-                <span class="pj-csr-label">Solution</span>
-                <p>Developed using Flutter & Dart with Firebase (Auth, Firestore, Cloud Messaging), clean architecture,
-                  and optimized state management to ensure real-time updates, maintainability, and high performance.</p>
-              </div>
-
-              <div class="pj-csr-card pj-re">
-                <span class="pj-csr-label">Results</span>
-                <p>Cross-platform food delivery app featuring authentication, restaurant browsing, cart system, secure
-                  checkout, live tracking, favorites, and user profile management with a fast and responsive UX.</p>
-              </div>
-            </div>
-            <a href="https://github.com/MarwanYousef725/Enjaznaa-Yakhal.git" target="_blank" class="pj-ghbtn">
+            <a href="https://github.com/MarwanYousef725" target="_blank" class="pj-ghbtn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
@@ -2310,7 +2532,7 @@
                 <p>Dark-themed productivity app with grid view.</p>
               </div>
             </div>
-            <a href="https://github.com/MarwanYousef725/Daily-Grid" target="_blank" class="pj-ghbtn">
+            <a href="https://github.com/MarwanYousef725" target="_blank" class="pj-ghbtn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
@@ -2367,6 +2589,143 @@
     </div>
   </section>
 
+  <!-- ═══ PRICING ═══ -->
+  <section id="pricing" class="sec pricing">
+    <p class="slbl rv">PACKAGES & PRICING</p>
+    <h2 class="stit rv d1">Packages &amp; <span
+        style="background:linear-gradient(135deg,#7ee8a2,#5bc8f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Pricing</span>
+    </h2>
+    <div class="sline rv d2"></div>
+    <div class="pr-meta rv">
+      <div class="pr-meta-item"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg> Cairo, Egypt</div>
+      <div class="pr-meta-item"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg> Flutter &amp; Firebase Specialist</div>
+      <div class="pr-meta-item"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg> GPA 3.5 · DEPI &amp; ITI Certified</div>
+    </div>
+
+    <div class="pr-cards">
+
+      <!-- Starter -->
+      <div class="pr-card rv d1">
+        <div class="pr-name c1">Starter</div>
+        <div class="pr-range">
+          <div class="pr-blk">
+            <div class="pr-blk-lbl">Min</div>
+            <div class="pr-blk-val"><sup>$</sup>15</div>
+            <div class="pr-blk-mo">/project</div>
+          </div>
+          <div class="pr-div">—</div>
+          <div class="pr-blk">
+            <div class="pr-blk-lbl">Max</div>
+            <div class="pr-blk-val"><sup>$</sup>30</div>
+            <div class="pr-blk-mo">/project</div>
+          </div>
+        </div>
+        <div class="pr-note">Simple apps · short timeline</div>
+        <p class="pr-desc">Best for simple utility or personal apps. Clean UI, on-time delivery, source code included.
+        </p>
+        <ul class="pr-feats">
+          <li><span class="fchk">✓</span> Up to 5 screens</li>
+          <li><span class="fchk">✓</span> Firebase Auth (login/register)</li>
+          <li><span class="fchk">✓</span> Provider state management</li>
+          <li><span class="fchk">✓</span> Reusable widget architecture</li>
+          <li><span class="fchk">✓</span> GitHub source code delivery</li>
+          <li><span class="fchk">✓</span> 1 round of revisions</li>
+          <li class="off"><span class="fno">✕</span> Firestore / real-time DB</li>
+          <li class="off"><span class="fno">✕</span> Store deployment</li>
+          <li class="off"><span class="fno">✕</span> BLoC architecture</li>
+        </ul>
+        <button class="pr-btn o1"
+          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Starter+package+%2415-30','_blank')">Get
+          Started</button>
+      </div>
+
+      <!-- Standard — Popular -->
+      <div class="pr-card hot rv d2">
+        <div class="pr-popular">⚡ Most Popular</div>
+        <div class="pr-name c2">Standard</div>
+        <div class="pr-range">
+          <div class="pr-blk">
+            <div class="pr-blk-lbl">Min</div>
+            <div class="pr-blk-val"><sup>$</sup>35</div>
+            <div class="pr-blk-mo">/project</div>
+          </div>
+          <div class="pr-div">—</div>
+          <div class="pr-blk">
+            <div class="pr-blk-lbl">Max</div>
+            <div class="pr-blk-val"><sup>$</sup>70</div>
+            <div class="pr-blk-mo">/project</div>
+          </div>
+        </div>
+        <div class="pr-note">E-commerce &amp; dashboards · mid complexity</div>
+        <p class="pr-desc">Ideal for e-commerce, dashboards, or productivity apps with real-time data and clean
+          architecture.</p>
+        <ul class="pr-feats">
+          <li><span class="fchk">✓</span> Up to 12 screens</li>
+          <li><span class="fchk">✓</span> Firebase Auth + Firestore</li>
+          <li><span class="fchk">✓</span> Provider or BLoC (your choice)</li>
+          <li><span class="fchk">✓</span> Real-time product/order data</li>
+          <li><span class="fchk">✓</span> Custom UI (Figma-based or spec)</li>
+          <li><span class="fchk">✓</span> GitHub + clean code delivery</li>
+          <li><span class="fchk">✓</span> 2 rounds of revisions</li>
+          <li><span class="fchk">✓</span> Android + iOS build</li>
+          <li class="off"><span class="fno">✕</span> Store submission &amp; deployment</li>
+        </ul>
+        <button class="pr-btn filled"
+          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Standard+package+%2435-70','_blank')">Hire
+          Me →</button>
+      </div>
+
+      <!-- Pro -->
+      <div class="pr-card rv d3">
+        <div class="pr-name c3">Pro</div>
+        <div class="pr-range">
+          <div class="pr-blk">
+            <div class="pr-blk-lbl">Min</div>
+            <div class="pr-blk-val"><sup>$</sup>75</div>
+            <div class="pr-blk-mo">/project</div>
+          </div>
+          <div class="pr-div">—</div>
+          <div class="pr-blk">
+            <div class="pr-blk-lbl">Max</div>
+            <div class="pr-blk-val"><sup>$</sup>100</div>
+            <div class="pr-blk-mo">/project</div>
+          </div>
+        </div>
+        <div class="pr-note">Full production apps · startups &amp; launches</div>
+        <p class="pr-desc">Full production-ready app — multi-feature, optimized, deployed. Ideal for startups &amp; real
+          launches.</p>
+        <ul class="pr-feats">
+          <li><span class="fchk">✓</span> Unlimited screens</li>
+          <li><span class="fchk">✓</span> Full Firebase integration</li>
+          <li><span class="fchk">✓</span> BLoC architecture (scalable)</li>
+          <li><span class="fchk">✓</span> Performance-optimized code</li>
+          <li><span class="fchk">✓</span> Push Notifications setup</li>
+          <li><span class="fchk">✓</span> Store submission (Play/App Store)</li>
+          <li><span class="fchk">✓</span> 3 rounds of revisions</li>
+          <li><span class="fchk">✓</span> Post-delivery bug fixes (2 weeks)</li>
+          <li><span class="fchk">✓</span> FlutterFlow support (if needed)</li>
+        </ul>
+        <button class="pr-btn o2"
+          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Pro+package+%2475-100','_blank')">Get
+          Started</button>
+      </div>
+
+    </div>
+    <p class="pr-foot rv">Pricing is competitive vs. market rates based on Flutter competitor analysis.<br /><strong>All
+        packages include:</strong> clean code, Arabic &amp; English communication, source code ownership, and on-time
+      delivery.</p>
+  </section>
+
   <!-- ═══ CONTACT ═══ -->
   <section id="contact" class="sec contact">
     <p class="slbl rv">LET'S WORK TOGETHER</p>
@@ -2411,27 +2770,39 @@
         <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo" style="margin-top:.5rem">↓ Download CV</a>
       </div>
       <div class="rvr">
-        <form id="cform" class="cform glass" action="https://formsubmit.co/marwanyousef637@gmail.com" method="POST"
-          novalidate>
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_subject" value="New message from Portfolio!" />
+        <div class="cform glass" id="cform">
           <div class="frow">
-            <div class="fg"><input type="text" name="name" id="fn" placeholder="Your Name" required /><span class="ferr"
-                id="nErr"></span></div>
-            <div class="fg"><input type="email" name="email" id="fe" placeholder="Your Email" required /><span
-                class="ferr" id="eErr"></span></div>
+            <div class="fg"><input type="text" id="fn" placeholder="Your Name" /><span class="ferr" id="nErr"></span>
+            </div>
+            <div class="fg"><input type="email" id="fe" placeholder="Your Email" /><span class="ferr" id="eErr"></span>
+            </div>
           </div>
-          <div class="fg"><input type="text" name="subject" id="fs" placeholder="Subject" required /><span class="ferr"
-              id="sErr"></span></div>
-          <div class="fg"><textarea name="message" id="fm" rows="5" placeholder="Your Message" required></textarea><span
-              class="ferr" id="mErr"></span></div>
-          <button type="submit" class="fsub" id="fsub">
-            <span id="bt">Send Message ✈</span>
-            <span id="bl" style="display:none">Sending…</span>
+          <div class="fg"><input type="text" id="fs" placeholder="Subject" /><span class="ferr" id="sErr"></span></div>
+          <div class="fg"><textarea id="fm" rows="5" placeholder="Your Message"></textarea><span class="ferr"
+              id="mErr"></span></div>
+
+          <!-- Send via WhatsApp -->
+          <button type="button" class="fsub" id="fsubWA" onclick="sendViaWhatsApp()">
+            <span>Send via WhatsApp</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
           </button>
-          <div id="fok" class="fsucc">✔ Message sent! I'll get back to you soon.</div>
-          <div id="fng" class="ferrmsg">✖ Something went wrong. Email me directly.</div>
-        </form>
+
+          <!-- Send via Email -->
+          <button type="button" class="fsub fsub-email" id="fsubEmail" onclick="sendViaEmail()"
+            style="margin-top:.6rem;background:transparent;border:1.5px solid rgba(117,92,222,.4);color:var(--p);">
+            <span>Send via Email ✉</span>
+          </button>
+
+          <p style="font-size:.75rem;color:var(--muted);text-align:center;margin-top:.85rem;line-height:1.6">
+            WhatsApp opens with your message pre-filled &amp; ready to send.<br />Email opens Gmail compose in a new
+            tab.
+          </p>
+          <div id="fok" class="fsucc">✔ Opening WhatsApp… your message is ready to send!</div>
+          <div id="fng" class="ferrmsg">✖ Please fill all fields before sending.</div>
+        </div>
       </div>
     </div>
   </section>
@@ -2439,11 +2810,11 @@
   <!-- ═══ FOOTER ═══ -->
   <footer class="footer">
     <div class="finner">
-      <!-- <div class="footer-left">
+      <div class="footer-left">
         <p class="flt">DON'T BE SHY!</p>
         <p>Feel free to get in touch. I'm always open to discussing new projects, creative ideas, or opportunities to be
           part of your visions.</p>
-      </div> -->
+      </div>
       <div class="fctr">
         <a href="#home" class="flogo">M.Y</a>
         <div class="fsocs">
@@ -2475,11 +2846,7 @@
   </footer>
 
   <script>
-    /* ══════════════════════════════════════════
-       STEP 1: Add .fx ONLY after a tiny delay
-       so content renders visible first, THEN
-       animations kick in for scroll reveals.
-    ══════════════════════════════════════════ */
+    /* ── Init animations ── */
     setTimeout(() => { document.body.classList.add('fx'); }, 100);
 
     /* ── NAV scroll ── */
@@ -2555,36 +2922,52 @@
       ob.observe(sk);
     }
 
-    /* ── Contact form ── */
-    const cf = document.getElementById('cform');
-    if (cf) {
-      cf.addEventListener('submit', async e => {
-        e.preventDefault();
-        const fn = document.getElementById('fn'), fe = document.getElementById('fe'),
-          fs = document.getElementById('fs'), fm = document.getElementById('fm');
-        let ok = true;
-        function chk(f, eId, msg, ex) {
-          const er = document.getElementById(eId);
-          if (!f.value.trim() || (ex && !ex(f.value))) { f.classList.add('err'); er.textContent = msg; ok = false; }
-          else { f.classList.remove('err'); er.textContent = ''; }
-        }
-        chk(fn, 'nErr', 'Name is required.');
-        chk(fe, 'eErr', 'Valid email required.', v => /^\S+@\S+\.\S+$/.test(v));
-        chk(fs, 'sErr', 'Subject is required.');
-        chk(fm, 'mErr', 'Message is required.');
-        if (!ok) return;
-        const btn = document.getElementById('fsub'), bt = document.getElementById('bt'),
-          bl = document.getElementById('bl'), fok = document.getElementById('fok'),
-          fng = document.getElementById('fng');
-        btn.disabled = true; bt.style.display = 'none'; bl.style.display = 'flex';
-        fok.style.display = 'none'; fng.style.display = 'none';
-        try {
-          const r = await fetch(cf.action, { method: 'POST', body: new FormData(cf), headers: { Accept: 'application/json' } });
-          if (r.ok || r.redirected) { fok.style.display = 'flex'; cf.reset(); }
-          else throw 0;
-        } catch { fng.style.display = 'flex'; }
-        finally { btn.disabled = false; bt.style.display = 'flex'; bl.style.display = 'none'; }
-      });
+
+    /* ── WhatsApp & Email send functions ── */
+    function validateForm() {
+      const fn = document.getElementById('fn'), fe = document.getElementById('fe'),
+        fs = document.getElementById('fs'), fm = document.getElementById('fm');
+      let ok = true;
+      function chk(f, eId, msg, ex) {
+        const er = document.getElementById(eId);
+        if (!f.value.trim() || (ex && !ex(f.value))) { f.classList.add('err'); er.textContent = msg; ok = false; }
+        else { f.classList.remove('err'); er.textContent = ''; }
+      }
+      chk(fn, 'nErr', 'Name is required.');
+      chk(fe, 'eErr', 'Valid email required.', v => /^\S+@\S+\.\S+$/.test(v));
+      chk(fs, 'sErr', 'Subject is required.');
+      chk(fm, 'mErr', 'Message is required.');
+      return ok;
+    }
+
+    function sendViaWhatsApp() {
+      document.getElementById('fok').style.display = 'none';
+      document.getElementById('fng').style.display = 'none';
+      if (!validateForm()) { document.getElementById('fng').style.display = 'flex'; return; }
+      const name = document.getElementById('fn').value.trim();
+      const email = document.getElementById('fe').value.trim();
+      const subject = document.getElementById('fs').value.trim();
+      const message = document.getElementById('fm').value.trim();
+      const text = `Hi Marwan! 👋\n\n*Name:* ${ name }\n*Email:* ${ email }\n*Subject:* ${ subject }\n\n*Message:*\n${ message }`;
+      window.open(`https://wa.me/201060583584?text=${ encodeURIComponent(text) }`, '_blank');
+      const ok = document.getElementById('fok');
+      ok.textContent = '✔ WhatsApp opened — your message is pre-filled and ready to send!';
+      ok.style.display = 'flex';
+    }
+
+    function sendViaEmail() {
+      document.getElementById('fok').style.display = 'none';
+      document.getElementById('fng').style.display = 'none';
+      if (!validateForm()) { document.getElementById('fng').style.display = 'flex'; return; }
+      const name = document.getElementById('fn').value.trim();
+      const email = document.getElementById('fe').value.trim();
+      const subject = document.getElementById('fs').value.trim();
+      const message = document.getElementById('fm').value.trim();
+      const body = `Name: ${ name }\nEmail: ${ email }\n\n${ message }`;
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com&su=${ encodeURIComponent(subject) }&body=${ encodeURIComponent(body) }`, '_blank');
+      const ok = document.getElementById('fok');
+      ok.textContent = '✔ Gmail opened — your message is pre-filled and ready to send!';
+      ok.style.display = 'flex';
     }
 
     updateNav();
