@@ -1,32 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-theme="dark" data-lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Marwan Yousef | Flutter Mobile Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cairo:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <style>
-    /* ── FONT (graceful offline fallback) ── */
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
-    /* ── VARIABLES ── */
+    /* ══════════════════════════════════════
+       VARIABLES — DARK & LIGHT
+    ══════════════════════════════════════ */
     :root {
-      --bg: #0e0a1a;
-      --bg2: #130d22;
-      --card: rgba(117, 92, 222, .07);
-      --border: rgba(117, 92, 222, .18);
       --p: #755CDE;
       --s: #F6A560;
       --a3: #F39E9E;
       --a4: #61C4B7;
       --a5: #EB7563;
       --glow: rgba(117, 92, 222, .35);
+      --r: 16px;
+      --ease: .3s cubic-bezier(.4, 0, .2, 1);
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-ar: 'Cairo', system-ui, sans-serif;
+      --font: var(--font-en);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0e0a1a;
+      --bg2: #130d22;
+      --card: rgba(117, 92, 222, .07);
+      --border: rgba(117, 92, 222, .18);
       --txt: #f0edf8;
       --muted: #a89cc8;
       --white: #fff;
-      --r: 16px;
-      --ease: .3s cubic-bezier(.4, 0, .2, 1);
-      --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --nav-bg: rgba(14, 10, 26, .96);
+      --input-bg: rgba(255, 255, 255, .04);
+      --footer-bg: #130d22;
+      --theme-icon: "☀️";
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f3ff;
+      --bg2: #ede9ff;
+      --card: rgba(117, 92, 222, .06);
+      --border: rgba(117, 92, 222, .2);
+      --txt: #1a1030;
+      --muted: #6b5b9e;
+      --white: #1a1030;
+      --nav-bg: rgba(245, 243, 255, .96);
+      --input-bg: rgba(117, 92, 222, .04);
+      --footer-bg: #ede9ff;
+      --theme-icon: "🌙";
+    }
+
+    /* ══════════════════════════════════════
+       RTL (Arabic) support
+    ══════════════════════════════════════ */
+    [data-lang="ar"] {
+      --font: var(--font-ar);
+    }
+
+    [data-lang="ar"] .hact,
+    [data-lang="ar"] .hsoc,
+    [data-lang="ar"] .csocs {
+      justify-content: center;
+    }
+
+    [data-lang="ar"] .footer-right {
+      text-align: right;
+    }
+
+    [data-lang="ar"] .finner {
+      direction: rtl;
+    }
+
+    [data-lang="ar"] .nlinks {
+      direction: rtl;
+    }
+
+    [data-lang="ar"] .tl {
+      direction: rtl;
+    }
+
+    [data-lang="ar"] .agrid {
+      direction: rtl;
     }
 
     *,
@@ -46,7 +106,8 @@
       color: var(--txt);
       font-family: var(--font);
       line-height: 1.7;
-      overflow-x: hidden
+      overflow-x: hidden;
+      transition: background .3s ease, color .3s ease;
     }
 
     a {
@@ -76,7 +137,7 @@
       border-radius: 4px
     }
 
-    /* ── ANIMATIONS: content ALWAYS visible; JS adds .fx class to enable transitions ── */
+    /* ── ANIMATIONS ── */
     .rv,
     .rvl,
     .rvr {
@@ -117,6 +178,17 @@
       transition-delay: .28s
     }
 
+    /* ══════════════════════════════════════
+       LANGUAGE TOGGLE ELEMENTS
+    ══════════════════════════════════════ */
+    [data-lang="en"] [data-ar] {
+      display: none !important;
+    }
+
+    [data-lang="ar"] [data-en] {
+      display: none !important;
+    }
+
     /* ── NAV ── */
     .nav {
       position: fixed;
@@ -132,7 +204,7 @@
     }
 
     .nav.sc {
-      background: rgba(14, 10, 26, .96);
+      background: var(--nav-bg);
       backdrop-filter: blur(14px);
       box-shadow: 0 1px 0 var(--border)
     }
@@ -141,7 +213,7 @@
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 1.5rem
+      gap: 1rem
     }
 
     .nlogo {
@@ -158,7 +230,7 @@
       display: flex;
       align-items: center;
       gap: .12rem;
-      background: rgba(255, 255, 255, .05);
+      background: rgba(117, 92, 222, .06);
       border: 1px solid var(--border);
       border-radius: 50px;
       padding: 5px 8px;
@@ -179,7 +251,7 @@
     .nl:hover,
     .nl.ac {
       background: var(--p);
-      color: var(--white)
+      color: #fff
     }
 
     .ncta {
@@ -189,7 +261,7 @@
       border-radius: 50px;
       font-size: .82rem;
       font-weight: 600;
-      color: var(--white);
+      color: #fff;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -199,6 +271,40 @@
     .ncta:hover {
       background: var(--s);
       transform: translateY(-1px)
+    }
+
+    /* Theme + Lang toggle buttons */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-shrink: 0
+    }
+
+    .ctrl-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--txt);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      font-weight: 700;
+      transition: all var(--ease);
+    }
+
+    .ctrl-btn:hover {
+      background: var(--p);
+      color: #fff;
+      border-color: var(--p)
+    }
+
+    .theme-btn {
+      font-size: 1rem;
     }
 
     .burger {
@@ -282,7 +388,7 @@
       gap: 8px;
       padding: 13px 28px;
       background: var(--p);
-      color: var(--white);
+      color: #fff;
       border-radius: 50px;
       font-weight: 600;
       font-size: .9rem;
@@ -301,8 +407,8 @@
       gap: 8px;
       padding: 12px 28px;
       background: transparent;
-      border: 1.5px solid rgba(255, 255, 255, .22);
-      color: var(--white);
+      border: 1.5px solid rgba(117, 92, 222, .4);
+      color: var(--p);
       border-radius: 50px;
       font-weight: 600;
       font-size: .9rem;
@@ -363,6 +469,10 @@
       top: 45%;
       left: 42%;
       animation-delay: 5s
+    }
+
+    [data-theme="light"] .blob {
+      opacity: .07
     }
 
     @keyframes blobF {
@@ -466,7 +576,7 @@
     .hsl {
       width: 42px;
       height: 42px;
-      background: rgba(255, 255, 255, .06);
+      background: rgba(117, 92, 222, .08);
       border: 1px solid var(--border);
       border-radius: 50%;
       display: flex;
@@ -479,7 +589,7 @@
     .hsl:hover {
       background: var(--p);
       border-color: var(--p);
-      color: var(--white);
+      color: #fff;
       transform: translateY(-3px)
     }
 
@@ -530,7 +640,7 @@
 
     .avbadge {
       position: absolute;
-      background: rgba(14, 10, 26, .94);
+      background: var(--bg);
       border-radius: 50px;
       padding: 5px 13px;
       font-size: .75rem;
@@ -703,81 +813,67 @@
     .ehd {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
-      gap: .65rem;
-      margin-bottom: 1.3rem
+      gap: .7rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap
     }
 
     .ebadge {
-      background: rgba(117, 92, 222, .15);
-      color: var(--p);
-      border: 1px solid rgba(117, 92, 222, .28);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 10px;
       border-radius: 50px;
-      padding: 3px 12px;
-      font-size: .76rem;
-      font-weight: 600
+      background: rgba(117, 92, 222, .15);
+      color: var(--p)
     }
 
     .ebadge.cert {
       background: rgba(246, 165, 96, .15);
-      color: var(--s);
-      border-color: rgba(246, 165, 96, .28)
+      color: var(--s)
     }
 
     .edate {
-      margin-left: auto;
-      font-size: .74rem;
+      font-size: .8rem;
       color: var(--muted);
-      font-weight: 500
+      margin-left: auto
     }
 
     .ecard h3 {
-      font-size: 1.08rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--white);
-      margin-bottom: .45rem
+      margin-bottom: .7rem
     }
 
     .einst {
-      font-size: .87rem;
-      color: var(--muted);
-      margin-bottom: .85rem
+      font-size: .88rem;
+      color: var(--p);
+      margin-bottom: .6rem
     }
 
     .edet {
-      font-size: .87rem;
+      font-size: .85rem;
       color: var(--muted);
-      margin-bottom: .32rem
-    }
-
-    .edet strong {
-      color: var(--txt)
+      margin-bottom: .35rem
     }
 
     .ci {
       display: flex;
+      gap: .75rem;
       align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 1.1rem
+      margin-bottom: 1rem
     }
 
     .cic {
-      width: 36px;
-      height: 36px;
-      flex-shrink: 0;
-      background: rgba(117, 92, 222, .1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .95rem
+      font-size: 1.4rem;
+      flex-shrink: 0
     }
 
     .ci h4 {
-      font-size: .92rem;
+      font-size: .9rem;
       font-weight: 600;
       color: var(--white);
-      margin-bottom: .12rem
+      margin-bottom: .2rem
     }
 
     .ci p {
@@ -786,76 +882,64 @@
     }
 
     /* ── SKILLS ── */
-    .skills {
-      background: var(--bg2)
-    }
-
     .skgrid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      max-width: 1060px;
-      margin: 0 auto
+      gap: 3.5rem
     }
 
     .sktit {
-      font-size: .95rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--white);
-      margin-bottom: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem
+      margin-bottom: 1.4rem
     }
 
     .sktit.mt {
-      margin-top: 1.8rem
+      margin-top: 2rem
     }
 
     .skw {
-      margin-bottom: 1.15rem
+      margin-bottom: 1.2rem
     }
 
     .ski {
       display: flex;
       justify-content: space-between;
-      font-size: .85rem;
+      font-size: .84rem;
       color: var(--muted);
-      margin-bottom: .35rem
-    }
-
-    .ski span:last-child {
-      color: var(--p);
-      font-weight: 600
+      margin-bottom: .45rem
     }
 
     .skbar {
-      height: 6px;
-      background: rgba(255, 255, 255, .06);
-      border-radius: 10px;
-      overflow: hidden
+      height: 7px;
+      background: var(--card);
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border)
     }
 
     .skfill {
       height: 100%;
       width: 0;
-      border-radius: 10px;
       background: linear-gradient(90deg, var(--p), var(--s));
-      transition: width 1.25s cubic-bezier(.4, 0, .2, 1)
+      border-radius: 6px;
+      transition: width 1.2s cubic-bezier(.4, 0, .2, 1)
     }
 
     .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: .42rem
+      gap: .55rem
     }
 
     .chip {
-      padding: 5px 13px;
-      background: rgba(255, 255, 255, .05);
-      border: 1px solid var(--border);
+      padding: 5px 14px;
       border-radius: 50px;
       font-size: .8rem;
+      font-weight: 500;
+      background: var(--card);
+      border: 1px solid var(--border);
       color: var(--muted);
       transition: all var(--ease)
     }
@@ -865,262 +949,200 @@
       color: var(--p)
     }
 
-    .chip.soft {
-      border-color: rgba(246, 165, 96, .22);
+    .chip.lang {
+      border-color: rgba(246, 165, 96, .3);
       color: var(--s)
     }
 
-    .chip.lang {
-      color: var(--txt)
+    .chip.soft {
+      border-color: rgba(97, 196, 183, .3);
+      color: var(--a4)
     }
 
     /* ── EXPERIENCE ── */
     .tl {
-      max-width: 760px;
+      max-width: 860px;
       margin: 0 auto;
-      position: relative
+      position: relative;
+      padding-left: 28px
     }
 
     .tl::before {
       content: '';
       position: absolute;
-      left: 21px;
+      left: 7px;
       top: 0;
       bottom: 0;
       width: 2px;
       background: linear-gradient(var(--p), var(--s));
-      opacity: .25
+      opacity: .25;
+      border-radius: 2px
     }
 
     .tli {
-      display: flex;
-      gap: 2rem;
-      margin-bottom: 2.6rem
+      position: relative;
+      margin-bottom: 2.5rem
     }
 
     .tldot {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-      background: var(--bg2);
-      border: 2px solid var(--p);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute;
+      left: -28px;
+      top: 1.2rem;
       color: var(--p);
-      font-size: .9rem;
-      z-index: 1
+      font-size: .9rem
     }
 
     .tlcard {
-      flex: 1;
-      padding: 1.55rem
+      padding: 1.85rem
     }
 
     .tldate {
-      font-size: .75rem;
+      font-size: .77rem;
+      font-weight: 600;
       color: var(--p);
       display: block;
-      margin-bottom: .6rem;
-      font-weight: 600
+      margin-bottom: .6rem
     }
 
     .tlcard h3 {
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--white);
-      margin-bottom: .32rem
+      margin-bottom: .4rem
     }
 
     .tlco {
-      font-size: .86rem;
+      font-size: .85rem;
       color: var(--muted);
-      margin-bottom: .85rem
+      margin-bottom: .9rem
     }
 
     .tltag {
       display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
       padding: 2px 10px;
       border-radius: 50px;
-      font-size: .72rem;
-      font-weight: 600;
-      margin: .55rem 0 .32rem
+      margin-bottom: .4rem;
+      margin-top: .6rem
     }
 
     .tltag.ch {
-      background: rgba(243, 158, 158, .15);
-      color: var(--a3);
-      border: 1px solid rgba(243, 158, 158, .28)
+      background: rgba(235, 117, 99, .12);
+      color: var(--a5)
     }
 
     .tltag.ac {
-      background: rgba(117, 92, 222, .15);
-      color: var(--p);
-      border: 1px solid rgba(117, 92, 222, .28)
+      background: rgba(117, 92, 222, .12);
+      color: var(--p)
     }
 
     .tltag.re {
-      background: rgba(97, 196, 183, .15);
-      color: var(--a4);
-      border: 1px solid rgba(97, 196, 183, .28)
+      background: rgba(97, 196, 183, .12);
+      color: var(--a4)
     }
 
     .tlcard p {
       font-size: .87rem;
-      color: var(--muted)
+      color: var(--muted);
+      line-height: 1.7
     }
 
     /* ── SERVICES ── */
-    .services {
-      background: var(--bg2)
-    }
-
     .svgrid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.35rem;
-      max-width: 1060px;
-      margin: 0 auto
+      gap: 1.5rem
     }
 
     .svcard {
-      padding: 1.75rem
+      padding: 2rem 1.6rem
     }
 
     .svico {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.35rem;
-      margin-bottom: 1.15rem;
-      transition: all var(--ease)
-    }
-
-    .svcard:hover .svico {
-      transform: scale(1.1)
+      font-size: 2rem;
+      margin-bottom: 1rem
     }
 
     .svcard h3 {
-      font-size: .95rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--white);
       margin-bottom: .6rem
     }
 
     .svcard p {
-      font-size: .85rem;
+      font-size: .86rem;
       color: var(--muted);
-      margin-bottom: .85rem
+      margin-bottom: .9rem;
+      line-height: 1.65
+    }
+
+    .svcard ul {
+      padding-left: 0
     }
 
     .svcard li {
       font-size: .82rem;
       color: var(--muted);
-      padding: 2px 0;
+      padding: .2rem 0;
       display: flex;
       align-items: center;
-      gap: 7px
+      gap: .45rem
     }
 
     .svcard li::before {
-      content: '●';
+      content: '›';
       color: var(--p);
-      font-size: .43rem
+      font-weight: 700
     }
 
-    .sv1 .svico {
-      background: rgba(117, 92, 222, .12);
-      color: var(--p)
+    .sv1:hover {
+      border-color: var(--p)
     }
 
-    .sv1:hover .svico {
-      background: var(--p);
-      color: #fff
+    .sv2:hover {
+      border-color: #f97316
     }
 
-    .sv2 .svico {
-      background: rgba(246, 165, 96, .12);
-      color: var(--s)
+    .sv3:hover {
+      border-color: var(--s)
     }
 
-    .sv2:hover .svico {
-      background: var(--s);
-      color: #fff
+    .sv4:hover {
+      border-color: var(--a4)
     }
 
-    .sv3 .svico {
-      background: rgba(243, 158, 158, .12);
-      color: var(--a3)
+    .sv5:hover {
+      border-color: var(--a3)
     }
 
-    .sv3:hover .svico {
-      background: var(--a3);
-      color: #fff
+    .sv6:hover {
+      border-color: #7ee8a2
     }
 
-    .sv4 .svico {
-      background: rgba(97, 196, 183, .12);
-      color: var(--a4)
-    }
-
-    .sv4:hover .svico {
-      background: var(--a4);
-      color: #fff
-    }
-
-    .sv5 .svico {
-      background: rgba(235, 117, 99, .12);
-      color: var(--a5)
-    }
-
-    .sv5:hover .svico {
-      background: var(--a5);
-      color: #fff
-    }
-
-    .sv6 .svico {
-      background: rgba(167, 139, 250, .12);
-      color: #a78bfa
-    }
-
-    .sv6:hover .svico {
-      background: #a78bfa;
-      color: #fff
-    }
-
-    /* ── PROJECTS — Terminal Style ── */
+    /* ── PROJECTS ── */
     .pj-list {
       display: flex;
       flex-direction: column;
-      gap: 5rem;
-      max-width: 1100px;
-      margin: 0 auto
+      gap: 2rem
     }
 
-    .pj-item {
-      border-radius: 16px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, .03);
-      border: 1px solid var(--border);
-      transition: border-color var(--ease), box-shadow var(--ease)
-    }
-
-    .pj-item:hover {
-      border-color: rgba(117, 92, 222, .3);
-      box-shadow: 0 20px 60px rgba(117, 92, 222, .1)
-    }
+    .pj-item {}
 
     .pj-terminal {
+      background: #1a1030;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: var(--r) var(--r) 0 0;
+      padding: .7rem 1.2rem;
       display: flex;
       align-items: center;
-      gap: .9rem;
-      padding: .55rem 1.1rem;
-      background: rgba(0, 0, 0, .38);
-      border-bottom: 1px solid rgba(255, 255, 255, .07)
+      gap: 1rem
+    }
+
+    [data-theme="light"] .pj-terminal {
+      background: #e8e4f8
     }
 
     .pj-dots {
@@ -1131,8 +1153,7 @@
     .pj-dots span {
       width: 10px;
       height: 10px;
-      border-radius: 50%;
-      display: block
+      border-radius: 50%
     }
 
     .pj-dots span:nth-child(1) {
@@ -1148,557 +1169,244 @@
     }
 
     .pj-path {
-      font-size: .75rem;
-      color: var(--muted);
-      letter-spacing: .04em;
-      font-family: monospace
+      font-family: monospace;
+      font-size: .78rem;
+      color: var(--muted)
     }
 
     .pj-body {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0 0 var(--r) var(--r);
       display: grid;
-      align-items: stretch
+      min-height: 320px
     }
 
     .pj-body--right {
-      grid-template-columns: 1fr 1.05fr
+      grid-template-columns: 1fr 1.5fr
     }
 
     .pj-body--left {
-      grid-template-columns: 1.05fr 1fr
+      grid-template-columns: 1.5fr 1fr
     }
 
     .pj-mock {
       overflow: hidden;
-      min-height: 360px;
-      background: linear-gradient(135deg, #0d0820, #150e2a)
+      background: rgba(117, 92, 222, .05);
+      border-radius: 0 0 0 var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px
+    }
+
+    .pj-body--right .pj-mock {
+      border-radius: 0 0 0 var(--r)
+    }
+
+    .pj-body--left .pj-mock {
+      border-radius: 0 0 var(--r) 0;
+      order: 2
+    }
+
+    .pj-body--left .pj-content {
+      order: 1
     }
 
     .pj-mock img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      transition: transform .7s ease;
-      display: block
-    }
-
-    .pj-item:hover .pj-mock img {
-      transform: scale(1.04)
+      object-fit: cover
     }
 
     .pj-content {
-      padding: 2.2rem 2.4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center
+      padding: 2rem
     }
 
     .pj-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: .45rem;
-      margin-bottom: 1.1rem
+      gap: .4rem;
+      margin-bottom: 1rem
     }
 
     .pjtag {
-      padding: 4px 13px;
-      border-radius: 50px;
-      font-size: .72rem;
+      font-size: .7rem;
       font-weight: 700;
-      letter-spacing: .04em
+      padding: 3px 10px;
+      border-radius: 50px
     }
 
     .pjtag.flutter {
-      background: rgba(79, 195, 247, .12);
-      color: #4fc3f7;
-      border: 1px solid rgba(79, 195, 247, .25)
+      background: rgba(68, 138, 255, .15);
+      color: #448aff
     }
 
     .pjtag.dart {
-      background: rgba(117, 92, 222, .12);
-      color: #a78bfa;
-      border: 1px solid rgba(117, 92, 222, .25)
+      background: rgba(97, 196, 183, .12);
+      color: var(--a4)
     }
 
     .pjtag.firebase {
-      background: rgba(255, 167, 38, .12);
-      color: #ffb74d;
-      border: 1px solid rgba(255, 167, 38, .25)
+      background: rgba(251, 188, 5, .12);
+      color: #fbbc05
     }
 
     .pjtag.provider {
-      background: rgba(102, 187, 106, .12);
-      color: #81c784;
-      border: 1px solid rgba(102, 187, 106, .25)
+      background: rgba(117, 92, 222, .12);
+      color: var(--p)
     }
 
     .pj-title {
-      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-size: 1.15rem;
       font-weight: 800;
       color: var(--white);
-      line-height: 1.2;
-      margin-bottom: .38rem;
-      letter-spacing: -.02em
+      margin-bottom: .3rem
     }
 
     .pj-sub {
-      font-size: .81rem;
+      font-size: .8rem;
       color: var(--muted);
-      margin-bottom: .8rem;
-      font-weight: 500
+      margin-bottom: .7rem
     }
 
     .pj-desc {
-      font-size: .89rem;
+      font-size: .87rem;
       color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1.45rem
+      line-height: 1.65;
+      margin-bottom: 1rem
     }
 
     .pj-csr {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: .65rem;
-      margin-bottom: 1.55rem
+      gap: .6rem;
+      margin-bottom: 1.3rem
     }
 
     .pj-csr-card {
-      padding: .82rem 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 10px;
-      border: 1px solid transparent
+      padding: .7rem
     }
 
     .pj-csr-label {
-      display: block;
-      font-size: .68rem;
+      font-size: .66rem;
       font-weight: 700;
-      letter-spacing: .08em;
-      margin-bottom: .32rem;
-      text-transform: uppercase
-    }
-
-    .pj-csr-card p {
-      font-size: .77rem;
-      color: var(--muted);
-      line-height: 1.55
-    }
-
-    .pj-ch {
-      background: rgba(239, 83, 80, .07);
-      border-color: rgba(239, 83, 80, .2)
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      display: block;
+      margin-bottom: .25rem
     }
 
     .pj-ch .pj-csr-label {
-      color: #ef5350
-    }
-
-    .pj-so {
-      background: rgba(79, 195, 247, .07);
-      border-color: rgba(79, 195, 247, .2)
+      color: var(--a5)
     }
 
     .pj-so .pj-csr-label {
-      color: #4fc3f7
-    }
-
-    .pj-re {
-      background: rgba(102, 187, 106, .07);
-      border-color: rgba(102, 187, 106, .2)
+      color: var(--p)
     }
 
     .pj-re .pj-csr-label {
-      color: #81c784
+      color: var(--a4)
+    }
+
+    .pj-csr-card p {
+      font-size: .78rem;
+      color: var(--muted)
     }
 
     .pj-ghbtn {
       display: inline-flex;
       align-items: center;
-      gap: .5rem;
-      padding: 10px 22px;
-      background: rgba(117, 92, 222, .15);
-      border: 1px solid rgba(117, 92, 222, .4);
-      border-radius: 50px;
-      color: var(--p);
-      font-size: .83rem;
+      gap: 8px;
+      padding: 9px 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: .82rem;
       font-weight: 600;
-      transition: all var(--ease);
-      width: fit-content
+      color: var(--txt);
+      transition: all var(--ease)
     }
 
     .pj-ghbtn:hover {
-      background: var(--p);
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px var(--glow)
+      border-color: var(--p);
+      color: var(--p);
+      background: rgba(117, 92, 222, .1)
     }
 
     /* ── TESTIMONIALS ── */
     .tegrid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.35rem;
-      max-width: 1060px;
-      margin: 0 auto
+      gap: 1.5rem
     }
 
     .tecard {
-      padding: 1.55rem
+      padding: 1.75rem
     }
 
     .tetop {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: .9rem
+      justify-content: space-between;
+      margin-bottom: 1rem
     }
 
     .stars {
-      color: #f59e0b;
-      font-size: .9rem;
+      color: #f5a623;
+      font-size: 1rem;
       letter-spacing: 2px
     }
 
     .tetag {
-      background: rgba(117, 92, 222, .1);
-      border: 1px solid rgba(117, 92, 222, .2);
-      color: var(--p);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 10px;
       border-radius: 50px;
-      padding: 3px 12px;
-      font-size: .73rem;
-      font-weight: 600
+      background: rgba(117, 92, 222, .12);
+      color: var(--p)
     }
 
-    .tecard>p {
+    .tecard p {
       font-size: .87rem;
       color: var(--muted);
-      font-style: italic;
-      line-height: 1.8;
-      margin-bottom: 1.3rem
+      line-height: 1.7;
+      margin-bottom: 1.4rem;
+      font-style: italic
     }
 
     .teauth {
       display: flex;
       align-items: center;
-      gap: .65rem
+      gap: .8rem
     }
 
     .teav {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       background: linear-gradient(135deg, var(--p), var(--s));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: .76rem;
+      font-size: .78rem;
       font-weight: 700;
       color: #fff;
       flex-shrink: 0
     }
 
     .teauth strong {
+      display: block;
       font-size: .87rem;
-      display: block
+      color: var(--white)
     }
 
     .teauth span {
-      font-size: .76rem;
+      font-size: .78rem;
       color: var(--muted)
-    }
-
-    /* ── CONTACT ── */
-    .ctgrid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 4rem;
-      max-width: 1060px;
-      margin: 0 auto;
-      align-items: start
-    }
-
-    .ctinfo h3 {
-      font-size: 1.42rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: .65rem
-    }
-
-    .ctinfo>p {
-      color: var(--muted);
-      margin-bottom: 1.75rem;
-      line-height: 1.8;
-      font-size: .94rem
-    }
-
-    .citem {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 1.35rem
-    }
-
-    .cico {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-      background: rgba(117, 92, 222, .1);
-      border: 1px solid rgba(117, 92, 222, .18);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--p);
-      font-size: 1rem
-    }
-
-    .citem strong {
-      display: block;
-      font-size: .85rem;
-      margin-bottom: 1px
-    }
-
-    .citem a,
-    .citem span {
-      font-size: .89rem;
-      color: var(--muted);
-      transition: color var(--ease)
-    }
-
-    .citem a:hover {
-      color: var(--p)
-    }
-
-    .csocs {
-      display: flex;
-      gap: .65rem;
-      margin: 1.75rem 0
-    }
-
-    .csl {
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, .05);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      transition: all var(--ease)
-    }
-
-    .csl:hover {
-      background: var(--p);
-      border-color: var(--p);
-      color: #fff
-    }
-
-    .csl svg {
-      width: 16px;
-      height: 16px
-    }
-
-    .cform {
-      padding: 1.85rem
-    }
-
-    .frow {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem
-    }
-
-    .fg {
-      margin-bottom: .95rem
-    }
-
-    .fg input,
-    .fg textarea {
-      width: 100%;
-      padding: 12px 15px;
-      background: rgba(255, 255, 255, .04);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--txt);
-      font-family: var(--font);
-      font-size: .87rem;
-      transition: border-color var(--ease);
-      resize: none;
-      outline: none
-    }
-
-    .fg input::placeholder,
-    .fg textarea::placeholder {
-      color: var(--muted)
-    }
-
-    .fg input:focus,
-    .fg textarea:focus {
-      border-color: var(--p);
-      background: rgba(117, 92, 222, .04)
-    }
-
-    .fg input.err,
-    .fg textarea.err {
-      border-color: var(--a3)
-    }
-
-    .ferr {
-      font-size: .75rem;
-      color: var(--a3);
-      display: block;
-      margin-top: 3px
-    }
-
-    .fsub {
-      width: 100%;
-      padding: 13px;
-      background: linear-gradient(135deg, var(--p), var(--s));
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: .92rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: var(--font);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all var(--ease)
-    }
-
-    .fsub:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px var(--glow)
-    }
-
-    .fsub:disabled {
-      opacity: .7;
-      cursor: not-allowed;
-      transform: none
-    }
-
-    .fsucc {
-      margin-top: .9rem;
-      padding: 11px;
-      background: rgba(97, 196, 183, .1);
-      border: 1px solid rgba(97, 196, 183, .28);
-      border-radius: 10px;
-      color: var(--a4);
-      font-size: .87rem;
-      align-items: center;
-      gap: 8px;
-      display: none
-    }
-
-    .ferrmsg {
-      margin-top: .9rem;
-      padding: 11px;
-      background: rgba(243, 158, 158, .1);
-      border: 1px solid rgba(243, 158, 158, .28);
-      border-radius: 10px;
-      color: var(--a3);
-      font-size: .87rem;
-      align-items: center;
-      gap: 8px;
-      display: none
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      padding: 3rem 8%
-    }
-
-    .finner {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 2rem
-    }
-
-    .flt {
-      font-size: .95rem;
-      font-weight: 700;
-      color: var(--p);
-      margin-bottom: .42rem
-    }
-
-    .footer-left p:last-child,
-    .footer-right p:last-child {
-      font-size: .86rem;
-      color: var(--muted)
-    }
-
-    .fctr {
-      text-align: center
-    }
-
-    .flogo {
-      font-size: 1.95rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--p), var(--s));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: block;
-      margin-bottom: .9rem;
-      letter-spacing: -.03em
-    }
-
-    .fsocs {
-      display: flex;
-      justify-content: center;
-      gap: .65rem
-    }
-
-    .fsl {
-      width: 37px;
-      height: 37px;
-      background: rgba(255, 255, 255, .05);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      transition: all var(--ease)
-    }
-
-    .fsl:hover {
-      background: var(--p);
-      color: #fff;
-      border-color: var(--p)
-    }
-
-    .fsl svg {
-      width: 15px;
-      height: 15px
-    }
-
-    .fwt {
-      font-size: .95rem;
-      font-weight: 700;
-      color: var(--p);
-      margin-bottom: .42rem
-    }
-
-    .footer-right {
-      text-align: right
-    }
-
-    .footer-right strong {
-      color: var(--txt)
-    }
-
-    .fcopy {
-      text-align: center;
-      font-size: .79rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      padding-top: 1.3rem
     }
 
     /* ── PRICING ── */
@@ -1735,7 +1443,7 @@
     }
 
     .pr-card {
-      background: rgba(255, 255, 255, .03);
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 2rem 1.75rem;
@@ -1749,8 +1457,12 @@
 
     .pr-card.hot {
       border-color: #7ee8a2;
-      background: linear-gradient(160deg, rgba(14, 10, 26, .9) 0%, rgba(20, 38, 28, .9) 100%);
+      background: linear-gradient(160deg, rgba(14, 10, 26, .5), rgba(20, 38, 28, .5));
       margin-top: -14px
+    }
+
+    [data-theme="light"] .pr-card.hot {
+      background: linear-gradient(160deg, rgba(240, 252, 244, .8), rgba(220, 245, 230, .8))
     }
 
     .pr-card.hot:hover {
@@ -1808,11 +1520,6 @@
       text-align: center
     }
 
-    .pr-card.hot .pr-blk {
-      background: rgba(126, 232, 162, .05);
-      border-color: rgba(126, 232, 162, .18)
-    }
-
     .pr-blk-lbl {
       font-size: .62rem;
       font-weight: 700;
@@ -1826,8 +1533,7 @@
       font-size: 1.85rem;
       font-weight: 800;
       color: var(--txt);
-      line-height: 1;
-      font-family: var(--font)
+      line-height: 1
     }
 
     .pr-blk-val sup {
@@ -1966,18 +1672,381 @@
       color: var(--txt)
     }
 
-    @media(max-width:900px) {
-      .pr-cards {
-        grid-template-columns: 1fr;
-        max-width: 400px
+    /* ── CONTACT ── */
+    .ctgrid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 3.5rem;
+      align-items: start
+    }
+
+    .ctinfo h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .8rem
+    }
+
+    .ctinfo>p {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+      line-height: 1.7
+    }
+
+    .citem {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.2rem
+    }
+
+    .cico {
+      width: 40px;
+      height: 40px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0
+    }
+
+    .citem strong {
+      display: block;
+      font-size: .82rem;
+      color: var(--p);
+      font-weight: 700;
+      margin-bottom: .2rem
+    }
+
+    .citem a,
+    .citem span {
+      font-size: .87rem;
+      color: var(--muted)
+    }
+
+    .citem a:hover {
+      color: var(--p)
+    }
+
+    .csocs {
+      display: flex;
+      gap: .65rem;
+      margin-top: 1.5rem
+    }
+
+    .csl {
+      width: 40px;
+      height: 40px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: all var(--ease)
+    }
+
+    .csl:hover {
+      background: var(--p);
+      border-color: var(--p);
+      color: #fff
+    }
+
+    .csl svg {
+      width: 17px;
+      height: 17px
+    }
+
+    .cform {
+      padding: 1.85rem
+    }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem
+    }
+
+    .fg {
+      margin-bottom: .95rem
+    }
+
+    .fg input,
+    .fg textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--txt);
+      font-family: var(--font);
+      font-size: .87rem;
+      transition: border-color var(--ease);
+      resize: none;
+      outline: none
+    }
+
+    .fg input::placeholder,
+    .fg textarea::placeholder {
+      color: var(--muted)
+    }
+
+    .fg input:focus,
+    .fg textarea:focus {
+      border-color: var(--p);
+      background: rgba(117, 92, 222, .04)
+    }
+
+    .fg input.err,
+    .fg textarea.err {
+      border-color: var(--a3)
+    }
+
+    .ferr {
+      font-size: .75rem;
+      color: var(--a3);
+      display: block;
+      margin-top: 3px
+    }
+
+    .fsub {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--p), var(--s));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .92rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all var(--ease)
+    }
+
+    .fsub:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--glow)
+    }
+
+    .fsucc {
+      margin-top: .9rem;
+      padding: 11px;
+      background: rgba(97, 196, 183, .1);
+      border: 1px solid rgba(97, 196, 183, .28);
+      border-radius: 10px;
+      color: var(--a4);
+      font-size: .87rem;
+      align-items: center;
+      gap: 8px;
+      display: none
+    }
+
+    .ferrmsg {
+      margin-top: .9rem;
+      padding: 11px;
+      background: rgba(243, 158, 158, .1);
+      border: 1px solid rgba(243, 158, 158, .28);
+      border-radius: 10px;
+      color: var(--a3);
+      font-size: .87rem;
+      align-items: center;
+      gap: 8px;
+      display: none
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border);
+      padding: 3rem 8%
+    }
+
+    .finner {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2rem
+    }
+
+    .flt {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--p);
+      margin-bottom: .42rem
+    }
+
+    .footer-left p:last-child,
+    .footer-right p:last-child {
+      font-size: .86rem;
+      color: var(--muted)
+    }
+
+    .fctr {
+      text-align: center
+    }
+
+    .flogo {
+      font-size: 1.95rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--p), var(--s));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: .9rem;
+      letter-spacing: -.03em
+    }
+
+    .fsocs {
+      display: flex;
+      justify-content: center;
+      gap: .65rem
+    }
+
+    .fsl {
+      width: 37px;
+      height: 37px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: all var(--ease)
+    }
+
+    .fsl:hover {
+      background: var(--p);
+      color: #fff;
+      border-color: var(--p)
+    }
+
+    .fsl svg {
+      width: 15px;
+      height: 15px
+    }
+
+    .fwt {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--p);
+      margin-bottom: .42rem
+    }
+
+    .footer-right {
+      text-align: right
+    }
+
+    .footer-right strong {
+      color: var(--txt)
+    }
+
+    .fcopy {
+      text-align: center;
+      font-size: .79rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1.3rem
+    }
+
+    /* ── TABS STYLES ── */
+    .tabs-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tabs-header {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .tab-btn {
+      padding: 10px 25px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: var(--font);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--ease);
+      position: relative;
+    }
+
+    .tab-btn.active {
+      color: var(--p);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -11px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--p);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn .5s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    .sk-grid-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 3rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
       }
 
-      .pr-card.hot {
-        margin-top: 0
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    /* ── RESPONSIVE ── */
+    /* Responsive Tabs */
+    @media(max-width: 768px) {
+      .sk-grid-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs-header {
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
     @media(max-width:1024px) {
       .svgrid {
         grid-template-columns: repeat(2, 1fr)
@@ -1995,6 +2064,14 @@
         grid-column: 1/-1;
         text-align: left
       }
+
+      .pr-cards {
+        grid-template-columns: 1fr
+      }
+
+      .pr-card.hot {
+        margin-top: 0
+      }
     }
 
     @media(max-width:900px) {
@@ -2007,7 +2084,12 @@
       .pj-body--right .pj-mock,
       .pj-body--left .pj-mock {
         order: -1;
-        min-height: 220px
+        min-height: 220px;
+        border-radius: var(--r) var(--r) 0 0
+      }
+
+      .pj-body--left .pj-content {
+        order: 2
       }
     }
 
@@ -2019,9 +2101,10 @@
         top: 68px;
         left: 0;
         right: 0;
-        background: rgba(14, 10, 26, .98);
+        background: var(--nav-bg);
         border-bottom: 1px solid var(--border);
-        padding: 1rem
+        padding: 1rem;
+        backdrop-filter: blur(14px)
       }
 
       .nlinks.op {
@@ -2084,6 +2167,10 @@
       .sec {
         padding: 70px 5%
       }
+
+      [data-lang="ar"] .hcont {
+        text-align: center
+      }
     }
 
     @media(max-width:560px) {
@@ -2097,12 +2184,12 @@
     }
 
     @media(max-width:480px) {
-      .hname {
-        font-size: 2.35rem
+      .stit {
+        font-size: 1.6rem
       }
 
-      .stit {
-        font-size: 1.68rem
+      .hname {
+        font-size: 2.5rem
       }
     }
   </style>
@@ -2115,17 +2202,23 @@
     <div class="ni">
       <a href="#home" class="nlogo">M<span>.</span>Y</a>
       <ul class="nlinks" id="nlinks">
-        <li><a href="#home" class="nl ac">Home</a></li>
-        <li><a href="#about" class="nl">About</a></li>
-        <li><a href="#education" class="nl">Education</a></li>
-        <li><a href="#skills" class="nl">Skills</a></li>
-        <li><a href="#experience" class="nl">Experience</a></li>
-        <li><a href="#services" class="nl">Services</a></li>
-        <li><a href="#projects" class="nl">Projects</a></li>
-        <li><a href="#testimonials" class="nl">Testimonials</a></li>
-        <li><a href="#pricing" class="nl">Pricing</a></li>
+        <li><a href="#home" class="nl ac" data-en>Home</a><a href="#home" class="nl ac" data-ar>الرئيسية</a></li>
+        <li><a href="#about" class="nl" data-en>About</a><a href="#about" class="nl" data-ar>عني</a></li>
+        <li><a href="#education" class="nl" data-en>Education</a><a href="#education" class="nl" data-ar>التعليم</a>
+        </li>
+        <li><a href="#skills" class="nl" data-en>Skills</a><a href="#skills" class="nl" data-ar>المهارات</a></li>
+        <li><a href="#experience" class="nl" data-en>Experience</a><a href="#experience" class="nl" data-ar>الخبرة</a>
+        </li>
+        <li><a href="#services" class="nl" data-en>Services</a><a href="#services" class="nl" data-ar>الخدمات</a></li>
+        <li><a href="#projects" class="nl" data-en>Projects</a><a href="#projects" class="nl" data-ar>المشاريع</a></li>
+        <li><a href="#pricing" class="nl" data-en>Pricing</a><a href="#pricing" class="nl" data-ar>الأسعار</a></li>
       </ul>
-      <a href="#contact" class="ncta">Contact ↗</a>
+      <div class="nav-controls">
+        <button class="ctrl-btn theme-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">☀️</button>
+        <button class="ctrl-btn" id="langBtn" title="Switch language" aria-label="Switch language">ع</button>
+        <a href="#contact" class="ncta" data-en>Contact ↗</a>
+        <a href="#contact" class="ncta" data-ar>تواصل ↗</a>
+      </div>
       <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
@@ -2140,13 +2233,19 @@
     </div>
     <div class="hcont">
       <div class="htxt">
-        <span class="hlbl">HELLO, I'M</span>
+        <span class="hlbl" data-en>HELLO, I'M</span>
+        <span class="hlbl" data-ar>مرحباً، أنا</span>
         <h1 class="hname">Marwan <span>Yousef</span></h1>
         <div class="htype"><span id="typeTxt"></span><span class="cblink">|</span></div>
-        <p class="hdesc">Junior Flutter Mobile Application Developer.</p>
+        <p class="hdesc" data-en>Junior Flutter Mobile Application Developer, building elegant cross-platform apps with
+          clean architecture.</p>
+        <p class="hdesc" data-ar>مطوّر تطبيقات Flutter جوني، أبني تطبيقات متعددة المنصات بهندسة نظيفة وتجربة مستخدم
+          رائعة.</p>
         <div class="hact">
-          <a href="#projects" class="bp">View My Work</a>
-          <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo">↓ Download CV</a>
+          <a href="#projects" class="bp" data-en>View My Work</a>
+          <a href="#projects" class="bp" data-ar>استعرض أعمالي</a>
+          <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo" data-en>↓ Download CV</a>
+          <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo" data-ar>↓ تنزيل السيرة</a>
         </div>
         <div class="hsoc">
           <a href="https://github.com/MarwanYousef725" target="_blank" class="hsl" title="GitHub"><svg
@@ -2204,13 +2303,7 @@
             <circle cx="115" cy="96" r="1.5" fill="white" opacity="0.9" />
             <path d="M81 91 Q87 88 93 91" stroke="#2a1a4a" stroke-width="2.5" fill="none" stroke-linecap="round" />
             <path d="M107 91 Q113 88 119 91" stroke="#2a1a4a" stroke-width="2.5" fill="none" stroke-linecap="round" />
-            <ellipse cx="100" cy="109" rx="3" ry="4" fill="#c4845a" opacity="0.48" />
             <path d="M90 119 Q100 126 110 119" stroke="#c4845a" stroke-width="2.5" fill="none" stroke-linecap="round" />
-            <path d="M85 140 L100 150 L115 140" stroke="white" stroke-width="1.5" fill="none" opacity="0.45" />
-            <circle cx="30" cy="30" r="3" fill="#F6A560" opacity="0.6" />
-            <circle cx="170" cy="30" r="2" fill="#F39E9E" opacity="0.6" />
-            <circle cx="20" cy="160" r="2" fill="#755CDE" opacity="0.4" />
-            <circle cx="175" cy="155" r="3" fill="#61C4B7" opacity="0.5" />
           </svg>
         </div>
         <div class="avbadge ab1">Flutter</div>
@@ -2227,59 +2320,78 @@
 
   <!-- ═══ ABOUT ═══ -->
   <section id="about" class="sec about">
-    <p class="slbl rv">GET TO KNOW ME</p>
-    <h2 class="stit rv d1">About Me</h2>
+    <p class="slbl rv" data-en>GET TO KNOW ME</p>
+    <p class="slbl rv" data-ar>تعرف عليّ</p>
+    <h2 class="stit rv d1" data-en>About Me</h2>
+    <h2 class="stit rv d1" data-ar>من أنا</h2>
     <div class="sline rv d2"></div>
     <div class="agrid">
       <div class="avis rvl">
         <div class="cart"><span class="cb2">{</span><span class="cs2"></span><span class="cb2">}</span></div>
         <div class="astats">
-          <div><span class="sn">2+</span><span class="sl">Years Learning</span></div>
-          <div><span class="sn">5+</span><span class="sl">Projects Built</span></div>
-          <div><span class="sn">2</span><span class="sl">Internships</span></div>
+          <div><span class="sn">2+</span><span class="sl" data-en>Years Learning</span><span class="sl" data-ar>سنوات
+              تعلم</span></div>
+          <div><span class="sn">5+</span><span class="sl" data-en>Projects Built</span><span class="sl" data-ar>مشاريع
+              منجزة</span></div>
+          <div><span class="sn">2</span><span class="sl" data-en>Internships</span><span class="sl"
+              data-ar>تدريبات</span></div>
         </div>
       </div>
       <div class="atxt rvr">
-        <h3>A passionate <span class="acc">Flutter Developer</span> specializing in <span class="acc">Mobile Application
-            Development</span></h3>
-        <p>I'm Marwan Yousef, a dedicated Junior Flutter Mobile Application Developer with hands-on experience building
-          real-world mobile applications using Flutter and Firebase. I specialize in state management using Provider
-          (ChangeNotifier) and BLoC patterns, ensuring scalable and maintainable code architecture.</p>
-        <p>Currently pursuing my Bachelor's in Computers &amp; Artificial Intelligence at Fayoum University (GPA:
+        <h3 data-en>A passionate <span class="acc">Flutter Developer</span> specializing in <span class="acc">Mobile
+            Application Development</span></h3>
+        <h3 data-ar>مطوّر <span class="acc">Flutter</span> شغوف متخصص في <span class="acc">تطوير تطبيقات الجوال</span>
+        </h3>
+        <p data-en>I'm Marwan Yousef, a dedicated Junior Flutter Mobile Application Developer with hands-on experience
+          building real-world mobile applications using Flutter and Firebase. I specialize in state management using
+          Provider (ChangeNotifier) and BLoC patterns, ensuring scalable and maintainable code architecture.</p>
+        <p data-ar>أنا مروان يوسف، مطوّر Flutter جوني متحمس لديه خبرة عملية في بناء تطبيقات جوال حقيقية باستخدام Flutter
+          وFirebase. أتخصص في إدارة الحالة عبر Provider وBLoC لضمان معمارية كود قابلة للتوسع والصيانة.</p>
+        <p data-en>Currently pursuing my Bachelor's in Computers & Artificial Intelligence at Fayoum University (GPA:
           3.5/4.0), I've completed internships at DEPI and ITI. I'm passionate about clean UI design, reusable widget
           patterns, and building impactful mobile experiences.</p>
+        <p data-ar>أدرس حاليًا بكالوريوس الحاسبات والذكاء الاصطناعي في جامعة الفيوم (GPA: 3.5/4.0)، وأتممت تدريبات في
+          DEPI وITI. أهتم بتصميم واجهات نظيفة ومكوّنات قابلة لإعادة الاستخدام.</p>
       </div>
     </div>
   </section>
 
   <!-- ═══ EDUCATION ═══ -->
   <section id="education" class="sec education">
-    <p class="slbl rv">MY ACADEMIC BACKGROUND</p>
-    <h2 class="stit rv d1">Education &amp; Courses</h2>
+    <p class="slbl rv" data-en>MY ACADEMIC BACKGROUND</p>
+    <p class="slbl rv" data-ar>خلفيتي الأكاديمية</p>
+    <h2 class="stit rv d1" data-en>Education &amp; Courses</h2>
+    <h2 class="stit rv d1" data-ar>التعليم والدورات</h2>
     <div class="sline rv d2"></div>
     <div class="egrid">
       <div class="ecard glass rv d1">
-        <div class="ehd"><span>🎓</span><span class="ebadge">Education</span><span class="edate">2023 – 2027</span>
-        </div>
-        <h3>Bachelor of Computers &amp; Artificial Intelligence</h3>
-        <p class="einst">🏛 Fayoum University</p>
+        <div class="ehd"><span>🎓</span><span class="ebadge" data-en>Education</span><span class="ebadge"
+            data-ar>تعليم</span><span class="edate">2023 – 2027</span></div>
+        <h3 data-en>Bachelor of Computers &amp; Artificial Intelligence</h3>
+        <h3 data-ar>بكالوريوس الحاسبات والذكاء الاصطناعي</h3>
+        <p class="einst">🏛 <span data-en>Fayoum University</span><span data-ar>جامعة الفيوم</span></p>
         <p class="edet"><strong>GPA:</strong> 3.5 / 4.0</p>
-        <p class="edet"><strong>Expected Graduation:</strong> 2027</p>
+        <p class="edet" data-en><strong>Expected Graduation:</strong> 2027</p>
+        <p class="edet" data-ar><strong>التخرج المتوقع:</strong> 2027</p>
       </div>
       <div class="ecard glass rv d2">
-        <div class="ehd"><span>📜</span><span class="ebadge cert">Courses</span></div>
+        <div class="ehd"><span>📜</span><span class="ebadge cert" data-en>Courses</span><span class="ebadge cert"
+            data-ar>دورات</span></div>
         <div class="ci">
           <div class="cic">🛡</div>
           <div>
-            <h4>Introduction to Cyber Security</h4>
+            <h4 data-en>Introduction to Cyber Security</h4>
+            <h4 data-ar>مقدمة في أمن المعلومات</h4>
             <p>Cisco — 2024</p>
           </div>
         </div>
         <div class="ci">
           <div class="cic">💻</div>
           <div>
-            <h4>Object-Oriented Programming (C++)</h4>
-            <p>Information Technology Institute (ITI) — 2023</p>
+            <h4 data-en>Object-Oriented Programming (C++)</h4>
+            <h4 data-ar>البرمجة كائنية التوجه (C++)</h4>
+            <p><span data-en>Information Technology Institute (ITI)</span><span data-ar>معهد تكنولوجيا المعلومات
+                (ITI)</span> — 2023</p>
           </div>
         </div>
       </div>
@@ -2288,98 +2400,143 @@
 
   <!-- ═══ SKILLS ═══ -->
   <section id="skills" class="sec skills">
-    <p class="slbl rv">WHAT I BRING TO THE TABLE</p>
-    <h2 class="stit rv d1">My Skills</h2>
+    <p class="slbl rv" data-en>WHAT I BRING TO THE TABLE</p>
+    <p class="slbl rv" data-ar>ما أتميز به</p>
+    <h2 class="stit rv d1" data-en>My Skills</h2>
+    <h2 class="stit rv d1" data-ar>مهاراتي</h2>
     <div class="sline rv d2"></div>
-    <div class="skgrid">
-      <div class="rvl">
-        <h3 class="sktit">⟨/⟩ Technical Skills</h3>
-        <div class="skw">
-          <div class="ski"><span>Flutter / Dart</span><span>90%</span></div>
-          <div class="skbar">
-            <div class="skfill" data-w="90"></div>
-          </div>
-        </div>
-        <div class="skw">
-          <div class="ski"><span>Firebase (Auth, Firestore)</span><span>85%</span></div>
-          <div class="skbar">
-            <div class="skfill" data-w="85"></div>
-          </div>
-        </div>
-        <div class="skw">
-          <div class="ski"><span>Provider / BLoC</span><span>85%</span></div>
-          <div class="skbar">
-            <div class="skfill" data-w="85"></div>
-          </div>
-        </div>
-        <div class="skw">
-          <div class="ski"><span>C++ / OOP</span><span>75%</span></div>
-          <div class="skbar">
-            <div class="skfill" data-w="75"></div>
-          </div>
-        </div>
-        <div class="skw">
-          <div class="ski"><span>Data Structures &amp; Algorithms</span><span>80%</span></div>
-          <div class="skbar">
-            <div class="skfill" data-w="80"></div>
-          </div>
-        </div>
+
+    <div class="tabs-container rv d3">
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="tech">
+          <span data-en>Technical</span><span data-ar>التقنية</span>
+        </button>
+        <button class="tab-btn" data-tab="tools">
+          <span data-en>Tools</span><span data-ar>الأدوات</span>
+        </button>
+        <button class="tab-btn" data-tab="soft">
+          <span data-en>Soft Skills</span><span data-ar>الشخصية</span>
+        </button>
       </div>
-      <div class="rvr">
-        <h3 class="sktit">🔧 Tools &amp; Technologies</h3>
-        <div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span
-            class="chip">Firebase</span><span class="chip">VS Code</span><span class="chip">Android Studio</span><span
-            class="chip">Microsoft Office</span><span class="chip">Flutter SDK</span><span class="chip">BLoC
-            Pattern</span></div>
-        <h3 class="sktit mt">🌐 Languages</h3>
-        <div class="chips"><span class="chip lang">🇪🇬 Arabic — Native</span><span class="chip lang">🇬🇧 English —
-            Intermediate</span></div>
-        <h3 class="sktit mt">🧠 Soft Skills</h3>
-        <div class="chips"><span class="chip soft">Self-Motivated</span><span class="chip soft">Attention to
-            Detail</span><span class="chip soft">Critical Thinking</span><span
-            class="chip soft">Communication</span><span class="chip soft">Team Player</span></div>
+
+      <div class="tabs-content">
+        <div class="tab-pane active" id="tech">
+          <div class="sk-grid-inner">
+            <div class="skw">
+              <div class="ski"><span>Flutter / Dart</span><span>90%</span></div>
+              <div class="skbar">
+                <div class="skfill" data-w="90"></div>
+              </div>
+            </div>
+            <div class="skw">
+              <div class="ski"><span>Firebase (Auth, Firestore)</span><span>85%</span></div>
+              <div class="skbar">
+                <div class="skfill" data-w="85"></div>
+              </div>
+            </div>
+            <div class="skw">
+              <div class="ski"><span>Provider / BLoC</span><span>85%</span></div>
+              <div class="skbar">
+                <div class="skfill" data-w="85"></div>
+              </div>
+            </div>
+            <div class="skw">
+              <div class="ski"><span>C++ / OOP</span><span>75%</span></div>
+              <div class="skbar">
+                <div class="skfill" data-w="75"></div>
+              </div>
+            </div>
+            <div class="skw">
+              <div class="ski"><span data-en>Data Structures &amp; Algorithms</span><span data-ar>هياكل البيانات
+                  والخوارزميات</span><span>80%</span></div>
+              <div class="skbar">
+                <div class="skfill" data-w="80"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="tools">
+          <div class="chips">
+            <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Firebase Console</span><span
+              class="chip">VS Code</span><span class="chip">Android Studio</span><span class="chip">Postman</span><span
+              class="chip">Figma (Viewer)</span><span class="chip">Flutter SDK</span>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="soft">
+          <div class="chips">
+            <span class="chip soft" data-en>Self-Motivated</span><span class="chip soft" data-ar>دافع ذاتي</span>
+            <span class="chip soft" data-en>Attention to Detail</span><span class="chip soft" data-ar>الاهتمام
+              بالتفاصيل</span>
+            <span class="chip soft" data-en>Critical Thinking</span><span class="chip soft" data-ar>التفكير
+              النقدي</span>
+            <span class="chip soft" data-en>Team Player</span><span class="chip soft" data-ar>العمل الجماعي</span>
+            <span class="chip soft" data-en>Problem Solving</span><span class="chip soft" data-ar>حل المشكلات</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ═══ EXPERIENCE ═══ -->
   <section id="experience" class="sec experience">
-    <p class="slbl rv">MY TRAINING &amp; EXPERIENCE</p>
-    <h2 class="stit rv d1">Work Experience</h2>
+    <p class="slbl rv" data-en>MY TRAINING &amp; EXPERIENCE</p>
+    <p class="slbl rv" data-ar>تدريبي وخبرتي</p>
+    <h2 class="stit rv d1" data-en>Work Experience</h2>
+    <h2 class="stit rv d1" data-ar>الخبرة العملية</h2>
     <div class="sline rv d2"></div>
     <div class="tl">
       <div class="tli rv d1">
         <div class="tldot">◈</div>
         <div class="tlcard glass">
           <span class="tldate">Nov 2025 — Jul 2026</span>
-          <h3>Flutter Mobile Application Development Intern</h3>
-          <p class="tlco">🏢 Digital Egypt Pioneers Initiative (DEPI) — Online</p>
-          <div class="tltag ch">Challenge</div>
-          <p>Building production-ready mobile applications using Flutter under the prestigious Digital Egypt Pioneers
-            Initiative program.</p>
-          <div class="tltag ac">Action</div>
-          <p>Developed real-world apps with Flutter, implemented state management with Provider &amp; BLoC, focused on
-            performance optimization, clean code, and structured team-based workflows.</p>
-          <div class="tltag re">Result</div>
-          <p>Delivered maintainable, production-grade Flutter applications following best practices in mobile
+          <h3 data-en>Flutter Mobile Application Development Intern</h3>
+          <h3 data-ar>متدرب تطوير تطبيقات Flutter</h3>
+          <p class="tlco" data-en>🏢 Digital Egypt Pioneers Initiative (DEPI) — Online</p>
+          <p class="tlco" data-ar>🏢 مبادرة رواد مصر الرقمية (DEPI) — أونلاين</p>
+          <div class="tltag ch" data-en>Challenge</div>
+          <div class="tltag ch" data-ar>التحدي</div>
+          <p data-en>Building production-ready mobile applications using Flutter under the prestigious Digital Egypt
+            Pioneers Initiative program.</p>
+          <p data-ar>بناء تطبيقات جوال جاهزة للإنتاج باستخدام Flutter ضمن برنامج مبادرة رواد مصر الرقمية المرموق.</p>
+          <div class="tltag ac" data-en>Action</div>
+          <div class="tltag ac" data-ar>الإجراء</div>
+          <p data-en>Developed real-world apps with Flutter, implemented state management with Provider & BLoC, focused
+            on performance optimization and clean code.</p>
+          <p data-ar>طوّرت تطبيقات حقيقية بـ Flutter، ونفّذت إدارة الحالة عبر Provider وBLoC، مع التركيز على تحسين
+            الأداء والكود النظيف.</p>
+          <div class="tltag re" data-en>Result</div>
+          <div class="tltag re" data-ar>النتيجة</div>
+          <p data-en>Delivered maintainable, production-grade Flutter applications following best practices in mobile
             development architecture.</p>
+          <p data-ar>سلّمت تطبيقات Flutter قابلة للصيانة وجاهزة للإنتاج وفق أفضل ممارسات معمارية تطوير الجوال.</p>
         </div>
       </div>
       <div class="tli rv d2">
         <div class="tldot">◈</div>
         <div class="tlcard glass">
           <span class="tldate">Jul 2025 — Aug 2025</span>
-          <h3>Flutter Mobile Application Development Intern</h3>
-          <p class="tlco">🏢 Information Technology Institute (ITI)</p>
-          <div class="tltag ch">Challenge</div>
-          <p>Gaining comprehensive hands-on experience in Flutter and Dart fundamentals within an intensive professional
-            training environment.</p>
-          <div class="tltag ac">Action</div>
-          <p>Developed mobile applications following clean UI principles. Integrated Firebase for authentication and
-            data handling. Applied OOP in practical tasks.</p>
-          <div class="tltag re">Result</div>
-          <p>Built a solid foundation in Flutter development, Firebase integration, and scalable mobile architecture
-            principles.</p>
+          <h3 data-en>Flutter Mobile Application Development Intern</h3>
+          <h3 data-ar>متدرب تطوير تطبيقات Flutter</h3>
+          <p class="tlco" data-en>🏢 Information Technology Institute (ITI)</p>
+          <p class="tlco" data-ar>🏢 معهد تكنولوجيا المعلومات (ITI)</p>
+          <div class="tltag ch" data-en>Challenge</div>
+          <div class="tltag ch" data-ar>التحدي</div>
+          <p data-en>Gaining comprehensive hands-on experience in Flutter and Dart fundamentals within an intensive
+            professional training environment.</p>
+          <p data-ar>اكتساب خبرة عملية شاملة في أساسيات Flutter وDart ضمن بيئة تدريب مهنية مكثفة.</p>
+          <div class="tltag ac" data-en>Action</div>
+          <div class="tltag ac" data-ar>الإجراء</div>
+          <p data-en>Developed mobile applications following clean UI principles. Integrated Firebase for authentication
+            and data handling. Applied OOP in practical tasks.</p>
+          <p data-ar>طوّرت تطبيقات جوال باتباع مبادئ واجهة نظيفة. دمجت Firebase للمصادقة والبيانات. طبّقت OOP في مهام
+            عملية.</p>
+          <div class="tltag re" data-en>Result</div>
+          <div class="tltag re" data-ar>النتيجة</div>
+          <p data-en>Built a solid foundation in Flutter development, Firebase integration, and scalable mobile
+            architecture principles.</p>
+          <p data-ar>بنيت أساسًا متينًا في تطوير Flutter وتكامل Firebase ومبادئ معمارية الجوال القابلة للتوسع.</p>
         </div>
       </div>
     </div>
@@ -2387,68 +2544,103 @@
 
   <!-- ═══ SERVICES ═══ -->
   <section id="services" class="sec services">
-    <p class="slbl rv">WHAT I OFFER</p>
-    <h2 class="stit rv d1">My Services</h2>
+    <p class="slbl rv" data-en>WHAT I OFFER</p>
+    <p class="slbl rv" data-ar>ما أقدمه</p>
+    <h2 class="stit rv d1" data-en>My Services</h2>
+    <h2 class="stit rv d1" data-ar>خدماتي</h2>
     <div class="sline rv d2"></div>
     <div class="svgrid">
       <div class="svcard glass sv1 rv d1">
         <div class="svico">📱</div>
-        <h3>Flutter App Development</h3>
-        <p>Building dynamic, high-performance cross-platform mobile apps using Flutter and modern Dart techniques.</p>
+        <h3 data-en>Flutter App Development</h3>
+        <h3 data-ar>تطوير تطبيقات Flutter</h3>
+        <p data-en>Building dynamic, high-performance cross-platform mobile apps using Flutter and modern Dart
+          techniques.</p>
+        <p data-ar>بناء تطبيقات جوال متعددة المنصات وعالية الأداء باستخدام Flutter وأحدث تقنيات Dart.</p>
         <ul>
-          <li>Cross-Platform iOS &amp; Android Apps</li>
-          <li>Custom UI Components &amp; Animations</li>
-          <li>Clean Architecture Patterns</li>
+          <li data-en>Cross-Platform iOS &amp; Android Apps</li>
+          <li data-ar>تطبيقات iOS وAndroid</li>
+          <li data-en>Custom UI Components &amp; Animations</li>
+          <li data-ar>مكوّنات UI مخصصة وحركات</li>
+          <li data-en>Clean Architecture Patterns</li>
+          <li data-ar>أنماط المعمارية النظيفة</li>
         </ul>
       </div>
       <div class="svcard glass sv2 rv d2">
         <div class="svico">🔥</div>
-        <h3>Firebase Integration</h3>
-        <p>Integrating Firebase to power real-time data, authentication, and cloud storage for mobile applications.</p>
+        <h3 data-en>Firebase Integration</h3>
+        <h3 data-ar>تكامل Firebase</h3>
+        <p data-en>Integrating Firebase to power real-time data, authentication, and cloud storage for mobile
+          applications.</p>
+        <p data-ar>دمج Firebase لتفعيل البيانات الفورية والمصادقة والتخزين السحابي في تطبيقات الجوال.</p>
         <ul>
-          <li>Firebase Authentication</li>
-          <li>Cloud Firestore &amp; Realtime DB</li>
-          <li>Firebase Storage &amp; Hosting</li>
+          <li data-en>Firebase Authentication</li>
+          <li data-ar>مصادقة Firebase</li>
+          <li data-en>Cloud Firestore &amp; Realtime DB</li>
+          <li data-ar>Firestore وقاعدة البيانات الفورية</li>
+          <li data-en>Firebase Storage &amp; Hosting</li>
+          <li data-ar>تخزين Firebase والاستضافة</li>
         </ul>
       </div>
       <div class="svcard glass sv3 rv d3">
         <div class="svico">⚡</div>
-        <h3>State Management</h3>
-        <p>Implementing scalable state management using Provider and BLoC patterns for complex applications.</p>
+        <h3 data-en>State Management</h3>
+        <h3 data-ar>إدارة الحالة</h3>
+        <p data-en>Implementing scalable state management using Provider and BLoC patterns for complex applications.</p>
+        <p data-ar>تنفيذ إدارة حالة قابلة للتوسع باستخدام Provider وBLoC للتطبيقات المعقدة.</p>
         <ul>
-          <li>Provider (ChangeNotifier)</li>
-          <li>BLoC Pattern Implementation</li>
-          <li>Reactive Programming</li>
+          <li data-en>Provider (ChangeNotifier)</li>
+          <li data-ar>Provider (ChangeNotifier)</li>
+          <li data-en>BLoC Pattern Implementation</li>
+          <li data-ar>تطبيق نمط BLoC</li>
+          <li data-en>Reactive Programming</li>
+          <li data-ar>البرمجة التفاعلية</li>
         </ul>
       </div>
       <div class="svcard glass sv4 rv d1">
         <div class="svico">🎨</div>
-        <h3>Responsive UI Design</h3>
-        <p>Designing pixel-perfect, reusable, accessible interfaces delivering exceptional user experiences.</p>
+        <h3 data-en>Responsive UI Design</h3>
+        <h3 data-ar>تصميم واجهة متجاوبة</h3>
+        <p data-en>Designing pixel-perfect, reusable, accessible interfaces delivering exceptional user experiences.</p>
+        <p data-ar>تصميم واجهات دقيقة وقابلة لإعادة الاستخدام وسهلة الوصول لتجربة مستخدم استثنائية.</p>
         <ul>
-          <li>Custom Widget Development</li>
-          <li>Material Design Principles</li>
-          <li>Smooth Animations &amp; Transitions</li>
+          <li data-en>Custom Widget Development</li>
+          <li data-ar>تطوير مكوّنات مخصصة</li>
+          <li data-en>Material Design Principles</li>
+          <li data-ar>مبادئ Material Design</li>
+          <li data-en>Smooth Animations &amp; Transitions</li>
+          <li data-ar>حركات وانتقالات سلسة</li>
         </ul>
       </div>
       <div class="svcard glass sv5 rv d2">
         <div class="svico">🚀</div>
-        <h3>Performance Optimization</h3>
-        <p>Optimizing Flutter apps for maximum performance and smooth 60fps rendering on all devices.</p>
+        <h3 data-en>Performance Optimization</h3>
+        <h3 data-ar>تحسين الأداء</h3>
+        <p data-en>Optimizing Flutter apps for maximum performance and smooth 60fps rendering on all devices.</p>
+        <p data-ar>تحسين تطبيقات Flutter لأقصى أداء وعرض سلس بـ 60fps على جميع الأجهزة.</p>
         <ul>
-          <li>Widget Tree Optimization</li>
-          <li>Lazy Loading &amp; Caching</li>
-          <li>Performance Profiling</li>
+          <li data-en>Widget Tree Optimization</li>
+          <li data-ar>تحسين شجرة المكوّنات</li>
+          <li data-en>Lazy Loading &amp; Caching</li>
+          <li data-ar>التحميل الكسول والتخزين المؤقت</li>
+          <li data-en>Performance Profiling</li>
+          <li data-ar>تحليل الأداء</li>
         </ul>
       </div>
       <div class="svcard glass sv6 rv d3">
         <div class="svico">🛠</div>
-        <h3>Clean Code &amp; Git Workflow</h3>
-        <p>Delivering well-structured, maintainable codebases following clean code principles and Git workflows.</p>
+        <h3 data-en>Clean Code &amp; Git Workflow</h3>
+        <h3 data-ar>الكود النظيف وسير عمل Git</h3>
+        <p data-en>Delivering well-structured, maintainable codebases following clean code principles and Git workflows.
+        </p>
+        <p data-ar>تسليم قواعد كود منظمة وقابلة للصيانة وفق مبادئ الكود النظيف وسير عمل Git.</p>
         <ul>
-          <li>SOLID Principles</li>
-          <li>Git &amp; Version Control</li>
-          <li>Code Review &amp; Documentation</li>
+          <li data-en>SOLID Principles</li>
+          <li data-ar>مبادئ SOLID</li>
+          <li data-en>Git &amp; Version Control</li>
+          <li data-ar>Git والتحكم بالإصدار</li>
+          <li data-en>Code Review &amp; Documentation</li>
+          <li data-ar>مراجعة الكود والتوثيق</li>
         </ul>
       </div>
     </div>
@@ -2456,12 +2648,12 @@
 
   <!-- ═══ PROJECTS ═══ -->
   <section id="projects" class="sec projects">
-    <p class="slbl rv">MY RECENT WORK</p>
-    <h2 class="stit rv d1">Projects</h2>
+    <p class="slbl rv" data-en>MY RECENT WORK</p>
+    <p class="slbl rv" data-ar>أحدث أعمالي</p>
+    <h2 class="stit rv d1" data-en>Projects</h2>
+    <h2 class="stit rv d1" data-ar>المشاريع</h2>
     <div class="sline rv d2"></div>
     <div class="pj-list">
-
-      <!-- PROJECT 1 -->
       <div class="pj-item rv">
         <div class="pj-terminal">
           <span class="pj-dots"><span></span><span></span><span></span></span>
@@ -2470,39 +2662,41 @@
         <div class="pj-body pj-body--right">
           <div class="pj-mock"><img src="mockup1.png" alt="Shoplon E-Commerce App" loading="lazy" /></div>
           <div class="pj-content">
-            <div class="pj-tags">
-              <span class="pjtag flutter">Flutter</span>
-              <span class="pjtag dart">Dart</span>
-              <span class="pjtag firebase">Firebase</span>
-              <span class="pjtag provider">Provider</span>
-            </div>
-            <h3 class="pj-title">Shoplon — E-Commerce Mobile App</h3>
+            <div class="pj-tags"><span class="pjtag flutter">Flutter</span><span class="pjtag dart">Dart</span><span
+                class="pjtag firebase">Firebase</span><span class="pjtag provider">Provider</span></div>
+            <h3 class="pj-title" data-en>Shoplon — E-Commerce Mobile App</h3>
+            <h3 class="pj-title" data-ar>Shoplon — تطبيق تجارة إلكترونية</h3>
             <p class="pj-sub">iOS &amp; Android • Provider (ChangeNotifier)</p>
-            <p class="pj-desc">Full-featured e-commerce app with Firebase Auth, Cloud Firestore for real-time products
-              &amp; orders. Clean UI with reusable widgets.</p>
+            <p class="pj-desc" data-en>Full-featured e-commerce app with Firebase Auth, Cloud Firestore for real-time
+              products & orders. Clean UI with reusable widgets.</p>
+            <p class="pj-desc" data-ar>تطبيق تجارة إلكترونية متكامل مع مصادقة Firebase وFirestore للمنتجات والطلبات
+              الفورية. واجهة نظيفة بمكوّنات قابلة لإعادة الاستخدام.</p>
             <div class="pj-csr">
-              <div class="pj-csr-card pj-ch"><span class="pj-csr-label">Challenge</span>
-                <p>Scalable e-commerce with secure auth, real-time inventory, smooth UX.</p>
+              <div class="pj-csr-card pj-ch"><span class="pj-csr-label" data-en>Challenge</span><span
+                  class="pj-csr-label" data-ar>التحدي</span>
+                <p data-en>Scalable e-commerce with secure auth, real-time inventory.</p>
+                <p data-ar>تجارة إلكترونية قابلة للتوسع مع مصادقة آمنة ومخزون فوري.</p>
               </div>
-              <div class="pj-csr-card pj-so"><span class="pj-csr-label">Solution</span>
-                <p>Firebase + Provider, clean architecture, maintainable components.</p>
+              <div class="pj-csr-card pj-so"><span class="pj-csr-label" data-en>Solution</span><span
+                  class="pj-csr-label" data-ar>الحل</span>
+                <p data-en>Firebase + Provider, clean architecture.</p>
+                <p data-ar>Firebase + Provider، معمارية نظيفة.</p>
               </div>
-              <div class="pj-csr-card pj-re"><span class="pj-csr-label">Results</span>
-                <p>Cross-platform app with auth, cart, catalog.</p>
+              <div class="pj-csr-card pj-re"><span class="pj-csr-label" data-en>Results</span><span class="pj-csr-label"
+                  data-ar>النتائج</span>
+                <p data-en>Cross-platform app with auth, cart, catalog.</p>
+                <p data-ar>تطبيق متعدد المنصات مع مصادقة وسلة وكتالوج.</p>
               </div>
             </div>
-            <a href="https://github.com/MarwanYousef725/Shoplon-E-commerce-app.git" target="_blank" class="pj-ghbtn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <a href="https://github.com/MarwanYousef725/Shoplon-E-commerce-app.git" target="_blank"
+              class="pj-ghbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-              </svg>
-              View on GitHub ↗
-            </a>
+              </svg><span data-en>View on GitHub ↗</span><span data-ar>عرض على GitHub ↗</span></a>
           </div>
         </div>
       </div>
 
-      <!-- PROJECT 2 -->
       <div class="pj-item rv d2">
         <div class="pj-terminal">
           <span class="pj-dots"><span></span><span></span><span></span></span>
@@ -2510,78 +2704,92 @@
         </div>
         <div class="pj-body pj-body--left">
           <div class="pj-content">
-            <div class="pj-tags">
-              <span class="pjtag flutter">Flutter</span>
-              <span class="pjtag dart">Dart</span>
-              <span class="pjtag provider">Provider</span>
-            </div>
-            <h3 class="pj-title">GridDaily — Productivity &amp; Schedule App</h3>
+            <div class="pj-tags"><span class="pjtag flutter">Flutter</span><span class="pjtag dart">Dart</span><span
+                class="pjtag provider">Provider</span></div>
+            <h3 class="pj-title" data-en>GridDaily — Productivity &amp; Schedule App</h3>
+            <h3 class="pj-title" data-ar>GridDaily — تطبيق الإنتاجية والجدولة</h3>
             <p class="pj-sub">iOS &amp; Android • Provider</p>
-            <p class="pj-desc">Intuitive daily schedule management with dynamic dates, custom ranges. Provider for
-              smooth UI updates and tab management.</p>
+            <p class="pj-desc" data-en>Intuitive daily schedule management with dynamic dates, custom ranges. Provider
+              for smooth UI updates and tab management.</p>
+            <p class="pj-desc" data-ar>إدارة الجدول اليومي بشكل بديهي مع تواريخ ديناميكية ونطاقات مخصصة. Provider لتحديث
+              UI السلس وإدارة التبويبات.</p>
             <div class="pj-csr">
-              <div class="pj-csr-card pj-ch"><span class="pj-csr-label">Challenge</span>
-                <p>Intuitive planning UI with flexible dates and tab organization.</p>
+              <div class="pj-csr-card pj-ch"><span class="pj-csr-label" data-en>Challenge</span><span
+                  class="pj-csr-label" data-ar>التحدي</span>
+                <p data-en>Intuitive planning UI with flexible dates.</p>
+                <p data-ar>واجهة تخطيط بديهية مع تواريخ مرنة.</p>
               </div>
-              <div class="pj-csr-card pj-so"><span class="pj-csr-label">Solution</span>
-                <p>Dynamic dates, Provider state, add/update tab dialogs.</p>
+              <div class="pj-csr-card pj-so"><span class="pj-csr-label" data-en>Solution</span><span
+                  class="pj-csr-label" data-ar>الحل</span>
+                <p data-en>Dynamic dates, Provider state management.</p>
+                <p data-ar>تواريخ ديناميكية، إدارة حالة Provider.</p>
               </div>
-              <div class="pj-csr-card pj-re"><span class="pj-csr-label">Results</span>
-                <p>Dark-themed productivity app with grid view.</p>
+              <div class="pj-csr-card pj-re"><span class="pj-csr-label" data-en>Results</span><span class="pj-csr-label"
+                  data-ar>النتائج</span>
+                <p data-en>Dark-themed productivity app with grid view.</p>
+                <p data-ar>تطبيق إنتاجية بثيم داكن وعرض شبكي.</p>
               </div>
             </div>
-            <a href="https://github.com/MarwanYousef725/Daily-Grid.git" target="_blank" class="pj-ghbtn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <a href="https://github.com/MarwanYousef725/Daily-Grid.git" target="_blank" class="pj-ghbtn"><svg width="16"
+                height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-              </svg>
-              View on GitHub ↗
-            </a>
+              </svg><span data-en>View on GitHub ↗</span><span data-ar>عرض على GitHub ↗</span></a>
           </div>
           <div class="pj-mock"><img src="mockup2.png" alt="GridDaily App" loading="lazy" /></div>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- ═══ TESTIMONIALS ═══ -->
   <section id="testimonials" class="sec testimonials">
-    <p class="slbl rv">WHAT PEOPLE SAY</p>
-    <h2 class="stit rv d1">Testimonials</h2>
+    <p class="slbl rv" data-en>WHAT PEOPLE SAY</p>
+    <p class="slbl rv" data-ar>ماذا يقولون</p>
+    <h2 class="stit rv d1" data-en>Testimonials</h2>
+    <h2 class="stit rv d1" data-ar>الشهادات</h2>
     <div class="sline rv d2"></div>
     <div class="tegrid">
       <div class="tecard glass rv d1">
         <div class="tetop">
           <div class="stars">★★★★★</div><span class="tetag">Flutter Dev</span>
         </div>
-        <p>"Marwan demonstrated an exceptional ability to grasp Flutter concepts and implement clean, well-structured
-          state management. His dedication and code quality was truly impressive for a junior developer."</p>
+        <p data-en>"Marwan demonstrated an exceptional ability to grasp Flutter concepts and implement clean,
+          well-structured state management. His dedication and code quality was truly impressive."</p>
+        <p data-ar>"أظهر مروان قدرة استثنائية على استيعاب مفاهيم Flutter وتطبيق إدارة الحالة بشكل نظيف ومنظم. إخلاصه
+          وجودة كوده كانا مبهرَين حقًا."</p>
         <div class="teauth">
           <div class="teav">TI</div>
-          <div><strong>Training Instructor</strong><span>ITI Flutter Program</span></div>
+          <div><strong data-en>Training Instructor</strong><strong data-ar>مدرب التدريب</strong><span>ITI Flutter
+              Program</span></div>
         </div>
       </div>
       <div class="tecard glass rv d2">
         <div class="tetop">
           <div class="stars">★★★★★</div><span class="tetag">Firebase Expert</span>
         </div>
-        <p>"Working with Marwan on the e-commerce project was a great experience. He showed strong problem-solving
-          skills and delivered reliable Firebase integrations that powered our real-time data layer."</p>
+        <p data-en>"Working with Marwan on the e-commerce project was a great experience. He showed strong
+          problem-solving skills and delivered reliable Firebase integrations."</p>
+        <p data-ar>"العمل مع مروان على مشروع التجارة الإلكترونية كان تجربة رائعة. أظهر مهارات قوية في حل المشكلات وقدّم
+          تكاملات Firebase موثوقة."</p>
         <div class="teauth">
           <div class="teav">TL</div>
-          <div><strong>Team Lead</strong><span>E-Commerce Project</span></div>
+          <div><strong data-en>Team Lead</strong><strong data-ar>قائد الفريق</strong><span data-en>E-Commerce
+              Project</span><span data-ar>مشروع التجارة الإلكترونية</span></div>
         </div>
       </div>
       <div class="tecard glass rv d3">
         <div class="tetop">
           <div class="stars">★★★★★</div><span class="tetag">DEPI Program</span>
         </div>
-        <p>"Marwan's rapid grasp of Flutter and mobile development made him stand out in the DEPI program. He
-          consistently delivered responsive, performant, and well-structured mobile code."</p>
+        <p data-en>"Marwan's rapid grasp of Flutter and mobile development made him stand out in the DEPI program. He
+          consistently delivered responsive, performant, well-structured mobile code."</p>
+        <p data-ar>"سرعة استيعاب مروان لـ Flutter وتطوير الجوال جعلته يبرز في برنامج DEPI. كان يسلّم باستمرار كودًا
+          متجاوبًا وعالي الأداء ومنظمًا."</p>
         <div class="teauth">
           <div class="teav">PI</div>
-          <div><strong>Program Instructor</strong><span>DEPI — Digital Egypt Pioneers</span></div>
+          <div><strong data-en>Program Instructor</strong><strong data-ar>مدرب البرنامج</strong><span>DEPI — Digital
+              Egypt Pioneers</span></div>
         </div>
       </div>
     </div>
@@ -2589,9 +2797,13 @@
 
   <!-- ═══ PRICING ═══ -->
   <section id="pricing" class="sec pricing">
-    <p class="slbl rv">PACKAGES & PRICING</p>
-    <h2 class="stit rv d1">Packages &amp; <span
+    <p class="slbl rv" data-en>PACKAGES &amp; PRICING</p>
+    <p class="slbl rv" data-ar>الباقات والأسعار</p>
+    <h2 class="stit rv d1" data-en>Packages &amp; <span
         style="background:linear-gradient(135deg,#7ee8a2,#5bc8f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Pricing</span>
+    </h2>
+    <h2 class="stit rv d1" data-ar>الباقات و<span
+        style="background:linear-gradient(135deg,#7ee8a2,#5bc8f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">الأسعار</span>
     </h2>
     <div class="sline rv d2"></div>
     <div class="pr-meta rv">
@@ -2599,141 +2811,179 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg> Cairo, Egypt</div>
+        </svg><span data-en>Cairo, Egypt</span><span data-ar>القاهرة، مصر</span></div>
       <div class="pr-meta-item"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg> Flutter &amp; Firebase Specialist</div>
+        </svg><span data-en>Flutter &amp; Firebase Specialist</span><span data-ar>متخصص Flutter وFirebase</span></div>
       <div class="pr-meta-item"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
         </svg> GPA 3.5 · DEPI &amp; ITI Certified</div>
     </div>
-
     <div class="pr-cards">
-
-      <!-- Starter -->
       <div class="pr-card rv d1">
-        <div class="pr-name c1">Starter</div>
+        <div class="pr-name c1" data-en>Starter</div>
+        <div class="pr-name c1" data-ar>المبتدئ</div>
         <div class="pr-range">
           <div class="pr-blk">
-            <div class="pr-blk-lbl">Min</div>
+            <div class="pr-blk-lbl" data-en>Min</div>
+            <div class="pr-blk-lbl" data-ar>من</div>
             <div class="pr-blk-val"><sup>$</sup>15</div>
-            <div class="pr-blk-mo">/project</div>
+            <div class="pr-blk-mo" data-en>/project</div>
+            <div class="pr-blk-mo" data-ar>/مشروع</div>
           </div>
           <div class="pr-div">—</div>
           <div class="pr-blk">
-            <div class="pr-blk-lbl">Max</div>
+            <div class="pr-blk-lbl" data-en>Max</div>
+            <div class="pr-blk-lbl" data-ar>إلى</div>
             <div class="pr-blk-val"><sup>$</sup>30</div>
-            <div class="pr-blk-mo">/project</div>
+            <div class="pr-blk-mo" data-en>/project</div>
+            <div class="pr-blk-mo" data-ar>/مشروع</div>
           </div>
         </div>
-        <div class="pr-note">Simple apps · short timeline</div>
-        <p class="pr-desc">Best for simple utility or personal apps. Clean UI, on-time delivery, source code included.
-        </p>
+        <div class="pr-note" data-en>Simple apps · short timeline</div>
+        <div class="pr-note" data-ar>تطبيقات بسيطة · وقت قصير</div>
+        <p class="pr-desc" data-en>Best for simple utility or personal apps. Clean UI, on-time delivery, source code
+          included.</p>
+        <p class="pr-desc" data-ar>الأنسب للتطبيقات البسيطة أو الشخصية. واجهة نظيفة، تسليم في الوقت، الكود مضمّن.</p>
         <ul class="pr-feats">
-          <li><span class="fchk">✓</span> Up to 5 screens</li>
-          <li><span class="fchk">✓</span> Firebase Auth (login/register)</li>
-          <li><span class="fchk">✓</span> Provider state management</li>
-          <li><span class="fchk">✓</span> Reusable widget architecture</li>
-          <li><span class="fchk">✓</span> GitHub source code delivery</li>
-          <li><span class="fchk">✓</span> 1 round of revisions</li>
-          <li class="off"><span class="fno">✕</span> Firestore / real-time DB</li>
-          <li class="off"><span class="fno">✕</span> Store deployment</li>
-          <li class="off"><span class="fno">✕</span> BLoC architecture</li>
+          <li><span class="fchk">✓</span><span data-en>Up to 5 screens</span><span data-ar>حتى 5 شاشات</span></li>
+          <li><span class="fchk">✓</span><span data-en>Firebase Auth (login/register)</span><span data-ar>مصادقة
+              Firebase</span></li>
+          <li><span class="fchk">✓</span><span data-en>Provider state management</span><span data-ar>إدارة حالة
+              Provider</span></li>
+          <li><span class="fchk">✓</span><span data-en>GitHub source code delivery</span><span data-ar>تسليم الكود عبر
+              GitHub</span></li>
+          <li><span class="fchk">✓</span><span data-en>1 round of revisions</span><span data-ar>جولة مراجعة واحدة</span>
+          </li>
+          <li class="off"><span class="fno">✕</span><span data-en>Firestore / real-time DB</span><span data-ar>Firestore
+              / قاعدة بيانات فورية</span></li>
+          <li class="off"><span class="fno">✕</span><span data-en>Store deployment</span><span data-ar>نشر المتجر</span>
+          </li>
         </ul>
         <button class="pr-btn o1"
-          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Starter+package+%2415-30','_blank')">Get
-          Started</button>
+          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Starter+package','_blank')"><span
+            data-en>Get Started</span><span data-ar>ابدأ الآن</span></button>
       </div>
-
-      <!-- Standard — Popular -->
       <div class="pr-card hot rv d2">
-        <div class="pr-popular">⚡ Most Popular</div>
-        <div class="pr-name c2">Standard</div>
+        <div class="pr-popular" data-en>⚡ Most Popular</div>
+        <div class="pr-popular" data-ar>⚡ الأكثر طلبًا</div>
+        <div class="pr-name c2" data-en>Standard</div>
+        <div class="pr-name c2" data-ar>الاحترافي</div>
         <div class="pr-range">
           <div class="pr-blk">
-            <div class="pr-blk-lbl">Min</div>
+            <div class="pr-blk-lbl" data-en>Min</div>
+            <div class="pr-blk-lbl" data-ar>من</div>
             <div class="pr-blk-val"><sup>$</sup>35</div>
-            <div class="pr-blk-mo">/project</div>
+            <div class="pr-blk-mo" data-en>/project</div>
+            <div class="pr-blk-mo" data-ar>/مشروع</div>
           </div>
           <div class="pr-div">—</div>
           <div class="pr-blk">
-            <div class="pr-blk-lbl">Max</div>
+            <div class="pr-blk-lbl" data-en>Max</div>
+            <div class="pr-blk-lbl" data-ar>إلى</div>
             <div class="pr-blk-val"><sup>$</sup>70</div>
-            <div class="pr-blk-mo">/project</div>
+            <div class="pr-blk-mo" data-en>/project</div>
+            <div class="pr-blk-mo" data-ar>/مشروع</div>
           </div>
         </div>
-        <div class="pr-note">E-commerce &amp; dashboards · mid complexity</div>
-        <p class="pr-desc">Ideal for e-commerce, dashboards, or productivity apps with real-time data and clean
+        <div class="pr-note" data-en>E-commerce &amp; dashboards · mid complexity</div>
+        <div class="pr-note" data-ar>تجارة إلكترونية ولوحات تحكم</div>
+        <p class="pr-desc" data-en>Ideal for e-commerce, dashboards, or productivity apps with real-time data and clean
           architecture.</p>
+        <p class="pr-desc" data-ar>الأنسب للتجارة الإلكترونية ولوحات التحكم وتطبيقات الإنتاجية مع بيانات فورية ومعمارية
+          نظيفة.</p>
         <ul class="pr-feats">
-          <li><span class="fchk">✓</span> Up to 12 screens</li>
-          <li><span class="fchk">✓</span> Firebase Auth + Firestore</li>
-          <li><span class="fchk">✓</span> Provider or BLoC (your choice)</li>
-          <li><span class="fchk">✓</span> Real-time product/order data</li>
-          <li><span class="fchk">✓</span> Custom UI (Figma-based or spec)</li>
-          <li><span class="fchk">✓</span> GitHub + clean code delivery</li>
-          <li><span class="fchk">✓</span> 2 rounds of revisions</li>
-          <li><span class="fchk">✓</span> Android + iOS build</li>
-          <li class="off"><span class="fno">✕</span> Store submission &amp; deployment</li>
+          <li><span class="fchk">✓</span><span data-en>Up to 12 screens</span><span data-ar>حتى 12 شاشة</span></li>
+          <li><span class="fchk">✓</span><span data-en>Firebase Auth + Firestore</span><span data-ar>Firebase Auth +
+              Firestore</span></li>
+          <li><span class="fchk">✓</span><span data-en>Provider or BLoC (your choice)</span><span data-ar>Provider أو
+              BLoC (اختيارك)</span></li>
+          <li><span class="fchk">✓</span><span data-en>Real-time product/order data</span><span data-ar>بيانات المنتجات
+              والطلبات الفورية</span></li>
+          <li><span class="fchk">✓</span><span data-en>Custom UI (Figma-based or spec)</span><span data-ar>واجهة مخصصة
+              (Figma أو مواصفات)</span></li>
+          <li><span class="fchk">✓</span><span data-en>2 rounds of revisions</span><span data-ar>جولتا مراجعة</span>
+          </li>
+          <li><span class="fchk">✓</span><span data-en>Android + iOS build</span><span data-ar>Android + iOS
+              build</span></li>
+          <li class="off"><span class="fno">✕</span><span data-en>Store submission &amp; deployment</span><span
+              data-ar>نشر المتجر</span></li>
         </ul>
         <button class="pr-btn filled"
-          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Standard+package+%2435-70','_blank')">Hire
-          Me →</button>
+          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Standard+package','_blank')"><span
+            data-en>Hire Me →</span><span data-ar>وظّفني ←</span></button>
       </div>
-
-      <!-- Pro -->
       <div class="pr-card rv d3">
-        <div class="pr-name c3">Pro</div>
+        <div class="pr-name c3" data-en>Pro</div>
+        <div class="pr-name c3" data-ar>المتميز</div>
         <div class="pr-range">
           <div class="pr-blk">
-            <div class="pr-blk-lbl">Min</div>
+            <div class="pr-blk-lbl" data-en>Min</div>
+            <div class="pr-blk-lbl" data-ar>من</div>
             <div class="pr-blk-val"><sup>$</sup>75</div>
-            <div class="pr-blk-mo">/project</div>
+            <div class="pr-blk-mo" data-en>/project</div>
+            <div class="pr-blk-mo" data-ar>/مشروع</div>
           </div>
           <div class="pr-div">—</div>
           <div class="pr-blk">
-            <div class="pr-blk-lbl">Max</div>
+            <div class="pr-blk-lbl" data-en>Max</div>
+            <div class="pr-blk-lbl" data-ar>إلى</div>
             <div class="pr-blk-val"><sup>$</sup>100</div>
-            <div class="pr-blk-mo">/project</div>
+            <div class="pr-blk-mo" data-en>/project</div>
+            <div class="pr-blk-mo" data-ar>/مشروع</div>
           </div>
         </div>
-        <div class="pr-note">Full production apps · startups &amp; launches</div>
-        <p class="pr-desc">Full production-ready app — multi-feature, optimized, deployed. Ideal for startups &amp; real
-          launches.</p>
+        <div class="pr-note" data-en>Full production apps · startups &amp; launches</div>
+        <div class="pr-note" data-ar>تطبيقات إنتاجية كاملة · الشركات الناشئة</div>
+        <p class="pr-desc" data-en>Full production-ready app — multi-feature, optimized, deployed. Ideal for startups
+          &amp; real launches.</p>
+        <p class="pr-desc" data-ar>تطبيق جاهز للإنتاج بالكامل — متعدد الميزات، محسّن، جاهز للنشر. مثالي للشركات الناشئة
+          والإطلاقات الحقيقية.</p>
         <ul class="pr-feats">
-          <li><span class="fchk">✓</span> Unlimited screens</li>
-          <li><span class="fchk">✓</span> Full Firebase integration</li>
-          <li><span class="fchk">✓</span> BLoC architecture (scalable)</li>
-          <li><span class="fchk">✓</span> Performance-optimized code</li>
-          <li><span class="fchk">✓</span> Push Notifications setup</li>
-          <li><span class="fchk">✓</span> Store submission (Play/App Store)</li>
-          <li><span class="fchk">✓</span> 3 rounds of revisions</li>
-          <li><span class="fchk">✓</span> Post-delivery bug fixes (2 weeks)</li>
-          <li><span class="fchk">✓</span> FlutterFlow support (if needed)</li>
+          <li><span class="fchk">✓</span><span data-en>Unlimited screens</span><span data-ar>شاشات غير محدودة</span>
+          </li>
+          <li><span class="fchk">✓</span><span data-en>Full Firebase integration</span><span data-ar>تكامل Firebase
+              كامل</span></li>
+          <li><span class="fchk">✓</span><span data-en>BLoC architecture (scalable)</span><span data-ar>معمارية BLoC
+              (قابلة للتوسع)</span></li>
+          <li><span class="fchk">✓</span><span data-en>Performance-optimized code</span><span data-ar>كود محسّن
+              للأداء</span></li>
+          <li><span class="fchk">✓</span><span data-en>Push Notifications setup</span><span data-ar>إعداد الإشعارات
+              الفورية</span></li>
+          <li><span class="fchk">✓</span><span data-en>Store submission (Play/App Store)</span><span data-ar>نشر على
+              متجر Google/Apple</span></li>
+          <li><span class="fchk">✓</span><span data-en>3 rounds of revisions</span><span data-ar>ثلاث جولات
+              مراجعة</span></li>
+          <li><span class="fchk">✓</span><span data-en>Post-delivery bug fixes (2 weeks)</span><span data-ar>إصلاح
+              الأخطاء بعد التسليم (أسبوعان)</span></li>
         </ul>
         <button class="pr-btn o2"
-          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Pro+package+%2475-100','_blank')">Get
-          Started</button>
+          onclick="window.open('https://wa.me/201060583584?text=Hi+Marwan%2C+I%27m+interested+in+the+Pro+package','_blank')"><span
+            data-en>Get Started</span><span data-ar>ابدأ الآن</span></button>
       </div>
-
     </div>
-    <p class="pr-foot rv">Pricing is competitive vs. market rates based on Flutter competitor analysis.<br /><strong>All
-        packages include:</strong> clean code, Arabic &amp; English communication, source code ownership, and on-time
-      delivery.</p>
+    <p class="pr-foot rv" data-en>Pricing is competitive vs. market rates.<br /><strong>All packages include:</strong>
+      clean code, Arabic &amp; English communication, source code ownership, and on-time delivery.</p>
+    <p class="pr-foot rv" data-ar>الأسعار تنافسية مقارنة بالسوق.<br /><strong>جميع الباقات تشمل:</strong> كود نظيف،
+      تواصل بالعربية والإنجليزية، ملكية الكود، والتسليم في الوقت.</p>
   </section>
 
   <!-- ═══ CONTACT ═══ -->
   <section id="contact" class="sec contact">
-    <p class="slbl rv">LET'S WORK TOGETHER</p>
-    <h2 class="stit rv d1">Get In Touch</h2>
+    <p class="slbl rv" data-en>LET'S WORK TOGETHER</p>
+    <p class="slbl rv" data-ar>لنتعاون معًا</p>
+    <h2 class="stit rv d1" data-en>Get In Touch</h2>
+    <h2 class="stit rv d1" data-ar>تواصل معي</h2>
     <div class="sline rv d2"></div>
     <div class="ctgrid">
       <div class="ctinfo rvl">
-        <h3>Let's discuss your project</h3>
-        <p>Have a project in mind or looking for a skilled Flutter developer? I'm always open to new opportunities and
-          collaborations.</p>
+        <h3 data-en>Let's discuss your project</h3>
+        <h3 data-ar>لنتحدث عن مشروعك</h3>
+        <p data-en>Have a project in mind or looking for a skilled Flutter developer? I'm always open to new
+          opportunities and collaborations.</p>
+        <p data-ar>هل لديك مشروع في ذهنك أو تبحث عن مطوّر Flutter ماهر؟ أنا دائمًا منفتح على الفرص الجديدة والتعاون.</p>
         <div class="citem">
           <div class="cico">✉</div>
           <div><strong>Email</strong><a href="https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com"
@@ -2741,12 +2991,13 @@
         </div>
         <div class="citem">
           <div class="cico">✆</div>
-          <div><strong>Phone / WhatsApp</strong><a href="https://wa.me/201060583584" target="_blank">010 6058 3584</a>
-          </div>
+          <div><strong data-en>Phone / WhatsApp</strong><strong data-ar>هاتف / واتساب</strong><a
+              href="https://wa.me/201060583584" target="_blank">010 6058 3584</a></div>
         </div>
         <div class="citem">
           <div class="cico">◎</div>
-          <div><strong>Location</strong><span>Cairo, Egypt</span></div>
+          <div><strong data-en>Location</strong><strong data-ar>الموقع</strong><span data-en>Cairo, Egypt</span><span
+              data-ar>القاهرة، مصر</span></div>
         </div>
         <div class="csocs">
           <a href="https://github.com/MarwanYousef725" target="_blank" class="csl"><svg viewBox="0 0 24 24"
@@ -2765,41 +3016,38 @@
                 d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
             </svg></a>
         </div>
-        <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo" style="margin-top:.5rem">↓ Download CV</a>
+        <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo" style="margin-top:.5rem" data-en>↓ Download CV</a>
+        <a href="CV1.pdf" download="Marwan_Yousef_CV.pdf" class="bo" style="margin-top:.5rem" data-ar>↓ تنزيل السيرة
+          الذاتية</a>
       </div>
       <div class="rvr">
         <div class="cform glass" id="cform">
           <div class="frow">
-            <div class="fg"><input type="text" id="fn" placeholder="Your Name" /><span class="ferr" id="nErr"></span>
-            </div>
-            <div class="fg"><input type="email" id="fe" placeholder="Your Email" /><span class="ferr" id="eErr"></span>
+            <div class="fg"><input type="text" id="fn" data-en-placeholder="Your Name" data-ar-placeholder="اسمك"
+                placeholder="Your Name" /><span class="ferr" id="nErr"></span></div>
+            <div class="fg"><input type="email" id="fe" data-en-placeholder="Your Email"
+                data-ar-placeholder="بريدك الإلكتروني" placeholder="Your Email" /><span class="ferr" id="eErr"></span>
             </div>
           </div>
-          <div class="fg"><input type="text" id="fs" placeholder="Subject" /><span class="ferr" id="sErr"></span></div>
-          <div class="fg"><textarea id="fm" rows="5" placeholder="Your Message"></textarea><span class="ferr"
-              id="mErr"></span></div>
-
-          <!-- Send via WhatsApp -->
+          <div class="fg"><input type="text" id="fs" data-en-placeholder="Subject" data-ar-placeholder="الموضوع"
+              placeholder="Subject" /><span class="ferr" id="sErr"></span></div>
+          <div class="fg"><textarea id="fm" rows="5" data-en-placeholder="Your Message" data-ar-placeholder="رسالتك"
+              placeholder="Your Message"></textarea><span class="ferr" id="mErr"></span></div>
           <button type="button" class="fsub" id="fsubWA" onclick="sendViaWhatsApp()">
-            <span>Send via WhatsApp</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+            <span data-en>Send via WhatsApp</span><span data-ar>إرسال عبر واتساب</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path
                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
             </svg>
           </button>
-
-          <!-- Send via Email -->
-          <button type="button" class="fsub fsub-email" id="fsubEmail" onclick="sendViaEmail()"
+          <button type="button" class="fsub" id="fsubEmail" onclick="sendViaEmail()"
             style="margin-top:.6rem;background:transparent;border:1.5px solid rgba(117,92,222,.4);color:var(--p);">
-            <span>Send via Email ✉</span>
+            <span data-en>Send via Email ✉</span><span data-ar>إرسال بالبريد الإلكتروني ✉</span>
           </button>
-
-          <p style="font-size:.75rem;color:var(--muted);text-align:center;margin-top:.85rem;line-height:1.6">
-            WhatsApp opens with your message pre-filled &amp; ready to send.<br />Email opens Gmail compose in a new
-            tab.
-          </p>
-          <div id="fok" class="fsucc">✔ Opening WhatsApp… your message is ready to send!</div>
-          <div id="fng" class="ferrmsg">✖ Please fill all fields before sending.</div>
+          <div id="fok" class="fsucc"><span data-en>✔ Opening WhatsApp… your message is ready!</span><span data-ar>✔
+              جاري فتح واتساب… رسالتك جاهزة!</span></div>
+          <div id="fng" class="ferrmsg"><span data-en>✖ Please fill all fields.</span><span data-ar>✖ يرجى ملء جميع
+              الحقول.</span></div>
         </div>
       </div>
     </div>
@@ -2809,9 +3057,11 @@
   <footer class="footer">
     <div class="finner">
       <div class="footer-left">
-        <p class="flt">DON'T BE SHY!</p>
-        <p>Feel free to get in touch. I'm always open to discussing new projects, creative ideas, or opportunities to be
-          part of your visions.</p>
+        <p class="flt" data-en>DON'T BE SHY!</p>
+        <p class="flt" data-ar>لا تتردد!</p>
+        <p data-en>Feel free to get in touch. I'm always open to discussing new projects, creative ideas, or
+          opportunities.</p>
+        <p data-ar>لا تتردد في التواصل. أنا دائمًا منفتح على مناقشة المشاريع الجديدة والأفكار الإبداعية والفرص.</p>
       </div>
       <div class="fctr">
         <a href="#home" class="flogo">M.Y</a>
@@ -2834,73 +3084,69 @@
         </div>
       </div>
       <div class="footer-right">
-        <p class="fwt">WHO AM I?</p>
-        <p>I'm a <strong>Flutter Developer</strong> &amp; <strong>Firebase Enthusiast</strong>, passionate and
-          dedicated. I have the skills to develop user-friendly, scalable mobile applications that make your project a
-          success.</p>
+        <p class="fwt" data-en>WHO AM I?</p>
+        <p class="fwt" data-ar>من أنا؟</p>
+        <p data-en>I'm a <strong>Flutter Developer</strong> &amp; <strong>Firebase Enthusiast</strong>, passionate and
+          dedicated to building impactful mobile apps.</p>
+        <p data-ar>أنا <strong>مطوّر Flutter</strong> و<strong>متحمس لـ Firebase</strong>، شغوف ومتفانٍ في بناء تطبيقات
+          جوال مؤثرة.</p>
       </div>
     </div>
-    <div class="fcopy">© 2026 Marwan Yousef. Portfolio.</div>
+    <div class="fcopy" data-en>© 2026 Marwan Yousef. Portfolio.</div>
+    <div class="fcopy" data-ar>© 2026 مروان يوسف. بورتفوليو.</div>
   </footer>
 
   <script>
-    /* ── Init animations ── */
-    setTimeout(() => { document.body.classList.add('fx'); }, 100);
+    /* ════ THEME MANAGEMENT ════ */
+    const html = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
 
-    /* ── NAV scroll ── */
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('sc', scrollY > 40);
-      updateNav();
-      doReveal();
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('portfolio-theme', theme);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    setTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
 
-    /* ── Mobile menu ── */
-    const burger = document.getElementById('burger');
-    const nlinks = document.getElementById('nlinks');
-    burger.addEventListener('click', () => {
-      burger.classList.toggle('op');
-      nlinks.classList.toggle('op');
-    });
-    nlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      burger.classList.remove('op');
-      nlinks.classList.remove('op');
-    }));
+    /* ════ LANGUAGE MANAGEMENT ════ */
+    const langBtn = document.getElementById('langBtn');
 
-    /* ── Active nav ── */
-    function updateNav() {
-      const y = scrollY + 120;
-      document.querySelectorAll('section[id]').forEach(s => {
-        const l = document.querySelector(`.nl[href="#${ s.id }"]`);
-        if (l) l.classList.toggle('ac', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
+    function setLang(lang) {
+      html.setAttribute('data-lang', lang);
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      langBtn.textContent = lang === 'ar' ? 'EN' : 'ع';
+      localStorage.setItem('portfolio-lang', lang);
+
+      // Update input placeholders
+      document.querySelectorAll('[data-en-placeholder],[data-ar-placeholder]').forEach(el => {
+        el.placeholder = el.getAttribute(`data-${ lang }-placeholder`) || el.placeholder;
       });
     }
 
-    /* ── Smooth scroll (offset for fixed nav) ── */
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 68, behavior: 'smooth' }); }
-      });
+    const savedLang = localStorage.getItem('portfolio-lang') || 'en';
+    setLang(savedLang);
+
+    langBtn.addEventListener('click', () => {
+      setLang(html.getAttribute('data-lang') === 'ar' ? 'en' : 'ar');
     });
 
-    /* ── Scroll reveal ── */
-    function doReveal() {
-      const wh = window.innerHeight;
-      document.querySelectorAll('.rv,.rvl,.rvr').forEach(el => {
-        if (el.getBoundingClientRect().top < wh - 40) el.classList.add('on');
-      });
-    }
-    /* Run after .fx is set */
-    setTimeout(doReveal, 150);
-    window.addEventListener('load', doReveal);
-
-    /* ── Typing animation ── */
-    const phrases = ['Flutter Developer', 'Firebase Integrator', 'State Management Expert', 'Mobile App Builder', 'Clean Code Advocate'];
+    /* ════ TYPING ANIMATION ════ */
+    const phrasesEn = ['Flutter Developer', 'Firebase Integrator', 'State Management Expert', 'Mobile App Builder', 'Clean Code Advocate'];
+    const phrasesAr = ['مطوّر Flutter', 'متكامل Firebase', 'خبير إدارة الحالة', 'مطوّر تطبيقات الجوال', 'مدافع الكود النظيف'];
     let pi = 0, ci = 0, del = false;
     const tyEl = document.getElementById('typeTxt');
     function typ() {
-      const c = phrases[pi];
+      const lang = html.getAttribute('data-lang');
+      const phrases = lang === 'ar' ? phrasesAr : phrasesEn;
+      const c = phrases[pi % phrases.length];
       tyEl.textContent = del ? c.slice(0, --ci) : c.slice(0, ++ci);
       if (!del && ci === c.length) { del = true; setTimeout(typ, 1900); return; }
       if (del && ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
@@ -2908,33 +3154,84 @@
     }
     typ();
 
-    /* ── Skill bars ── */
-    const sk = document.getElementById('skills');
-    if (sk) {
-      const ob = new IntersectionObserver(e => {
-        if (e[0].isIntersecting) {
-          document.querySelectorAll('.skfill').forEach(b => b.style.width = b.dataset.w + '%');
-          ob.disconnect();
-        }
-      }, { threshold: .15 });
-      ob.observe(sk);
+    /* ════ SCROLL ANIMATIONS ════ */
+    setTimeout(() => { document.body.classList.add('fx'); }, 100);
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('sc', scrollY > 40); updateNav(); doReveal(); });
+
+    function doReveal() {
+      const wh = window.innerHeight;
+      document.querySelectorAll('.rv,.rvl,.rvr').forEach(el => {
+        if (el.getBoundingClientRect().top < wh - 40) el.classList.add('on');
+      });
     }
+    setTimeout(doReveal, 150);
+    window.addEventListener('load', doReveal);
 
+    /* ════ ACTIVE NAV ════ */
+    function updateNav() {
+      const y = scrollY + 120;
+      document.querySelectorAll('section[id]').forEach(s => {
+        const l = document.querySelector(`.nl[href="#${ s.id }"]`);
+        if (l) l.classList.toggle('ac', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
+      });
+    }
+    updateNav();
 
-    /* ── WhatsApp & Email send functions ── */
+    /* ════ MOBILE NAV ════ */
+    const burger = document.getElementById('burger');
+    const nlinks = document.getElementById('nlinks');
+    burger.addEventListener('click', () => { burger.classList.toggle('op'); nlinks.classList.toggle('op'); });
+    nlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('op'); nlinks.classList.remove('op'); }));
+
+    /* ════ SMOOTH SCROLL ════ */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 68, behavior: 'smooth' }); }
+      });
+    });
+
+    /* ════ TABS LOGIC ════ */
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons and panes
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanes.forEach(p => p.classList.remove('active'));
+
+        // Add active class to current
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.tab);
+        target.classList.add('active');
+
+        // Trigger skill bars animation if Technical tab is opened
+        if (btn.dataset.tab === 'tech') {
+          target.querySelectorAll('.skfill').forEach(b => {
+            b.style.width = '0';
+            setTimeout(() => { b.style.width = b.dataset.w + '%'; }, 100);
+          });
+        }
+      });
+    });
+    /* ════ CONTACT FORM ════ */
     function validateForm() {
       const fn = document.getElementById('fn'), fe = document.getElementById('fe'),
         fs = document.getElementById('fs'), fm = document.getElementById('fm');
+      const lang = html.getAttribute('data-lang');
       let ok = true;
-      function chk(f, eId, msg, ex) {
+      function chk(f, eId, msgEn, msgAr, ex) {
         const er = document.getElementById(eId);
+        const msg = lang === 'ar' ? msgAr : msgEn;
         if (!f.value.trim() || (ex && !ex(f.value))) { f.classList.add('err'); er.textContent = msg; ok = false; }
         else { f.classList.remove('err'); er.textContent = ''; }
       }
-      chk(fn, 'nErr', 'Name is required.');
-      chk(fe, 'eErr', 'Valid email required.', v => /^\S+@\S+\.\S+$/.test(v));
-      chk(fs, 'sErr', 'Subject is required.');
-      chk(fm, 'mErr', 'Message is required.');
+      chk(fn, 'nErr', 'Name is required.', 'الاسم مطلوب.');
+      chk(fe, 'eErr', 'Valid email required.', 'بريد إلكتروني صحيح مطلوب.', v => /^\S+@\S+\.\S+$/.test(v));
+      chk(fs, 'sErr', 'Subject is required.', 'الموضوع مطلوب.');
+      chk(fm, 'mErr', 'Message is required.', 'الرسالة مطلوبة.');
       return ok;
     }
 
@@ -2948,9 +3245,7 @@
       const message = document.getElementById('fm').value.trim();
       const text = `Hi Marwan! 👋\n\n*Name:* ${ name }\n*Email:* ${ email }\n*Subject:* ${ subject }\n\n*Message:*\n${ message }`;
       window.open(`https://wa.me/201060583584?text=${ encodeURIComponent(text) }`, '_blank');
-      const ok = document.getElementById('fok');
-      ok.textContent = '✔ WhatsApp opened — your message is pre-filled and ready to send!';
-      ok.style.display = 'flex';
+      document.getElementById('fok').style.display = 'flex';
     }
 
     function sendViaEmail() {
@@ -2963,12 +3258,8 @@
       const message = document.getElementById('fm').value.trim();
       const body = `Name: ${ name }\nEmail: ${ email }\n\n${ message }`;
       window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=marwanyousef637@gmail.com&su=${ encodeURIComponent(subject) }&body=${ encodeURIComponent(body) }`, '_blank');
-      const ok = document.getElementById('fok');
-      ok.textContent = '✔ Gmail opened — your message is pre-filled and ready to send!';
-      ok.style.display = 'flex';
+      document.getElementById('fok').style.display = 'flex';
     }
-
-    updateNav();
   </script>
 </body>
 
